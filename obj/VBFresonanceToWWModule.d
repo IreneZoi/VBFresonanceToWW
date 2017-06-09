@@ -311,6 +311,7 @@ obj/VBFresonanceToWWModule.o: src/VBFresonanceToWWModule.cxx \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/Utils.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/JetMETObjects/interface/JetCorrectionUncertainty.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/CleaningModules.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/PrintingModules.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/ElectronHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Hists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/JetHists.h \
@@ -334,5 +335,6 @@ obj/VBFresonanceToWWModule.o: src/VBFresonanceToWWModule.cxx \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWSelections.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h

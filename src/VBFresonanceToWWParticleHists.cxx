@@ -11,40 +11,45 @@ using namespace uhh2;
 
 VBFresonanceToWWParticleHists::VBFresonanceToWWParticleHists(Context & ctx, 
 					     const std::string & dirname)  : Hists(ctx, dirname){
-  //number
-  book<TH1F>("Nparticle","N particle",12,0,12);
   
   //mass
-  book<TH1F>("Mass","Mass [GeV/c^{2}]",100,0,3000);
 
-  book<TH1F>("Mass_1","Mass [GeV/c^{2}]",100,0,3000);
-  book<TH1F>("Mass_2","Mass [GeV/c^{2}]",100,0,3000);
-  book<TH1F>("Mass_3","Mass [GeV/c^{2}]",100,0,3000);
-  book<TH1F>("Mass_4","Mass [GeV/c^{2}]",100,0,3000);
+  // book<TH1F>("Mass_qi_1","Mass [GeV/c^{2}]",100,0,3000);
+  // book<TH1F>("Mass_qi_2","Mass [GeV/c^{2}]",100,0,3000);
+  book<TH1F>("Mass_X","Mass [GeV/c^{2}]",100,1990,2010);
+  book<TH1F>("Mass_qvbf","Mass [GeV/c^{2}]",100,0,1);
+  book<TH1F>("Mass_W","Mass [GeV/c^{2}]",80,60,100);
+  book<TH1F>("Mass_q_W","Mass [GeV/c^{2}]",100,0,1);
 
   //PT    
-  book<TH1F>("PT","P_{T} [GeV/c]",100,0,1500);
 
-  book<TH1F>("PT_1","P_{T} [GeV/c]",100,0,1500);
-  book<TH1F>("PT_2","P_{T} [GeV/c]",100,0,1500);
-  book<TH1F>("PT_3","P_{T} [GeV/c]",100,0,1500);
-  book<TH1F>("PT_4","P_{T} [GeV/c]",100,0,1500);
+  // book<TH1F>("PT_qi_1","P_{T} [GeV/c]",100,0,1500);
+  // book<TH1F>("PT_qi_2","P_{T} [GeV/c]",100,0,1500);
+  book<TH1F>("PT_X","P_{T} [GeV/c]",100,0,1500);
+  book<TH1F>("PT_qvbf","P_{T} [GeV/c]",100,0,1500);
+  book<TH1F>("PT_W","P_{T} [GeV/c]",100,0,1500);
+  book<TH1F>("PT_q_W","P_{T} [GeV/c]",100,0,1500);
+
+
   
   // Phi 
-  book<TH1F>("Phi"," Phi ",100,-M_PI,M_PI);
 
-  book<TH1F>("Phi_1"," Phi ",100,-M_PI,M_PI);
-  book<TH1F>("Phi_2"," Phi ",100,-M_PI,M_PI);
-  book<TH1F>("Phi_3"," Phi ",100,-M_PI,M_PI);
-  book<TH1F>("Phi_4"," Phi ",100,-M_PI,M_PI);
+  // book<TH1F>("Phi_qi_1","#phi ",100,-M_PI,M_PI);
+  // book<TH1F>("Phi_qi_2","#phi ",100,-M_PI,M_PI);
+  book<TH1F>("Phi_X","#phi ",100,-M_PI,M_PI);
+  book<TH1F>("Phi_qvbf","#phi ",100,-M_PI,M_PI);
+  book<TH1F>("Phi_W","#phi ",100,-M_PI,M_PI);
+  book<TH1F>("Phi_q_W","#phi ",100,-M_PI,M_PI);
+
   
   //Eta 
-  book<TH1F>("Eta","Eta",100,-4000,4000);
 
-  book<TH1F>("Eta_1","Eta",100,0,4000);
-  book<TH1F>("Eta_2","Eta",100,-4000,0);
-  book<TH1F>("Eta_3","Eta",100,-4,4);
-  book<TH1F>("Eta_4","Eta",100,-4,4);
+  // book<TH1F>("Eta_qi_1","#eta ",100,-10,10);
+  // book<TH1F>("Eta_qi_2","#eta ",100,-10,10);
+  book<TH1F>("Eta_X","#eta ",100,-10,10);
+  book<TH1F>("Eta_qvbf","#eta ",100,-10,10);
+  book<TH1F>("Eta_W","#eta ",100,-10,10);
+  book<TH1F>("Eta_q_W","#eta ",100,-10,10);
 
 
   h_particles = ctx.get_handle<std::vector <GenParticle> >("genparticles");
@@ -64,66 +69,97 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
     //Weightning
   double weight = event.weight;
   
-  const std::vector<GenParticle> &  jet = event.get(h_particles);
+  const std::vector<GenParticle> &  genp = event.get(h_particles);
   //  sort_by_pt<std::vector<GenParticle>>();
        
-      float NJet = jet.size();
-      hist("Nparticle")->Fill(NJet, weight);
+  for(unsigned int i=0; i<genp.size(); i++)
+    {
+      const GenParticle & gp = genp[i];
 
-      for(int j =0; j < NJet;j ++)
-	{
-	  hist("Mass")->Fill(jet.at(j).v4().mass(), weight);
-	  hist("PT")->Fill(jet.at(j).v4().pt(), weight);
-	  hist("Phi")->Fill(jet.at(j).v4().phi(), weight);
-	  hist("Eta")->Fill(jet.at(j).v4().eta(), weight);
-	}
 
-  if(jet.size() < 2) return;
-      float Mass1 = jet.at(0).v4().mass();
-      hist("Mass_1")->Fill(Mass1, weight);
-      float PT1 = jet.at(0).v4().pt();
-      hist("PT_1")->Fill(PT1, weight);
-      float Phi1 = jet.at(0).v4().phi();
-      hist("Phi_1")->Fill(Phi1, weight);
-      float Eta1 = jet.at(0).v4().eta();
-      hist("Eta_1")->Fill(Eta1, weight);
-
-      float Mass2 = jet.at(1).v4().mass();
-      hist("Mass_2")->Fill(Mass2, weight);
-      float PT2 = jet.at(1).v4().pt();
-      hist("PT_2")->Fill(PT2, weight);
-      float Phi2 = jet.at(1).v4().phi();
-      hist("Phi_2")->Fill(Phi2, weight);
-      float Eta2 = jet.at(1).v4().eta();
-      hist("Eta_2")->Fill(Eta2, weight);
-
-      if(jet.size() > 2)
+      if(abs(gp.pdgId())==39 || abs(gp.pdgId())==35)
 	{
 
-	  float Mass3 = jet.at(2).v4().mass();
-	  hist("Mass_3")->Fill(Mass3, weight);
-	  float PT3 = jet.at(2).v4().pt();
-	  hist("PT_3")->Fill(PT3, weight);
-	  float Phi3 = jet.at(2).v4().phi();
-	  hist("Phi_3")->Fill(Phi3, weight);
-	  float Eta3 = jet.at(2).v4().eta();
-	  hist("Eta_3")->Fill(Eta3, weight);
-
-	  if(jet.size() > 3)
-	    {
-	      
-	      float Mass4 = jet.at(3).v4().mass();
-	      hist("Mass_4")->Fill(Mass4, weight);
-	      float PT4 = jet.at(3).v4().pt();
-	      hist("PT_4")->Fill(PT4, weight);
-	      float Phi4 = jet.at(3).v4().phi();
-	      hist("Phi_4")->Fill(Phi4, weight);
-	      float Eta4 = jet.at(3).v4().eta();
-	      hist("Eta_4")->Fill(Eta4, weight);
-
-	    }
+	  float mass_X = gp.v4().mass();
+	  hist("Mass_X")->Fill(mass_X, weight);
+	  float pt_X = gp.v4().pt();
+	  hist("PT_X")->Fill(pt_X, weight);
+	  float phi_X = gp.v4().phi();
+	  hist("Phi_X")->Fill(phi_X, weight);
+	  float eta_X = gp.v4().eta();
+	  hist("Eta_X")->Fill(eta_X, weight);
 	  
 	}
+
+      if(
+	 abs(gp.pdgId())>0 
+	 && abs(gp.pdgId())<7 
+	 && gp.daughter1()==gp.daughter2()
+	 && gp.daughter1()>0 
+	 && gp.mother1()<2 
+	 && gp.mother2()<2
+	 )
+	{
+	  float mass_qvbf = gp.v4().mass();
+	  hist("Mass_qvbf")->Fill(mass_qvbf, weight);
+	  float pt_qvbf = gp.v4().pt();
+	  hist("PT_qvbf")->Fill(pt_qvbf, weight);
+	  float phi_qvbf = gp.v4().phi();
+	  hist("Phi_qvbf")->Fill(phi_qvbf, weight);
+	  float eta_qvbf = gp.v4().eta();
+	  hist("Eta_qvbf")->Fill(eta_qvbf, weight);
+
+	}
+
+
+      if(
+	 abs(gp.pdgId())==24
+         && gp.mother1()==2
+         && gp.mother2()>0
+	 )
+        {
+          float mass_W = gp.v4().mass();
+          hist("Mass_W")->Fill(mass_W, weight);
+          float pt_W = gp.v4().pt();
+          hist("PT_W")->Fill(pt_W, weight);
+          float phi_W = gp.v4().phi();
+          hist("Phi_W")->Fill(phi_W, weight);
+          float eta_W = gp.v4().eta();
+          hist("Eta_W")->Fill(eta_W, weight);
+
+        }
+
+      
+      if(
+	 abs(gp.pdgId())>0 
+	 && abs(gp.pdgId())<7 
+	 && gp.mother1()>0 
+	 && gp.mother2()>gp.mother1()
+	 )
+	{
+	  float mass_q_W = gp.v4().mass();
+	  hist("Mass_q_W")->Fill(mass_q_W, weight);
+	  float pt_q_W = gp.v4().pt();
+	  hist("PT_q_W")->Fill(pt_q_W, weight);
+	  float phi_q_W = gp.v4().phi();
+	  hist("Phi_q_W")->Fill(phi_q_W, weight);
+	  float eta_q_W = gp.v4().eta();
+	  hist("Eta_q_W")->Fill(eta_q_W, weight);
+
+	}
+
+      
+
+
+
+
+
+
+
+
+
+    }
+
 
 
 

@@ -5,6 +5,7 @@
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CommonModules.h"
 #include "UHH2/common/include/CleaningModules.h"
+#include "UHH2/common/include/PrintingModules.h"
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/common/include/JetHists.h"
 #include "UHH2/common/include/GenJetsHists.h"
@@ -12,6 +13,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSelections.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 //#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
@@ -37,7 +39,9 @@ namespace uhh2examples {
   private:
     
     std::unique_ptr<CommonModules> common;
-  
+
+    std::unique_ptr<AnalysisModule> Gen_printer;  
+
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<TopJetCleaner> topjetcleaner;
   
@@ -46,7 +50,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> njet_sel, dijet_sel, vbfdeta_sel, vbfdeta_gensel, jet1_sel, jet2_sel, topjet1_sel, topjet2_sel, vbfetasign_sel, vbfetasign_gensel, vbfeta_sel, vbfeta_gensel, topjets_deta_sel;
   
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_njet, h_dijet, h_input_topjets, h_input_jets, h_input_gentopjets, h_input_genjets;
+    std::unique_ptr<Hists> h_nocuts, h_njet, h_dijet, h_input_topjets, h_input_jets, h_input_gentopjets, h_input_genjets, h_input_genparticle;
     std::unique_ptr<Hists> h_cleaner, h_cleaner_topjets, h_cleaner_jets, h_cleaner_gentopjets, h_cleaner_genjets;
     std::unique_ptr<Hists> h_noOverlapping_topjets, h_noOverlapping_jets;
 
@@ -77,6 +81,8 @@ namespace uhh2examples {
     // But you can do more and e.g. access the configuration, as shown below.
     
     cout << "Hello World from VBFresonanceToWWModule!" << endl;
+
+    Gen_printer.reset(new GenParticlesPrinter(ctx));
     
     // If needed, access the configuration of the module here, e.g.:
     string testvalue = ctx.get("TestKey", "<not set>");
@@ -126,6 +132,7 @@ namespace uhh2examples {
     h_nocuts.reset(new VBFresonanceToWWHists(ctx, "NoCuts"));
     h_njet.reset(new VBFresonanceToWWHists(ctx, "Njet"));
     h_dijet.reset(new VBFresonanceToWWHists(ctx, "Dijet"));
+    h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
     h_input_topjets.reset(new TopJetHists(ctx, "input_TopJet"));
     h_input_jets.reset(new JetHists(ctx, "input_Jet"));
     h_input_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "input_GenTopJet"));
@@ -196,9 +203,9 @@ namespace uhh2examples {
     std::unique_ptr< std::vector<Jet> >    uncleaned_jets   (new std::vector<Jet>   (*event.jets));   
     std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
 
-
     // 1. run all modules other modules.
     common->process(event);
+    if(PRINT)    Gen_printer->process(event);
     
     // 2. test selections and fill histograms
     h_nocuts->fill(event);
@@ -206,6 +213,7 @@ namespace uhh2examples {
     h_input_jets->fill(event);
     h_input_gentopjets->fill(event);
     h_input_genjets->fill(event);
+    h_input_genparticle->fill(event);
     
     jetcleaner->process(event);
     topjetcleaner->process(event);
