@@ -66,4 +66,32 @@ private:
     float deta_min;
 };
 
+
+class JetsOverlappingSelection: public uhh2::Selection {
+public:
+    JetsOverlappingSelection(float deta_min = 1.2f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_min;
+};
+
+class GenJetsOverlappingSelection: public uhh2::Selection {
+public:
+    GenJetsOverlappingSelection(float deta_min = 1.2f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_min;
+};
+
+class VBFdeltaEtaTopjetSelection: public uhh2::Selection {
+public:
+    VBFdeltaEtaTopjetSelection(float deta_min = 1.3f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_min;
+};
+
+
+
+
 }

@@ -8,21 +8,32 @@
 
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
-        <InputData Lumi="1" NEventsMax="1000" Type="MC" Version="VBF_Radion2000ToWW" Cacheable="False">
+        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI_try" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
 <!--
             <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_14_Ntuple.root" Lumi="0.0"/> 
             <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_15_Ntuple.root" Lumi="0.0"/> 
             <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_16_Ntuple.root" Lumi="0.0"/> 
-            <InputTree Name="AnalysisTree" /> 
 -->
+            <InputTree Name="AnalysisTree" /> 
+
             <!-- uncomment to write tree of selected events, i.e. of those events for which the AnalysisModule::process method  returns true
                 If no OutputTree is given, no events will be written. Please do use "AnalysisTree" as Name. -->
             <!-- <OutputTree Name="AnalysisTree" /> -->
         </InputData>
         
-        <InputData Lumi="1" NEventsMax="1000" Type="MC" Version="VBF_Graviton2000ToWW" Cacheable="False">
+        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI_try" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_2.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_3.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_4_5.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_6.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_7_8.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_9_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_11_12.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_13_14.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_15_16.root" Lumi="0.0"/> 
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_17.root" Lumi="0.0"/> 
             <InputTree Name="AnalysisTree" /> 
         </InputData>
             
@@ -34,10 +45,11 @@
             <Item Name="TauCollection" Value="slimmedTaus" />
             <Item Name="JetCollection" Value="slimmedJetsPuppi" />
             <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
-<!--        <Item Name="GenTopJetCollection" Value="ak8GenJets" /> --> <!-- FOR NSubjettines and CHF-->
+<!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
 
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             

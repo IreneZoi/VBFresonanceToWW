@@ -77,9 +77,9 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   book<TH1F>("eta_Eta_jj","#Delta #eta_{jj}",100,-5,5);
 
   //delta R
-  book<TH1F>("R_jj","#Delta R_{jj}",70,3,10);
+  book<TH1F>("R_jj","#Delta R_{jj}",70,0,7);
   //pt eta
-  book<TH1F>("eta_R_jj","#Delta R_{jj}",70,3,10);
+  book<TH1F>("eta_R_jj","#Delta R_{jj}",70,0,7);
 
  }
 

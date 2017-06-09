@@ -43,6 +43,7 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("TAU2_2","#tau_{2_{2}}",50,0,1);
   book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 50,0,1); 
 
+  book<TH1F>("invMass","M_{jj} [GeV/c^{2}]",100,0,2500);
   book<TH1F>("delta_eta","#Delta #eta_{jj}",80,-5,5);
   book<TH1F>("delta_phi","#Delta #phi_{jj}",200,-2*M_PI,2*M_PI);
   book<TH1F>("delta_R","#Delta R_{jj}",70,0,7);
@@ -128,7 +129,8 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
       float tau21_2 = tau2_2/tau1_2;
       hist("Tau21_2")->Fill(tau21_2, weight);
 
-
+      float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
+      hist("invMass")->Fill(mass, weight);
       float deta = jet->at(0).eta() - jet->at(1).eta();
       hist("delta_eta")->Fill(deta, weight);
       float dphi = jet->at(0).phi() - jet->at(1).phi();
