@@ -8,7 +8,7 @@
 
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
-        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI_try" Cacheable="False">
+        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI_JetIdLooseModified2" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
 <!--
             <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_14_Ntuple.root" Lumi="0.0"/> 
@@ -22,7 +22,7 @@
             <!-- <OutputTree Name="AnalysisTree" /> -->
         </InputData>
         
-        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI_try" Cacheable="False">
+        <InputData Lumi="1" NEventsMax="45000" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI_JetIdLooseModified2" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple.root" Lumi="0.0"/> 
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_2.root" Lumi="0.0"/> 
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_3.root" Lumi="0.0"/> 

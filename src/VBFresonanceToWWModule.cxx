@@ -50,6 +50,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> njet_sel, dijet_sel, vbfdeta_sel, vbfdeta_gensel, jet1_sel, jet2_sel, topjet1_sel, topjet2_sel, vbfetasign_sel, vbfetasign_gensel, vbfeta_sel, vbfeta_gensel, topjets_deta_sel;
   
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
+    std::unique_ptr<Hists> h_start_jets;
     std::unique_ptr<Hists> h_nocuts, h_njet, h_dijet, h_input_topjets, h_input_jets, h_input_gentopjets, h_input_genjets, h_input_genparticle;
     std::unique_ptr<Hists> h_cleaner, h_cleaner_topjets, h_cleaner_jets, h_cleaner_gentopjets, h_cleaner_genjets;
     std::unique_ptr<Hists> h_noOverlapping_topjets, h_noOverlapping_jets;
@@ -104,7 +105,7 @@ namespace uhh2examples {
     if(PRINT) cout << "common" <<endl;
     //    common->set_jet_id(PtEtaCut(30.0, 2.4)); 
     common->init(ctx);
-    jetcleaner.reset(new JetCleaner(ctx, 30.0, 2.4)); 
+    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
 
     // note that the JetCleaner is only kept for the sake of example;
@@ -129,6 +130,7 @@ namespace uhh2examples {
     topjets_deta_sel.reset(new VBFdeltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
 
     // 3. Set up Hists classes:
+    h_start_jets.reset(new JetHists(ctx, "start_Jet"));
     h_nocuts.reset(new VBFresonanceToWWHists(ctx, "NoCuts"));
     h_njet.reset(new VBFresonanceToWWHists(ctx, "Njet"));
     h_dijet.reset(new VBFresonanceToWWHists(ctx, "Dijet"));
@@ -175,7 +177,7 @@ namespace uhh2examples {
     h_topjets_deta.reset(new TopJetHists(ctx, "TopJet_deta"));
 
     h_Dijets_VBF.reset(new VBFresonanceToWWDiJetHists(ctx, "DiJet_VBF"));
-    h_jets_VBF.reset(new VBFresonanceToWWDiJetHists(ctx, "jets_VBF"));
+    h_jets_VBF.reset(new JetHists(ctx, "VBF_jets"));
 
 
 
@@ -194,6 +196,7 @@ namespace uhh2examples {
     // this is controlled by the return value of this method: If it
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
+    h_start_jets->fill(event);
     
     cout << "VBFresonanceToWWModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
@@ -325,17 +328,6 @@ namespace uhh2examples {
 
       if(PRINT) cout << "vbfdeta_selection jets" <<endl;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
