@@ -58,15 +58,15 @@ bool VBFdeltaEtaGenjetSelection::passes(const Event & event){
 	  }
       }
     return true;
-    
-}
+  }    
+
 
 VBFEtaSignjetSelection::VBFEtaSignjetSelection(){}
     
 bool VBFEtaSignjetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
- for(unsigned int i = 0; i <event.jets->size(); i++)
+    for(unsigned int i = 0; i <event.jets->size(); i++)
       {
 	for(unsigned int j = i+1; j <event.jets->size(); j++)
 	  {
@@ -99,7 +99,7 @@ bool VBFEtaSignGenjetSelection::passes(const Event & event){
       }
     
     return true;
-}
+  }
 
 
 VBFEtajetSelection::VBFEtajetSelection(float deta_min_): deta_min(deta_min_){}
@@ -137,7 +137,7 @@ bool VBFEtaGenjetSelection::passes(const Event & event){
 	  }
       }
      return true;
-}
+  }
 
 
 JetsOverlappingSelection::JetsOverlappingSelection(float deta_min_): deta_min(deta_min_){}
@@ -172,19 +172,29 @@ bool GenJetsOverlappingSelection::passes(const Event & event){
 	    else return true;
       }
      return true;
-}
+  }
 
-VBFdeltaEtaTopjetSelection::VBFdeltaEtaTopjetSelection(float deta_min_): deta_min(deta_min_){}
+deltaEtaTopjetSelection::deltaEtaTopjetSelection(float deta_max_): deta_max(deta_max_){}
 
-bool VBFdeltaEtaTopjetSelection::passes(const Event & event){
+bool deltaEtaTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                             
   if(event.topjets->size() < 2) return false;
 
 	  auto deltaeta = event.topjets->at(0).eta()-event.topjets->at(1).eta();
-	  if( fabs(deltaeta) > deta_min) return false;
+	  if( fabs(deltaeta) > deta_max) return false;
 	  else return true;
 }
 
+invMassTopjetSelection::invMassTopjetSelection(float invM_min_): invM_min(invM_min_){}
+
+bool invMassTopjetSelection::passes(const Event & event){
+  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                             
+  if(event.topjets->size() < 2) return false;
+
+  auto invariantMass = (event.topjets->at(0).v4() + event.topjets->at(1).v4()).M();
+	  if( invariantMass < invM_min) return false;
+	  else return true;
+}
 
 
 

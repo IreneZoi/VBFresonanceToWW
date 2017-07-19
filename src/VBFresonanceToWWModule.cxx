@@ -5,6 +5,7 @@
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CommonModules.h"
 #include "UHH2/common/include/CleaningModules.h"
+#include <UHH2/common/include/MCWeight.h>
 #include "UHH2/common/include/PrintingModules.h"
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/common/include/JetHists.h"
@@ -42,19 +43,28 @@ namespace uhh2examples {
 
     std::unique_ptr<AnalysisModule> Gen_printer;  
 
+
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<TopJetCleaner> topjetcleaner;
+
+
+    // Data/MC scale factors
+    std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
+    std::unique_ptr<uhh2::AnalysisModule> lumiweight;
+
   
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> njet_sel, dijet_sel, vbfdeta_sel, vbfdeta_gensel, jet1_sel, jet2_sel, topjet1_sel, topjet2_sel, vbfetasign_sel, vbfetasign_gensel, vbfeta_sel, vbfeta_gensel, topjets_deta_sel;
+    std::unique_ptr<Selection> njet_sel, dijet_sel, vbfdeta_sel, vbfdeta_gensel, jet1_sel, jet2_sel, topjet1_sel, topjet2_sel, vbfetasign_sel, vbfetasign_gensel, vbfeta_sel, vbfeta_gensel, topjets_deta_sel, invMtopjet_sel;
   
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_start_jets;
-    std::unique_ptr<Hists> h_nocuts, h_njet, h_dijet, h_input_topjets, h_input_jets, h_input_gentopjets, h_input_genjets, h_input_genparticle;
+    std::unique_ptr<Hists> h_nocuts, h_njet, /*h_dijet,*/ h_input_topjets, h_input_jets, h_input_gentopjets, h_input_genjets, h_input_genparticle;
     std::unique_ptr<Hists> h_cleaner, h_cleaner_topjets, h_cleaner_jets, h_cleaner_gentopjets, h_cleaner_genjets;
     std::unique_ptr<Hists> h_noOverlapping_topjets, h_noOverlapping_jets;
 
+    std::unique_ptr<Hists> h_2topjetsel_topjets;
+    std::unique_ptr<Hists> h_2jetsel_jets;
     std::unique_ptr<Hists> h_jetsel, h_jetsel_topjets, h_jetsel_jets, h_jetsel_gentopjets, h_jetsel_genjets;
     std::unique_ptr<Hists> h_vbfdeltaeta_jets, h_vbfdeltaeta_genjets;
     std::unique_ptr<Hists> h_vbfetasign_jets, h_vbfetasign_genjets;
@@ -63,15 +73,26 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets;
     //  std::unique_ptr<Hists> h_GenDijets;
 
-    std::unique_ptr<Hists> h_Wtopjets_withVBF;
-    std::unique_ptr<Hists> h_topjets_withVBF;
+
+    std::unique_ptr<Hists> h_Wtopjets_invM;
+    std::unique_ptr<Hists> h_topjets_invM;
 
     std::unique_ptr<Hists> h_Wtopjets_deta;
     std::unique_ptr<Hists> h_topjets_deta;
+
+    std::unique_ptr<Hists> h_Wtopjets_invMdeta;
+    std::unique_ptr<Hists> h_topjets_invMdeta;
+    std::unique_ptr<Hists> h_Dijets_invMdeta;
+    std::unique_ptr<Hists> h_jets_invMdeta;
+    std::unique_ptr<Hists> h_invMdeta;
+
     std::unique_ptr<Hists> h_Dijets_VBF;
     std::unique_ptr<Hists> h_jets_VBF;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF;
+    std::unique_ptr<Hists> h_topjets_withVBF;
+    std::unique_ptr<Hists> h_final;
 
-
+    bool isMC;
   };
 
 
@@ -88,7 +109,16 @@ namespace uhh2examples {
     // If needed, access the configuration of the module here, e.g.:
     string testvalue = ctx.get("TestKey", "<not set>");
     cout << "TestKey in the configuration was: " << testvalue << endl;
-    
+
+
+    //choose channel from .xml file
+    isMC = (ctx.get("dataset_type") == "MC");
+
+    if(isMC)
+      { 
+	pileup_SF.reset(new MCPileupReweight(ctx)); 
+	lumiweight.reset(new MCLumiWeight(ctx));
+      }
     // If running in SFrame, the keys "dataset_version", "dataset_type", "dataset_lumi",
     // and "target_lumi" are set to the according values in the xml file. For CMSSW, these are
     // not set automatically, but can be set in the python config file.
@@ -127,13 +157,14 @@ namespace uhh2examples {
     vbfetasign_gensel.reset(new VBFEtaSignGenjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
     vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
-    topjets_deta_sel.reset(new VBFdeltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
+    topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
+    invMtopjet_sel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
 
     // 3. Set up Hists classes:
     h_start_jets.reset(new JetHists(ctx, "start_Jet"));
     h_nocuts.reset(new VBFresonanceToWWHists(ctx, "NoCuts"));
     h_njet.reset(new VBFresonanceToWWHists(ctx, "Njet"));
-    h_dijet.reset(new VBFresonanceToWWHists(ctx, "Dijet"));
+    //    h_dijet.reset(new VBFresonanceToWWHists(ctx, "Dijet"));
     h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
     h_input_topjets.reset(new TopJetHists(ctx, "input_TopJet"));
     h_input_jets.reset(new JetHists(ctx, "input_Jet"));
@@ -150,12 +181,31 @@ namespace uhh2examples {
     h_noOverlapping_topjets.reset(new TopJetHists(ctx, "noOverlapping_TopJet"));
     h_noOverlapping_jets.reset(new JetHists(ctx, "noOverlapping_Jet"));
 
+    h_2topjetsel_topjets.reset(new TopJetHists(ctx, "2AK8_TopJet"));
+    h_2jetsel_jets.reset(new JetHists(ctx, "2AK4_Jet"));
+
 
     h_jetsel.reset(new VBFresonanceToWWHists(ctx, "jetsel"));
     h_jetsel_topjets.reset(new TopJetHists(ctx, "jetsel_TopJet"));
     h_jetsel_jets.reset(new JetHists(ctx, "jetsel_Jet"));
     h_jetsel_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "jetsel_GenTopJet"));
     h_jetsel_genjets.reset(new GenJetsHists(ctx, "jetsel_GenJet"));
+
+
+
+    h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_invM"));
+    h_topjets_invM.reset(new TopJetHists(ctx, "TopJet_invM"));
+
+    h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_deta"));
+    h_topjets_deta.reset(new TopJetHists(ctx, "TopJet_deta"));
+
+    h_Wtopjets_invMdeta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_invMdeta"));
+    h_topjets_invMdeta.reset(new TopJetHists(ctx, "TopJet_invMdeta"));
+    h_Dijets_invMdeta.reset(new VBFresonanceToWWDiJetHists(ctx, "DiJet_invMdeta"));
+    h_jets_invMdeta.reset(new JetHists(ctx, "jet_invMdeta"));
+    h_invMdeta.reset(new VBFresonanceToWWHists(ctx, "invMdeta"));
+
+
 
     h_vbfdeltaeta_jets.reset(new JetHists(ctx, "vbfdeltaeta_Jet"));
     h_vbfdeltaeta_genjets.reset(new GenJetsHists(ctx, "vbfdeltaeta_GenJet"));
@@ -170,15 +220,12 @@ namespace uhh2examples {
     h_Dijets.reset(new VBFresonanceToWWDiJetHists(ctx, "DiJet"));
     //    h_GenDijets.reset(new VBFresonanceToWWGenDiJetHists(ctx, "DiJet"));
 
-    h_Wtopjets_withVBF.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_withVBF"));
-    h_topjets_withVBF.reset(new TopJetHists(ctx, "TopJet_withVBF"));
-
-    h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_deta"));
-    h_topjets_deta.reset(new TopJetHists(ctx, "TopJet_deta"));
 
     h_Dijets_VBF.reset(new VBFresonanceToWWDiJetHists(ctx, "DiJet_VBF"));
     h_jets_VBF.reset(new JetHists(ctx, "VBF_jets"));
-
+    h_Wtopjets_withVBF.reset(new VBFresonanceToWW_WTopJetHists(ctx, "WTopJet_withVBF"));
+    h_topjets_withVBF.reset(new TopJetHists(ctx, "TopJet_withVBF"));
+    h_final.reset(new VBFresonanceToWWHists(ctx, "final"));
 
 
 
@@ -201,12 +248,24 @@ namespace uhh2examples {
     cout << "VBFresonanceToWWModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
 
+    /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
+
+
+    //common Modules
+    /* pileup SF */
+    if(!event.isRealData)
+      { 
+	pileup_SF->process(event);
+	lumiweight->process(event);
+      }
 
     // keep Jets *before cleaning* to store them in the ntuple if event is accepted   
     std::unique_ptr< std::vector<Jet> >    uncleaned_jets   (new std::vector<Jet>   (*event.jets));   
     std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
 
     // 1. run all modules other modules.
+
+
     common->process(event);
     if(PRINT)    Gen_printer->process(event);
     
@@ -214,19 +273,28 @@ namespace uhh2examples {
     h_nocuts->fill(event);
     h_input_topjets->fill(event);
     h_input_jets->fill(event);
-    h_input_gentopjets->fill(event);
-    h_input_genjets->fill(event);
-    h_input_genparticle->fill(event);
-    
+
+    if(isMC)
+      {
+
+	h_input_gentopjets->fill(event);
+	h_input_genjets->fill(event);
+	h_input_genparticle->fill(event);
+      }
+
     jetcleaner->process(event);
     topjetcleaner->process(event);
 
     h_cleaner->fill(event);
     h_cleaner_topjets->fill(event);
     h_cleaner_jets->fill(event);
-    h_cleaner_gentopjets->fill(event);
-    h_cleaner_genjets->fill(event);
 
+    if(isMC)
+      {
+
+	h_cleaner_gentopjets->fill(event);
+	h_cleaner_genjets->fill(event);
+      }
 
     //Cleaning AK4 by overlap of AK8
     std::vector<Jet>* AK4Jets(new std::vector<Jet> (*event.jets));
@@ -264,70 +332,108 @@ namespace uhh2examples {
       h_njet->fill(event);
     }
 
-    bool jets_selection = (jet2_sel->passes(event) && topjet2_sel->passes(event));
-    if(!jets_selection) return false;
+    //    bool jets_selection = (jet2_sel->passes(event) && topjet2_sel->passes(event));
+    //if(!jets_selection) return false;
 
+    bool topjets2_selection = topjet2_sel->passes(event);
+    if(!topjets2_selection) return false;
+
+    h_2topjetsel_topjets->fill(event);
+
+
+    /*
     h_jetsel->fill(event);
     h_jetsel_topjets->fill(event);
     h_jetsel_jets->fill(event);
     h_jetsel_gentopjets->fill(event);
     h_jetsel_genjets->fill(event);
-
+    */
     h_Wtopjets->fill(event);
 
-
-    bool dijet_selection = dijet_sel->passes(event);
-    if(dijet_selection){
-      h_dijet->fill(event);
+    bool invMtopjet_selection = invMtopjet_sel->passes(event);
+    if(invMtopjet_selection){
+      h_Wtopjets_invM->fill(event);
+      h_topjets_invM->fill(event);
     }
+    bool topjets_deta_selection = topjets_deta_sel->passes(event);
+    if(topjets_deta_selection){
+      h_Wtopjets_deta->fill(event);
+      h_topjets_deta->fill(event);
+
+      if(PRINT) cout << "vbfdeta_selection jets" <<endl;
+    }
+
+
+    if(!topjets_deta_selection || !invMtopjet_selection)
+      return false;
+	h_Wtopjets_invMdeta->fill(event);
+	h_topjets_invMdeta->fill(event);
+	h_Dijets_invMdeta->fill(event);
+	h_jets_invMdeta->fill(event);
+	h_invMdeta->fill(event);
+
+
+	// Selections for AK4
+
+    bool jets2_selection = jet2_sel->passes(event);
+    if(!jets2_selection) return false;
+
+    h_2jetsel_jets->fill(event);
+
+
+
+    //    bool dijet_selection = dijet_sel->passes(event);
+    //if(dijet_selection){
+    //  h_dijet->fill(event);
+    //}
     bool vbfdeta_selection = vbfdeta_sel->passes(event);
     if(vbfdeta_selection){
       cout << "vbfdeta_selection jets" <<endl;
       h_vbfdeltaeta_jets->fill(event);
       if(PRINT) cout << "vbfdeta_selection jets" <<endl;
     }
-    bool vbfdeta_genselection = vbfdeta_gensel->passes(event);
-    if(vbfdeta_genselection){
-      h_vbfdeltaeta_genjets->fill(event);
-    }
+    if(isMC)
+      {
+	bool vbfdeta_genselection = vbfdeta_gensel->passes(event);
+	if(vbfdeta_genselection){
+	  h_vbfdeltaeta_genjets->fill(event);
+	}
+      }
 
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
     if(vbfetasign_selection){
       h_vbfetasign_jets->fill(event);
       if(PRINT) cout << "vbfdeta_selection jets" <<endl;
     }
-    bool vbfetasign_genselection = vbfetasign_gensel->passes(event);
-    if(vbfetasign_genselection){
-      h_vbfetasign_genjets->fill(event);
-    }
 
+    if(isMC){
+      bool vbfetasign_genselection = vbfetasign_gensel->passes(event);
+      if(vbfetasign_genselection){
+	h_vbfetasign_genjets->fill(event);
+      }
+    }
     bool vbfeta_selection = vbfeta_sel->passes(event);
     if(vbfeta_selection){
-      h_vbfeta_jets->fill(event);
+      h_jets_VBF->fill(event);
+      h_Dijets_VBF->fill(event);
+
       if(PRINT) cout << "vbfdeta_selection jets" <<endl;
-      h_Dijets->fill(event);
 
     }
-    bool vbfeta_genselection = vbfeta_gensel->passes(event);
-    if(vbfeta_genselection){
-      h_vbfeta_genjets->fill(event);
-      //      h_GenDijets->fill(event);
+
+    if(isMC){
+      bool vbfeta_genselection = vbfeta_gensel->passes(event);
+      if(vbfeta_genselection){
+	h_vbfeta_genjets->fill(event);
+	//      h_GenDijets->fill(event);
+      }
     }
 
     if(!vbfeta_selection) return false;
     h_Wtopjets_withVBF->fill(event);
     h_topjets_withVBF->fill(event);
+    h_final->fill(event);
 
-
-    bool topjets_deta_selection = topjets_deta_sel->passes(event);
-    if(topjets_deta_selection){
-    h_Wtopjets_deta->fill(event);
-    h_topjets_deta->fill(event);
-      h_Dijets_VBF->fill(event);
-      h_jets_VBF->fill(event);
-
-      if(PRINT) cout << "vbfdeta_selection jets" <<endl;
-    }
 
 
 

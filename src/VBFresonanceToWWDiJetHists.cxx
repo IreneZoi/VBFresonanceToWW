@@ -72,12 +72,12 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   // book<TH1F>("eta_Phi_jj","#Delta #phi_{jj}",100,0,M_PI);
 
   //delta eta
-  book<TH1F>("Eta_jj","#Delta #eta_{jj}",100,-5,5);
+  book<TH1F>("Eta_jj","#Delta #eta_{jj}",100,-10,10);
   //pt eta
   // book<TH1F>("eta_Eta_jj","#Delta #eta_{jj}",100,-5,5);
 
   //delta R
-  book<TH1F>("R_jj","#Delta R_{jj}",70,0,7);
+  book<TH1F>("R_jj","#Delta R_{jj}",100,0,10);
   //pt eta
   // book<TH1F>("eta_R_jj","#Delta R_{jj}",70,0,7);
 
