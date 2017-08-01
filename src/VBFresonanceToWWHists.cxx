@@ -10,6 +10,11 @@ using namespace uhh2examples;
 
 VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
   // book all histograms here
+  
+  // HT
+  book<TH1F>("Ht_GenTopJet", "H_{T} [GeV/c]", 300, 0, 3000);  
+  book<TH1F>("Ht_GenJet", "H_{T} [GeV/c]", 300, 0, 3000);  
+
   // jets
   book<TH1F>("N_jets", "N_{jets}", 20, 0, 20);  
   book<TH1F>("eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5);
@@ -24,7 +29,9 @@ VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirna
   book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
 
   // primary vertices
-  book<TH1F>("N_pv", "N^{PV}", 50, 0, 50);
+  book<TH1F>("N_pv", "N^{PV}", 25, 0, 50);
+
+
 }
 
 
@@ -36,7 +43,34 @@ void VBFresonanceToWWHists::fill(const Event & event){
   
   // Don't forget to always use the weight when filling.
   double weight = event.weight;
-  
+
+  //  Context * ctx;
+  //bool isMC;
+
+  //choose channel from .xml file                                                                                                                                                                          
+  //isMC = (ctx->get("dataset_type") == "MC");
+
+  //if(isMC)
+  //{      
+      // vector<GenTopJet> Tjets = *event.gentopjets;
+      // if(Tjets.size()<1) return;
+      // auto Ht_GenTopJet=0;
+      
+      // for(int i=0; i<Tjets.size();i++)
+      // 	Ht_GenTopJet+=Tjets.at(i).pt();
+      
+      // hist("Ht_GenTopJet")->Fill(Ht_GenTopJet,weight);
+      
+      // vector<Particle> Gjets = *event.genjets;
+      // if(Gjets.size()<1) return;
+      // auto Ht_GenJet=0;
+      
+      // for(int i=0; i<Gjets.size();i++)
+      // 	Ht_GenJet+=Gjets.at(i).pt();
+      
+      // hist("Ht_GenJet")->Fill(Ht_GenJet,weight);
+      //}
+
   std::vector<Jet>* jets = event.jets;
   int Njets = jets->size();
   hist("N_jets")->Fill(Njets, weight);

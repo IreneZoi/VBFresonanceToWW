@@ -92,9 +92,17 @@ private:
     float deta_max;
 };
 
+class SDMassTopjetSelection: public uhh2::Selection {
+public:
+    SDMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 85.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min, M_sd_max;
+};
+
 class invMassTopjetSelection: public uhh2::Selection {
 public:
-    invMassTopjetSelection(float invM_min = 1070.0f);
+    invMassTopjetSelection(float invM_min = 1050.0f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float invM_min;
