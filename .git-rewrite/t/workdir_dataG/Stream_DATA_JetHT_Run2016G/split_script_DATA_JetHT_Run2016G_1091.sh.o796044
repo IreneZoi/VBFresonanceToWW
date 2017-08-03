@@ -1,0 +1,6 @@
+ ( INFO  )  SCycleController   : Initializing
+ ( INFO  )  SCycleController   : Deleting all analysis cycle algorithms from memory
+ ( INFO  )  SCycleController   : Reading xml file: 'DATA_JetHT_Run2016G_1091.xml'
+ ( FATAL )  sframe_main        : app/sframe_main.cxx:65 (int main(int, char**)): SError exception caught
+ ( FATAL )  sframe_main        : app/sframe_main.cxx:66 (int main(int, char**)): Message: Loading of xml document "DATA_JetHT_Run2016G_1091.xml" failed
+ ( FATAL )  sframe_main        : app/sframe_main.cxx:67 (int main(int, char**)): --> Stopping execution

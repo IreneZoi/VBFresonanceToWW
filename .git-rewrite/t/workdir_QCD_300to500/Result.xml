@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
+
+
+<!--                   Background                   -->
+
+<!ENTITY MC_QCD_HT300to500 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/MC_QCD_HT300to500.xml">
+ ]>
+
+<!--
+<ConfigParse NEventsBreak="50000" FileSplit="0" />
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_QCD_300to500"/>
+-->
+
+<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
+<JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
+	<Library Name="libSUHH2VBFresonanceToWW"/>
+	<Package Name="libSUHH2VBFresonanceToWW"/>
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="__NOTSET__//" TargetLumi="36814.0">
+		<InputData Cacheable="False" Lumi="107.894" Type="MC" Version="MC_QCD_HT300to500">
+			<In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch//workdir_QCD_300to500/uhh2.AnalysisModuleRunner.*.MC_QCD_HT300to500_*.root" Lumi="0.0"/>
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<UserConfig>
+			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+			<Item Name="ElectronCollection" Value="slimmedElectronsUSER"/>
+			<Item Name="MuonCollection" Value="slimmedMuonsUSER"/>
+			<Item Name="TauCollection" Value="slimmedTaus"/>
+			<Item Name="JetCollection" Value="slimmedJetsPuppi"/>
+			<Item Name="GenJetCollection" Value="slimmedGenJets"/>
+			<Item Name="GenParticleCollection" Value="GenParticles"/>
+			<Item Name="METName" Value="slimmedMETsPuppi"/>
+			<Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters"/>
+			<Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop"/>
+			<Item Name="AnalysisModule" Value="__NOTSET__"/>
+			<Item Name="use_sframe_weight" Value="false"/>
+			<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+			<Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyMCPileupHistogram.root"/>
+			<Item Name="TestKey" Value="TestKeyValue"/>
+		</UserConfig>
+	</Cycle>
+</JobConfiguration>
