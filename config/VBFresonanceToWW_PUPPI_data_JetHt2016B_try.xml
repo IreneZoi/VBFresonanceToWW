@@ -36,6 +36,7 @@
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
+            <Item Name="channel" Value="data" />
 	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
 	    <Item Name="lumi_file" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.root" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:

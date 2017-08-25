@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
-
-<!--                   Background                   -->
-
-<!ENTITY MC_QCD_HT1000to1500 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/MC_QCD_HT1000to1500.xml">
- ]>
+<!--                      Data                       --> 
+ <!ENTITY DATA_JetHT_Run2016C SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016C_03Feb.xml" > 
+  ]>
 
 <!--
 <ConfigParse NEventsBreak="50000" FileSplit="0" />
-<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_QCD_1000to1500"/>
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_C"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -20,13 +18,13 @@
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
+    <!--                    Data                   -->
 
-    <!--                    Background                   -->
+<InputData Version="DATA_JetHT_Run2016C" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
+      &DATA_JetHT_Run2016C; <InputTree Name="AnalysisTree"/> 
+      <OutputTree Name="AnalysisTree"/> 
+ </InputData> 
 
- <InputData Version="MC_QCD_HT1000to1500" Lumi="12531.316" Type="MC" NEventsMax="-1" Cacheable="False">
-      &MC_QCD_HT1000to1500; <InputTree Name="AnalysisTree"/>
-    <!--  <OutputTree Name="AnalysisTree"/> -->
-</InputData> 
 
            
         <UserConfig>
@@ -36,13 +34,14 @@
             <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
             <Item Name="JetCollection" Value="slimmedJetsPuppi" />
-            <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="GenJetCollection" Value="slimmedGenJetsAK8" />
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
-<!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
-           <Item Name="channel" Value="qcd" />
+	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
+           <Item Name="channel" Value="data" />
+            <Item Name="lumi_file" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.root" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
                  PrimaryVertexCollection

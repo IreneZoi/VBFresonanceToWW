@@ -12,13 +12,10 @@
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
 <!--                   Signal Samples                   -->
-      
+<!--      
         <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI_temp" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" /> 
-            <!-- uncomment to write tree of selected events, i.e. of those events for which the AnalysisModule::process method  returns true
-                If no OutputTree is given, no events will be written. Please do use "AnalysisTree" as Name. -->
-            <!-- <OutputTree Name="AnalysisTree" /> -->
         </InputData>
         
         <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI_temp" Cacheable="False">
@@ -35,13 +32,14 @@
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/VBF_Graviton2000ToWW_Ntuple_17.root" Lumi="0.0"/> 
             <InputTree Name="AnalysisTree" /> 
         </InputData>
-
+-->
 <!-- DATA -->
+<!--
 <InputData Version="DATA_JetHT_Run2016B_temp" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
 <In FileName="/pnfs/desy.de/cms/tier2/store/user/jmulthau/CMSSW80v3/JetHT/DATA_JetHT_Run2016B_03Feb2017/DATA_JetHT_Run2016B_03Feb2017_0_Ntuple.root" Lumi="0.0"/>
  <InputTree Name="AnalysisTree"/> 
  </InputData> 
-
+-->
 
 
 
@@ -125,7 +123,7 @@
  <InputTree Name="AnalysisTree"/>  
     <!--  <OutputTree Name="AnalysisTree"/> -->
  </InputData> 
-
+ 
 
            
         <UserConfig>
@@ -139,8 +137,8 @@
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
-            <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
-<!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
+            <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" /> 
+            <Item Name="channel" Value="qcd" />
             <Item Name="lumi_file" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.root" />
 
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
@@ -169,7 +167,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWFitModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
