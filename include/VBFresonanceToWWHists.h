@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UHH2/core/include/Hists.h"
+#include "UHH2/core/include/Event.h"
 
 namespace uhh2examples {
 
@@ -18,6 +19,8 @@ public:
 
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~VBFresonanceToWWHists();
+
+
 };
 
 }

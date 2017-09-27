@@ -1,9 +1,6 @@
-obj/VBFresonanceToWWParticleHists.o: \
- src/VBFresonanceToWWParticleHists.cxx \
- /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h \
- /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Hists.h \
- /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/fwd.h \
+obj/VBFresonanceToWWFitModule.o: src/VBFresonanceToWWFitModule.cxx \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/AnalysisModule.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/fwd.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/obj.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/registry.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/GenericEvent.h \
@@ -313,8 +310,23 @@ obj/VBFresonanceToWWParticleHists.o: \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/JetCorrections.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/Utils.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/JetMETObjects/interface/JetCorrectionUncertainty.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TRandom.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TFormula.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TBits.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TObjArray.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TSeqCollection.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TCollection.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TIterator.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TMethodCall.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TDictionary.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/ESTLType.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TInterpreter.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TVirtualMutex.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/CleaningModules.h \
- /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TH1F.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/MuonIds.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/ElectronIds.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/MCWeight.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TH2.h \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TH1.h \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TAxis.h \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TAttAxis.h \
@@ -328,4 +340,18 @@ obj/VBFresonanceToWWParticleHists.o: \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TArrayI.h \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TArrayF.h \
  /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/Foption.h \
- /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TFitResultPtr.h
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TFitResultPtr.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/PrintingModules.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/ElectronHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Hists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/MuonHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/JetHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/TopJetIds.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/GenJetsHists.h \
+ /cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw-patch/CMSSW_8_0_24_patch1/external/slc6_amd64_gcc530/bin/../../../../../../../slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed5/include/TH1F.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWSelections.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h
