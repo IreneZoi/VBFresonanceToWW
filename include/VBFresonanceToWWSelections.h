@@ -2,6 +2,7 @@
 
 #include "UHH2/core/include/fwd.h"
 #include "UHH2/core/include/Selection.h"
+#include "UHH2/common/include/ObjectIdUtils.h"
 
 namespace uhh2examples {
     
@@ -10,21 +11,25 @@ namespace uhh2examples {
  * maximum third jet pt fraction can be changed in the constructor.
  * The jets are assumed to be sorted in pt.
  */
+class MuonVeto: public uhh2::Selection {
+public:
+    MuonVeto(float deltR_min = 0.8f, const boost::optional<MuonId> & muid = boost::none);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deltaR_min;
+    boost::optional<MuonId> muid;
+};
 
-class MuonSelection: public uhh2::Selection {
+class ElectronVeto: public uhh2::Selection {
 public:
-    MuonSelection(float pt_max = 20.0f);
+    ElectronVeto(float deltR_min = 0.8f, const boost::optional<ElectronId> & eleid = boost::none);
     virtual bool passes(const uhh2::Event & event) override;
 private:
-    float pt_max;
+    float deltaR_min;
+    boost::optional<ElectronId> eleid;
 };
-class ElectronSelection: public uhh2::Selection {
-public:
-    ElectronSelection(float pt_max = 20.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float pt_max;
-};
+
+
 class DijetSelection: public uhh2::Selection {
 public:
     DijetSelection(float dphi_min = 2.7f, float third_frac_max = 0.2f);
@@ -147,9 +152,9 @@ private:
     float deta_max;
 };
 
-class SDMassTopjetSelection: public uhh2::Selection {
+class WWMassTopjetSelection: public uhh2::Selection {
 public:
-    SDMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 85.0f);
+    WWMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 85.0f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float M_sd_min, M_sd_max;

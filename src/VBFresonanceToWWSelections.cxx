@@ -1,5 +1,6 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSelections.h"
 #include "UHH2/core/include/Event.h"
+#include "UHH2/common/include/ObjectIdUtils.h"
 
 #include <stdexcept>
 
@@ -8,6 +9,48 @@ using namespace uhh2;
 using namespace std;
 
 bool PRINT = false;
+
+MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_): deltaR_min(deltaR_min_), muid(muid_){}
+    
+bool MuonVeto::passes(const Event & event){
+    assert(event.topjets); // if this fails, it probably means jets are not read in
+    assert(event.muons); // if this fails, it probably means jets are not read in
+    if(muid)
+      {
+	for(const auto & topjets : *event.topjets)
+	  {
+	    for(const auto & muons : *event.muons)    
+	      {
+		if(deltaR(topjets,muons)  < deltaR_min) return false;
+		else return true;
+	      }
+	  }
+      }
+    return true;
+    
+}
+
+ElectronVeto::ElectronVeto(float deltaR_min_, const boost::optional<ElectronId> & eleid_): deltaR_min(deltaR_min_), eleid(eleid_){}
+    
+bool ElectronVeto::passes(const Event & event){
+    assert(event.topjets); // if this fails, it probably means jets are not read in
+    assert(event.electrons); // if this fails, it probably means jets are not read in
+    if(eleid)
+      {
+	for(const auto & topjets : *event.topjets)
+	  {
+	    for(const auto & electrons : *event.electrons)    
+	      {
+		if(deltaR(topjets,electrons)  < deltaR_min) return false;
+		else return true;
+	      }
+	  }
+      }
+    return true;
+    
+}
+
+
 
 
 DijetSelection::DijetSelection(float dphi_min_, float third_frac_max_): dphi_min(dphi_min_), third_frac_max(third_frac_max_){}
@@ -263,9 +306,9 @@ bool deltaEtaTopjetSelection::passes(const Event & event){
 	  else return true;
 }
 
-SDMassTopjetSelection::SDMassTopjetSelection(float M_sd_min_, float M_sd_max_): M_sd_min(M_sd_min_), M_sd_max(M_sd_max_){}
+WWMassTopjetSelection::WWMassTopjetSelection(float M_sd_min_, float M_sd_max_): M_sd_min(M_sd_min_), M_sd_max(M_sd_max_){}
 
-bool SDMassTopjetSelection::passes(const Event & event){
+bool WWMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(PRINT) cout << " asserted topjets" <<endl;

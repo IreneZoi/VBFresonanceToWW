@@ -57,7 +57,7 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   //jj
 
   //inv mass
-  book<TH1F>("InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,3000);
+  book<TH1F>("InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,4000);
   // //mass eta
   // book<TH1F>("eta_InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,3000);
 

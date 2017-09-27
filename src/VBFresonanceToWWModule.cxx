@@ -270,7 +270,7 @@ namespace uhh2examples {
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
     vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-    SDmass_sel.reset(new SDMassTopjetSelection()); // see VBFresonanceToWWSelections
+    SDmass_sel.reset(new WWMassTopjetSelection()); // see VBFresonanceToWWSelections
     invMtopjet_sel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
 
     if(PRINT) cout << "reset sel" <<endl;

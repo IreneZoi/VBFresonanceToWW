@@ -44,6 +44,9 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 50,0,1); 
 
   book<TH1F>("invMass","M_{jj} [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_checkLeptons","M_{jj} [GeV/c^{2}]",3,1000,1600);
+  book<TH1F>("pdgID","pdgID",33,-16,16);
+  book<TH1F>("pdgID_checkLeptons","pdgID",33,-16,16);
   book<TH1F>("invMass_forfit","M_{jj} [GeV/c^{2}]",30,1050,4050);
   book<TH1F>("delta_eta","#Delta #eta_{jj}",80,-5,5);
   book<TH1F>("delta_phi","#Delta #phi_{jj}",200,-2*M_PI,2*M_PI);
@@ -51,23 +54,21 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
 
 
   //  h_topjets = ctx.get_handle<std::vector <TopJet> >("topjets");
-
+  //  h_particles = ctx.get_handle<std::vector <GenParticle> >("genparticles");
+  isMC = (ctx.get("dataset_type") == "MC");
  }
 
 
 void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
   assert(event.topjets);
+  // if(isMC)
+  //   assert(event.genparticles);
 
- // //Generator-Teilchen
- //  if(!event.is_valid(h_topjets)){
- //    return;
- //  }
   
 
     //Weightning
   double weight = event.weight;
   
-  //  const std::vector<TopJet> &  jet = event.get(h_topjets);
   std::vector<TopJet>* jet = event.topjets;
      
       float NJet = jet->size();
@@ -132,6 +133,24 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 
       float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
       hist("invMass")->Fill(mass, weight);
+      if(mass< 1600)
+	hist("invMass_checkLeptons")->Fill(mass, weight);
+
+
+      // const std::vector<GenParticle> &  genp = event.get(h_particles);
+      // if(isMC)
+      // 	{ 
+      // 	    {
+      // 	      for(int i =0;i<4;i++)
+      // 		{
+      // 		  const GenParticle & gpd = genp[i+7];
+      // 		  hist("pdgID")->Fill(gpd.pdgId(), weight);
+		  
+      // 		  if(mass< 1600)
+      // 		    hist("pdgID_checkLeptons")->Fill(gpd.pdgId(), weight);
+      // 		}
+      // 	    }
+      // 	}
       hist("invMass_forfit")->Fill(mass, weight);
       float deta = jet->at(0).eta() - jet->at(1).eta();
       hist("delta_eta")->Fill(deta, weight);

@@ -2,6 +2,7 @@ obj/VBFresonanceToWWSelections.o: src/VBFresonanceToWWSelections.cxx \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWSelections.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/fwd.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Selection.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/include/ObjectIdUtils.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Event.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/NtupleObjects.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/core/include/Electron.h \
