@@ -1,2 +1,0 @@
-sframe_main: src/AnalysisModuleRunner.cxx:661: virtual void uhh2::AnalysisModuleRunner::BeginInputFile(const SInputData&): Assertion `runid >= 1' failed.
-/scratch/sge/default/spool/bird350/job_scripts/817388: line 20: 30385 Aborted                 sframe_main MC_QCD_HT700to1000_646.xml
