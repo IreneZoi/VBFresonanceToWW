@@ -48,6 +48,7 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("pdgID","pdgID",33,-16,16);
   book<TH1F>("pdgID_checkLeptons","pdgID",33,-16,16);
   book<TH1F>("invMass_forfit","M_{jj} [GeV/c^{2}]",30,1050,4050);
+  book<TH1F>("invMass_rootfile","M_{jj} [GeV/c^{2}]",13000,0,13000);
 
   book<TH1F>("delta_eta","#Delta #eta_{jj}",80,-5,5);
   book<TH1F>("delta_phi","#Delta #phi_{jj}",200,-2*M_PI,2*M_PI);
@@ -153,6 +154,7 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
       // 	    }
       // 	}
       hist("invMass_forfit")->Fill(mass, weight);
+      hist("invMass_rootfile")->Fill(mass, weight);
       float deta = jet->at(0).eta() - jet->at(1).eta();
       hist("delta_eta")->Fill(deta, weight);
       float dphi = jet->at(0).phi() - jet->at(1).phi();

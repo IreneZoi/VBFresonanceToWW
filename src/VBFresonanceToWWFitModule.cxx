@@ -405,11 +405,11 @@ namespace uhh2examples {
     h_topjets_cleaner.reset(new TopJetHists(ctx, "topjets_cleaner"));
     h_jets_cleaner.reset(new JetHists(ctx, "jets_cleaner"));
 
-    h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
-    h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
-
     h_topjets_2topjetsel.reset(new TopJetHists(ctx, "topjets_2AK8"));
     h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_2AK8"));
+
+    h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
+    h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
 
     h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_invM"));
     h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
@@ -613,23 +613,38 @@ namespace uhh2examples {
     h_topjets_cleaner->fill(event);
     h_jets_cleaner->fill(event);
 
+
+    bool topjets2_selection = topjet2_sel->passes(event);
+    if(!topjets2_selection) return false;
+
+    h_topjets_2topjetsel->fill(event);
+    h_Wtopjets_2topjetsel->fill(event);
+
     
     //Cleaning(removing) AK4 if overlapping with AK8
     std::vector<Jet>* AK4Jets(new std::vector<Jet> (*event.jets));
+    vector<TopJet> Tjets = *event.topjets;
+    const TopJet & tj_0 = Tjets[0];
+    const TopJet & tj_1 = Tjets[1];
+
     AK4Jets->clear();
     AK4Jets->reserve(event.jets->size());
 
     if(PRINT) std::cout<<"SelectionModule L:858 Size AK4 before cleaning "<<event.jets->size() <<std::endl;
-    for(const Jet ak4:*event.jets){
-      bool bdeltaR=true;
-      for(const TopJet ak8:*event.topjets){
-	double deltar = deltaR(ak4,ak8);
-	if(PRINT) std::cout<<"SelectionModule L:858 DeltaR(ak4, ak8)<1.2 "<<deltar <<std::endl;
-	if(deltar < 1.2) bdeltaR=false;
+    for(const Jet ak4:*event.jets)
+      {
+	bool bdeltaR=true;
+	//      for(const TopJet ak8:*event.topjets){
+	//	double deltar = deltaR(ak4,ak8);
+	
+	double deltar_0 = deltaR(ak4,tj_0);
+	double deltar_1 = deltaR(ak4,tj_1);
+	if((deltar_0 < 1.2) || (deltar_1 < 1.2)) bdeltaR=false;
 	if(PRINT) std::cout<<"SelectionModule L:858 bdeltaR  "<<bdeltaR <<std::endl;
-      }
-      if(bdeltaR)AK4Jets ->push_back(ak4);
+	//    }      
+	if(bdeltaR) AK4Jets->push_back(ak4);
     }
+
     sort_by_pt<Jet>(*AK4Jets);
     ////put cleaned AK4 jets in event.jet
     event.jets->clear();
@@ -707,11 +722,6 @@ namespace uhh2examples {
 
 
 
-    bool topjets2_selection = topjet2_sel->passes(event);
-    if(!topjets2_selection) return false;
-
-    h_topjets_2topjetsel->fill(event);
-    h_Wtopjets_2topjetsel->fill(event);
 
     bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
     if(!invMtopjet_fitselection )
