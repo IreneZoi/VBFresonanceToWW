@@ -190,6 +190,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_topjets_withVBF_tau21;
     
     std::unique_ptr<Hists> h_input_gentopjets;
+    std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
     std::unique_ptr<Hists> h_eta_gentopjets;

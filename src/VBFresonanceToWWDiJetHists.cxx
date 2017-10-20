@@ -50,6 +50,7 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   //Eta 
   book<TH1F>("Eta_1","#eta_{1}",100,-5,5);
   book<TH1F>("Eta_2","#eta_{2}",100,-5,5);
+  //  book<TH1F>("Eta_both","#eta_{2}",100,-5,5);
   //Eta eta
   //  book<TH1F>("eta_Eta_1","#eta_{1}",50,-5,5);
   //book<TH1F>("eta_Eta_2","#eta_{2}",50,-5,5);
@@ -57,7 +58,7 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   //jj
 
   //inv mass
-  book<TH1F>("InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,4000);
+  book<TH1F>("InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,13000);
   // //mass eta
   // book<TH1F>("eta_InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,3000);
 
@@ -208,13 +209,15 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
       hist("Phi_2")->Fill(Phi2, weight);
       float Eta2 = jet->at(1).v4().eta();
       hist("Eta_2")->Fill(Eta2, weight);
+      //      hist("Eta_both")->Fill(Eta1, weight);
+      //      hist("Eta_both")->Fill(Eta2, weight);
 
       float Energy1 = jet->at(0).v4().energy();
       hist("Energy_1")->Fill(Energy1, weight);
       float Energy2 = jet->at(1).v4().energy();
       hist("Energy_2")->Fill(Energy2, weight);
 
-      float energy = Energy1 + Energy2;
+      //      float energy = Energy1 + Energy2;
       //      float invMass = sqrt(energy*energy -(PT1+PT2)*(PT1+PT2));
       float invMass = (jet->at(0).v4()+jet->at(1).v4()).M();
       hist("InvariantMass_jj")->Fill(invMass,weight);

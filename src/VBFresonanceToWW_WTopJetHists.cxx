@@ -21,6 +21,11 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   //PT    
   book<TH1F>("PT_1","P_{T,1} [GeV/c]",45,0,2025);
   book<TH1F>("PT_2","P_{T,2} [GeV/c]",45,0,2025);
+  book<TH1F>("PT_both","P_{T,2} [GeV/c]",45,0,2025);
+
+  book<TH1F>("PT_1_bigRange","P_{T,1} [GeV/c]",140,0,7000);
+  book<TH1F>("PT_2_bigRange","P_{T,2} [GeV/c]",140,0,7000);
+  book<TH1F>("PT_both_bigRange","P_{T,2} [GeV/c]",140,0,7000);
   
   // Phi 
   book<TH1F>("Phi_1","#phi_{1} ",100,-M_PI,M_PI);
@@ -29,19 +34,20 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   //Eta 
   book<TH1F>("Eta_1","#eta_{1}",50,-2.5,2.5);
   book<TH1F>("Eta_2","#eta_{2}",50,-2.5,2.5);
+  book<TH1F>("Eta_both","#eta",50,-2.5,2.5);
 
   //substructure
-  book<TH1F>("SoftDropMass_1", "SoftDropMass_{1} [GeV/c^2]", 100,0,300);
+  book<TH1F>("SoftDropMass_1", "SoftDropMass_{1} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_1","CHF_{1}",100,0,1);
-  book<TH1F>("TAU1_1","#tau_{1_{1}}",50,0,1); 
-  book<TH1F>("TAU2_1","#tau_{2_{1}}",50,0,1);
-  book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 50,0,1); 
+  book<TH1F>("TAU1_1","#tau_{1_{1}}",20,0,1); 
+  book<TH1F>("TAU2_1","#tau_{2_{1}}",20,0,1);
+  book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 20,0,1); 
 
-  book<TH1F>("SoftDropMass_2", "SoftDropMass_{2} [GeV/c^2]", 100,0,300);
+  book<TH1F>("SoftDropMass_2", "SoftDropMass_{2} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_2","CHF_{2}",100,0,1);
-  book<TH1F>("TAU1_2","#tau_{1_{2}}",50,0,1); 
-  book<TH1F>("TAU2_2","#tau_{2_{2}}",50,0,1);
-  book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 50,0,1); 
+  book<TH1F>("TAU1_2","#tau_{1_{2}}",20,0,1); 
+  book<TH1F>("TAU2_2","#tau_{2_{2}}",20,0,1);
+  book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 20,0,1); 
 
   book<TH1F>("invMass","M_{jj} [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("invMass_checkLeptons","M_{jj} [GeV/c^{2}]",3,1000,1600);
@@ -82,6 +88,7 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
       hist("Mass_1")->Fill(Mass1, weight);
       float PT1 = jet->at(0).v4().pt();
       hist("PT_1")->Fill(PT1, weight);
+      hist("PT_1_bigRange")->Fill(PT1, weight);
       float Phi1 = jet->at(0).v4().phi();
       hist("Phi_1")->Fill(Phi1, weight);
       float Eta1 = jet->at(0).v4().eta();
@@ -91,10 +98,17 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
       hist("Mass_2")->Fill(Mass2, weight);
       float PT2 = jet->at(1).v4().pt();
       hist("PT_2")->Fill(PT2, weight);
+      hist("PT_2_bigRange")->Fill(PT2, weight);
+      hist("PT_both")->Fill(PT1, weight);
+      hist("PT_both")->Fill(PT2, weight);
+      hist("PT_both_bigRange")->Fill(PT1, weight);
+      hist("PT_both_bigRange")->Fill(PT2, weight);
       float Phi2 = jet->at(1).v4().phi();
       hist("Phi_2")->Fill(Phi2, weight);
       float Eta2 = jet->at(1).v4().eta();
       hist("Eta_2")->Fill(Eta2, weight);
+      hist("Eta_both")->Fill(Eta1, weight);
+      hist("Eta_both")->Fill(Eta2, weight);
 
 
       std::vector<TopJet> Tjets = *event.topjets;
