@@ -6,7 +6,10 @@
 #include "TH1F.h"
 #include <iostream>
 
+
+
 using namespace uhh2;
+
 
 VBFresonanceToWWGenTopJetHists::VBFresonanceToWWGenTopJetHists(Context & ctx, 
 					     const std::string & dirname)  : Hists(ctx, dirname){
@@ -49,6 +52,8 @@ VBFresonanceToWWGenTopJetHists::VBFresonanceToWWGenTopJetHists(Context & ctx,
   book<TH1F>("delta_eta","#Delta #eta_{jj}",80,-5,5);
   book<TH1F>("delta_phi","#Delta #phi_{jj}",200,-2*M_PI,2*M_PI);
   book<TH1F>("delta_R","#Delta R_{jj}",70,0,7);
+
+  book<TH1F>("prova","eta ",10,-5,5);
 
 
   h_gentopjets = ctx.get_handle<std::vector <GenTopJet> >("gentopjets");

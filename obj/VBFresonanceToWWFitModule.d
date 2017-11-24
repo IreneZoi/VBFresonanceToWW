@@ -354,4 +354,5 @@ obj/VBFresonanceToWWFitModule.o: src/VBFresonanceToWWFitModule.cxx \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h \
  /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h \
- /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h \
+ /nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h

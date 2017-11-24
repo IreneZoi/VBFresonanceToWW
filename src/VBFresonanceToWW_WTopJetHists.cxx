@@ -21,11 +21,11 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   //PT    
   book<TH1F>("PT_1","P_{T,1} [GeV/c]",45,0,2025);
   book<TH1F>("PT_2","P_{T,2} [GeV/c]",45,0,2025);
-  book<TH1F>("PT_both","P_{T,2} [GeV/c]",45,0,2025);
+  book<TH1F>("PT_both","P_{T} [GeV/c]",45,0,2025);
 
   book<TH1F>("PT_1_bigRange","P_{T,1} [GeV/c]",140,0,7000);
   book<TH1F>("PT_2_bigRange","P_{T,2} [GeV/c]",140,0,7000);
-  book<TH1F>("PT_both_bigRange","P_{T,2} [GeV/c]",140,0,7000);
+  book<TH1F>("PT_both_bigRange","P_{T} [GeV/c]",140,0,7000);
   
   // Phi 
   book<TH1F>("Phi_1","#phi_{1} ",100,-M_PI,M_PI);

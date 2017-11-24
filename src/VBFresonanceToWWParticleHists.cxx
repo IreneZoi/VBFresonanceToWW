@@ -20,6 +20,8 @@ VBFresonanceToWWParticleHists::VBFresonanceToWWParticleHists(Context & ctx,
   book<TH1F>("Mass_qvbf","Mass [GeV/c^{2}]",100,0,1);
   book<TH1F>("Mass_W","Mass [GeV/c^{2}]",80,60,100);
   book<TH1F>("Mass_q_W","Mass [GeV/c^{2}]",100,0,1);
+  book<TH1F>("InvMass_W","Mass [GeV/c^{2}]",100,0,1);
+  book<TH1F>("InvMass_qvbf","Mass [GeV/c^{2}]",100,0,1);
 
   //PT    
 

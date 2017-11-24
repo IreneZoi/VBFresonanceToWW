@@ -46,13 +46,6 @@ private:
     float deta_min;
 };
 
-class VBFdeltaEtaGenjetSelection: public uhh2::Selection {
-public:
-    VBFdeltaEtaGenjetSelection(float deta_min = 3.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float deta_min;
-};
 
 class VBFEtaSignjetSelection: public uhh2::Selection {
 public:
@@ -62,17 +55,65 @@ private:
    
 };
 
-class VBFEtaSignGenjetSelection: public uhh2::Selection {
-public:
-    VBFEtaSignGenjetSelection();
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-   
-};
 
 class VBFEtajetSelection: public uhh2::Selection {
 public:
     VBFEtajetSelection(float deta_min = 3.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_min;
+};
+
+
+class deltaEtaTopjetSelection: public uhh2::Selection {
+public:
+    deltaEtaTopjetSelection(float deta_max = 1.3f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_max;
+};
+
+
+class VVMassTopjetSelection: public uhh2::Selection {
+public:
+    VVMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min, M_sd_max;
+};
+
+class invMassTopjetSelection: public uhh2::Selection {
+public:
+    invMassTopjetSelection(float invM_min = 1050.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float invM_min;
+};
+
+
+class nSubjTopjetSelection: public uhh2::Selection {
+public:
+    nSubjTopjetSelection(float tau21_max = 0.35f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float tau21_max;
+};
+
+class invMassVBFjetSelection: public uhh2::Selection {
+public:
+    invMassVBFjetSelection(float invM_min = 500.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float invM_min;
+};
+
+}
+
+
+/*
+class VBFdeltaEtaGenjetSelection: public uhh2::Selection {
+public:
+    VBFdeltaEtaGenjetSelection(float deta_min = 3.0f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float deta_min;
@@ -85,7 +126,6 @@ public:
 private:
     float deta_min;
 };
-
 
 class JetsOverlappingSelection: public uhh2::Selection {
 public:
@@ -143,13 +183,12 @@ private:
         float invM_min;
 };
 
-
-class deltaEtaTopjetSelection: public uhh2::Selection {
+class VBFEtaSignGenjetSelection: public uhh2::Selection {
 public:
-    deltaEtaTopjetSelection(float deta_max = 1.3f);
+    VBFEtaSignGenjetSelection();
     virtual bool passes(const uhh2::Event & event) override;
 private:
-    float deta_max;
+   
 };
 
 class WWMassTopjetSelection: public uhh2::Selection {
@@ -160,67 +199,5 @@ private:
     float M_sd_min, M_sd_max;
 };
 
-class VVMassTopjetSelection: public uhh2::Selection {
-public:
-    VVMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float M_sd_min, M_sd_max;
-};
 
-class invMassTopjetSelection: public uhh2::Selection {
-public:
-    invMassTopjetSelection(float invM_min = 1070.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-
-class invMassTopjetFitSelection: public uhh2::Selection {
-public:
-    invMassTopjetFitSelection(float invM_min = 1050.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-
-class nSubjTopjetFitSelection: public uhh2::Selection {
-public:
-    nSubjTopjetFitSelection(float tau21_max = 0.35f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float tau21_max;
-};
-
-class invM500VBFjetFitSelection: public uhh2::Selection {
-public:
-    invM500VBFjetFitSelection(float invM_min = 500.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-class invM1000VBFjetFitSelection: public uhh2::Selection {
-public:
-    invM1000VBFjetFitSelection(float invM_min = 1000.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-class invM1500VBFjetFitSelection: public uhh2::Selection {
-public:
-    invM1500VBFjetFitSelection(float invM_min = 1500.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-class invM2000VBFjetFitSelection: public uhh2::Selection {
-public:
-    invM2000VBFjetFitSelection(float invM_min = 2000.0f);
-    virtual bool passes(const uhh2::Event & event) override;
-private:
-    float invM_min;
-};
-
-
-
-}
+ */

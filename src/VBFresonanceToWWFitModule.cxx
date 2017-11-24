@@ -22,7 +22,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
-//#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
 #define PRINT false
 
@@ -95,6 +95,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> topjet2_sel;
     std::unique_ptr<Selection> invMtopjet_fitsel;
     std::unique_ptr<Selection> invMtopjet_sel;
+    std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
     std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
     std::unique_ptr<Selection> tau21topjet_sel;
@@ -105,7 +106,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> vbfeta_sel;
     std::unique_ptr<Selection> invM500_sel, invM1000_sel, invM1500_sel, invM2000_sel;
     //genjet
-    std::unique_ptr<Selection> eta_topgensel, cleaner_topgensel, gentopjets_deta_sel, invMgentopjet_sel, noOverlapping_genjetsel, vbfdeta_gensel , vbfetasign_gensel, vbfeta_gensel;
+    //    std::unique_ptr<Selection> eta_topgensel, cleaner_topgensel, gentopjets_deta_sel, invMgentopjet_sel, noOverlapping_genjetsel, vbfdeta_gensel , vbfetasign_gensel, vbfeta_gensel;
   
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
@@ -141,6 +142,9 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets_compare;
     std::unique_ptr<Hists> h_jets_compare;
     std::unique_ptr<Hists> h_compare;
+
+    std::unique_ptr<Hists> h_Wtopjets_compareSD;
+
     
     std::unique_ptr<Hists> h_Wtopjets_VVMass;
     std::unique_ptr<Hists> h_topjets_VVMass;
@@ -193,16 +197,16 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
-    std::unique_ptr<Hists> h_eta_gentopjets;
-    std::unique_ptr<Hists> h_cleaner_gentopjets;
-    std::unique_ptr<Hists> h_Wgentopjets;
-    std::unique_ptr<Hists> h_Wgentopjets_invM;
-    std::unique_ptr<Hists> h_cleaner_genjets;
-    std::unique_ptr<Hists> h_vbfdeltaeta_genjets;
-    std::unique_ptr<Hists> h_vbfW_genjets;
-    std::unique_ptr<Hists> h_vbfeta_genjets;
-    std::unique_ptr<Hists> h_Wgentopjets_VBF;
-    std::unique_ptr<Hists> h_vbfetasign_genjets;    
+    // std::unique_ptr<Hists> h_eta_gentopjets;
+    // std::unique_ptr<Hists> h_cleaner_gentopjets;
+    // std::unique_ptr<Hists> h_Wgentopjets;
+    // std::unique_ptr<Hists> h_Wgentopjets_invM;
+    // std::unique_ptr<Hists> h_cleaner_genjets;
+    // std::unique_ptr<Hists> h_vbfdeltaeta_genjets;
+    // std::unique_ptr<Hists> h_vbfW_genjets;
+    // std::unique_ptr<Hists> h_vbfeta_genjets;
+    // std::unique_ptr<Hists> h_Wgentopjets_VBF;
+    // std::unique_ptr<Hists> h_vbfetasign_genjets;    
 
     const int runnr_BCD = 276811;
     const int runnr_EF = 278802;
@@ -337,7 +341,8 @@ namespace uhh2examples {
 
 
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
-    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
+    //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
+    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     
     if(PRINT) cout << "cleaners" <<endl;
     
@@ -360,31 +365,32 @@ namespace uhh2examples {
 
     //    topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
-    invMtopjet_fitsel.reset(new invMassTopjetFitSelection()); // see VBFresonanceToWWSelections
+    invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-    invMtopjet_sel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
+    invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
+    invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
-    WWmass_sel.reset(new WWMassTopjetSelection());// see VBFresonanceToWWSelections
-    tau21topjet_sel.reset(new nSubjTopjetFitSelection()); // see VBFresonanceToWWSelections
+    WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
+    tau21topjet_sel.reset(new nSubjTopjetSelection()); // see VBFresonanceToWWSelections
 
     //    jet1_sel.reset(new NJetSelection(1)); // at least 1 jets      
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    invM500_sel.reset(new invM500VBFjetFitSelection()); // see VBFresonanceToWWSelections
-    invM1000_sel.reset(new invM1000VBFjetFitSelection()); // see VBFresonanceToWWSelections
-    invM1500_sel.reset(new invM1500VBFjetFitSelection()); // see VBFresonanceToWWSelections
-    invM2000_sel.reset(new invM2000VBFjetFitSelection()); // see VBFresonanceToWWSelections
+    invM500_sel.reset(new invMassVBFjetSelection()); // see VBFresonanceToWWSelections
+    invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
+    invM1500_sel.reset(new invMassVBFjetSelection(1500.0f)); // see VBFresonanceToWWSelections
+    invM2000_sel.reset(new invMassVBFjetSelection(2000.0f)); // see VBFresonanceToWWSelections
 
-    noOverlapping_genjetsel.reset(new deltaRGenTopjetSelection()); // see VBFresonanceToWWSelections
-    eta_topgensel.reset(new EtaGenTopjetSelection()); // see VBFresonanceToWWSelections
-    cleaner_topgensel.reset(new PtGenTopjetSelection()); // see VBFresonanceToWWSelections
-    vbfdeta_gensel.reset(new VBFdeltaEtaGenjetSelection()); // see VBFresonanceToWWSelections
-    vbfetasign_gensel.reset(new VBFEtaSignGenjetSelection()); // see VBFresonanceToWWSelections
-    vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
-    gentopjets_deta_sel.reset(new deltaEtaGenTopjetSelection()); // see VBFresonanceToWWSelections
-    invMgentopjet_sel.reset(new invMassGenTopjetSelection()); // see VBFresonanceToWWSelections
+    // noOverlapping_genjetsel.reset(new deltaRGenTopjetSelection()); // see VBFresonanceToWWSelections
+    // eta_topgensel.reset(new EtaGenTopjetSelection()); // see VBFresonanceToWWSelections
+    // cleaner_topgensel.reset(new PtGenTopjetSelection()); // see VBFresonanceToWWSelections
+    // vbfdeta_gensel.reset(new VBFdeltaEtaGenjetSelection()); // see VBFresonanceToWWSelections
+    // vbfetasign_gensel.reset(new VBFEtaSignGenjetSelection()); // see VBFresonanceToWWSelections
+    // vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
+    // gentopjets_deta_sel.reset(new deltaEtaGenTopjetSelection()); // see VBFresonanceToWWSelections
+    // invMgentopjet_sel.reset(new invMassGenTopjetSelection()); // see VBFresonanceToWWSelections
 
     if(PRINT) cout << "reset sel" <<endl;
 
@@ -423,6 +429,9 @@ namespace uhh2examples {
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
+
+    h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compareSD"));
+
 
     h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass"));
     h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
@@ -473,19 +482,21 @@ namespace uhh2examples {
     h_topjets_withVBF_tau21.reset(new TopJetHists(ctx, "topjets_withVBF_tau21"));
 
     //genjet
+
     h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
     h_input_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "input_GenTopJet"));
+    h_input_gendijets.reset(new VBFresonanceToWWGenDiJetHists(ctx, "input_GenDiJet"));
     h_input_genjets.reset(new GenJetsHists(ctx, "input_GenJet"));
-    h_eta_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "eta_GenTopJet"));
-    h_cleaner_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "cleaner_GenTopJet"));
-    h_cleaner_genjets.reset(new GenJetsHists(ctx, "cleaner_GenJet"));
-    h_Wgentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "deta_GenTopJet"));
-    h_Wgentopjets_invM.reset(new VBFresonanceToWWGenTopJetHists(ctx, "invM_GenTopJet"));
-    h_Wgentopjets_VBF.reset(new VBFresonanceToWWGenTopJetHists(ctx, "VBF_GenTopJet"));
-    h_vbfdeltaeta_genjets.reset(new GenJetsHists(ctx, "vbfdeltaeta_GenJet"));
-    h_vbfetasign_genjets.reset(new GenJetsHists(ctx, "vbfetasign_GenJet"));
-    h_vbfeta_genjets.reset(new GenJetsHists(ctx, "vbfeta_GenJet"));
-    h_vbfW_genjets.reset(new GenJetsHists(ctx, "vbfW_GenJet"));
+    // h_eta_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "eta_GenTopJet"));
+    // h_cleaner_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "cleaner_GenTopJet"));
+    // h_cleaner_genjets.reset(new GenJetsHists(ctx, "cleaner_GenJet"));
+    // h_Wgentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "deta_GenTopJet"));
+    // h_Wgentopjets_invM.reset(new VBFresonanceToWWGenTopJetHists(ctx, "invM_GenTopJet"));
+    // h_Wgentopjets_VBF.reset(new VBFresonanceToWWGenTopJetHists(ctx, "VBF_GenTopJet"));
+    // h_vbfdeltaeta_genjets.reset(new GenJetsHists(ctx, "vbfdeltaeta_GenJet"));
+    // h_vbfetasign_genjets.reset(new GenJetsHists(ctx, "vbfetasign_GenJet"));
+    // h_vbfeta_genjets.reset(new GenJetsHists(ctx, "vbfeta_GenJet"));
+    // h_vbfW_genjets.reset(new GenJetsHists(ctx, "vbfW_GenJet"));
 
 
 
@@ -542,6 +553,7 @@ namespace uhh2examples {
     if(isMC)
       {
 	h_input_gentopjets->fill(event);
+	h_input_gendijets->fill(event);
 	h_input_genjets->fill(event);
 	h_input_genparticle->fill(event);
       }
@@ -663,65 +675,62 @@ namespace uhh2examples {
 
 
     //genjet
-    if(isMC)
-      {
+    // if(isMC)
+    //   {
 	
-	bool noOverlapping_genjetselection = noOverlapping_genjetsel->passes(event);
-	bool eta_gentopjetselection = eta_topgensel->passes(event);
-	if(eta_gentopjetselection)
-	  //      if(eta_gentopjetselection && noOverlapping_genjetselection)
-	  {
-	    h_eta_gentopjets->fill(event);
-	  }
-	bool cleaner_gentopjetselection = cleaner_topgensel->passes(event);
-	//      if(eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-	if(eta_gentopjetselection  && cleaner_gentopjetselection ) 
-	  {
-	    h_cleaner_gentopjets->fill(event);
-	  }
-	bool gentopjets_deta_selection = gentopjets_deta_sel->passes(event);
-	if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-	  //      if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-	  {
-	    h_Wgentopjets->fill(event);
-	  }
-	bool invMgentopjet_selection = invMgentopjet_sel->passes(event);
-	//      if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-	if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-	  {
-	    h_Wgentopjets_invM->fill(event);
-	    h_cleaner_genjets->fill(event);
+    // 	bool noOverlapping_genjetselection = noOverlapping_genjetsel->passes(event);
+    // 	bool eta_gentopjetselection = eta_topgensel->passes(event);
+    // 	if(eta_gentopjetselection)
+    // 	  //      if(eta_gentopjetselection && noOverlapping_genjetselection)
+    // 	  {
+    // 	    h_eta_gentopjets->fill(event);
+    // 	  }
+    // 	bool cleaner_gentopjetselection = cleaner_topgensel->passes(event);
+    // 	//      if(eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
+    // 	if(eta_gentopjetselection  && cleaner_gentopjetselection ) 
+    // 	  {
+    // 	    h_cleaner_gentopjets->fill(event);
+    // 	  }
+    // 	bool gentopjets_deta_selection = gentopjets_deta_sel->passes(event);
+    // 	if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
+    // 	  //      if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
+    // 	  {
+    // 	    h_Wgentopjets->fill(event);
+    // 	  }
+    // 	bool invMgentopjet_selection = invMgentopjet_sel->passes(event);
+    // 	//      if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
+    // 	if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
+    // 	  {
+    // 	    h_Wgentopjets_invM->fill(event);
+    // 	    h_cleaner_genjets->fill(event);
 	    
-	  }
-	bool vbfdeta_genselection = vbfdeta_gensel->passes(event);
-	if(vbfdeta_genselection){
-	  h_vbfdeltaeta_genjets->fill(event);
-	}
-	bool vbfetasign_genselection = vbfetasign_gensel->passes(event);
-	if(vbfetasign_genselection)// && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-	  {
-	    h_vbfetasign_genjets->fill(event);
-	  }
-	bool vbfeta_genselection = vbfeta_gensel->passes(event);
-	if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-	  //      if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-	  {
-	    h_vbfW_genjets->fill(event);
-	    //      h_GenDijets->fill(event);
-	  }
+    // 	  }
+    // 	bool vbfdeta_genselection = vbfdeta_gensel->passes(event);
+    // 	if(vbfdeta_genselection){
+    // 	  h_vbfdeltaeta_genjets->fill(event);
+    // 	}
+    // 	bool vbfetasign_genselection = vbfetasign_gensel->passes(event);
+    // 	if(vbfetasign_genselection)// && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
+    // 	  {
+    // 	    h_vbfetasign_genjets->fill(event);
+    // 	  }
+    // 	bool vbfeta_genselection = vbfeta_gensel->passes(event);
+    // 	if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
+    // 	  //      if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
+    // 	  {
+    // 	    h_vbfW_genjets->fill(event);
+    // 	    //      h_GenDijets->fill(event);
+    // 	  }
 	
-	if(vbfeta_genselection)
-	  {
-	    h_vbfeta_genjets->fill(event);
-	    h_Wgentopjets_VBF->fill(event);	
+    // 	if(vbfeta_genselection)
+    // 	  {
+    // 	    h_vbfeta_genjets->fill(event);
+    // 	    h_Wgentopjets_VBF->fill(event);	
 	    
-	  }
+    // 	  }
 	
 	
-      }
-
-
-
+    //   }
 
 
     bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
@@ -738,6 +747,8 @@ namespace uhh2examples {
 	h_topjets_deta->fill(event);
 
     bool invMtopjet_selection = invMtopjet_sel->passes(event);
+    bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
+    bool tau21topjet_selection = tau21topjet_sel->passes(event);
     if(invMtopjet_selection )
       {
 	h_Wtopjets_compare->fill(event);
@@ -745,6 +756,9 @@ namespace uhh2examples {
 	h_Dijets_compare->fill(event);
 	h_jets_compare->fill(event);
 	h_compare->fill(event);
+	if(invMtopjet_SDselection && tau21topjet_selection)
+	  h_Wtopjets_compareSD->fill(event);
+
       }
     bool VVMtopjet_selection = VVmass_sel->passes(event);
     if(VVMtopjet_selection ) //for fit
@@ -764,7 +778,6 @@ namespace uhh2examples {
 	h_Wtopjets_WWMass->fill(event);
 	h_topjets_WWMass->fill(event);
       }
-    bool tau21topjet_selection = tau21topjet_sel->passes(event);
     if(tau21topjet_selection && WWMtopjet_selection)
       {
 	h_Wtopjets_tau21->fill(event);

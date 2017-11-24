@@ -18,7 +18,7 @@
 <!--                   Signal Samples                   -->
       
 
-        <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49976" NEventsMax="1000" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" /> 
             <OutputTree Name="AnalysisTree" /> 

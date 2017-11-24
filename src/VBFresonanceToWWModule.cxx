@@ -264,13 +264,13 @@ namespace uhh2examples {
     topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
-    vbfdeta_gensel.reset(new VBFdeltaEtaGenjetSelection()); // see VBFresonanceToWWSelections
+    //    vbfdeta_gensel.reset(new VBFdeltaEtaGenjetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
-    vbfetasign_gensel.reset(new VBFEtaSignGenjetSelection()); // see VBFresonanceToWWSelections
+    //    vbfetasign_gensel.reset(new VBFEtaSignGenjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
+    //    vbfeta_gensel.reset(new VBFEtaGenjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-    SDmass_sel.reset(new WWMassTopjetSelection()); // see VBFresonanceToWWSelections
+    SDmass_sel.reset(new VVMassTopjetSelection()); // see VBFresonanceToWWSelections
     invMtopjet_sel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
 
     if(PRINT) cout << "reset sel" <<endl;

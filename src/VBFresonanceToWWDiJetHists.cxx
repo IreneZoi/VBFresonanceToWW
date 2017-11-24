@@ -21,39 +21,24 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
   //mass
   book<TH1F>("Mass_1","Mass_{1} [GeV/c^{2}]",100,0,300);
   book<TH1F>("Mass_2","Mass_{2} [GeV/c^{2}]",100,0,300);
-  //mass eta
-  // book<TH1F>("eta_Mass_1","Mass_{1} [GeV/c^{2}]",100,0,300);
-  // book<TH1F>("eta_Mass_2","Mass_{2} [GeV/c^{2}]",100,0,300);
 
   //PT    
   book<TH1F>("PT_1","P_{T,1} [GeV/c]",100,0,1500);
   book<TH1F>("PT_2","P_{T,2} [GeV/c]",100,0,1500);
-  //PT eta   
-  // book<TH1F>("eta_PT_1","P_{T,1} [GeV/c]",100,0,1500);
-  // book<TH1F>("eta_PT_2","P_{T,2} [GeV/c]",100,0,1500);
 
   //energy
   book<TH1F>("Energy_1","E_{1} [GeV]",100,0,2000);
   book<TH1F>("Energy_2","E_{2} [GeV]",100,0,2000);
 
-  //energy eta
-  //book<TH1F>("eta_Energy_1","E_{jj} [GeV]",100,0,2000);
-  //book<TH1F>("eta_Energy_2","E_{jj} [GeV]",100,0,2000);
   
   // Phi 
   book<TH1F>("Phi_1"," #phi_{1} ",100,-M_PI,M_PI);
   book<TH1F>("Phi_2"," #phi_{2} ",100,-M_PI,M_PI);
-  // Phi eta
-  //book<TH1F>("eta_Phi_1"," #phi_{1} ",100,-M_PI,M_PI);
-  //book<TH1F>("eta_Phi_2"," #phi_{2} ",100,-M_PI,M_PI);
   
   //Eta 
   book<TH1F>("Eta_1","#eta_{1}",100,-5,5);
   book<TH1F>("Eta_2","#eta_{2}",100,-5,5);
   //  book<TH1F>("Eta_both","#eta_{2}",100,-5,5);
-  //Eta eta
-  //  book<TH1F>("eta_Eta_1","#eta_{1}",50,-5,5);
-  //book<TH1F>("eta_Eta_2","#eta_{2}",50,-5,5);
 
   //jj
 
