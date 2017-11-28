@@ -73,16 +73,17 @@ bool VBFdeltaEtajetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
     
-    for(unsigned int i = 0; i <event.jets->size(); i++)
-      {
-	for(unsigned int j = i+1; j <event.jets->size(); j++)
-	  {
-	    auto deltaeta = event.jets->at(i).eta()-event.jets->at(j).eta();
+    // for(unsigned int i = 0; i <event.jets->size(); i++)
+    //   {
+    // 	for(unsigned int j = i+1; j <event.jets->size(); j++)
+    // 	  {
+	    auto deltaeta = event.jets->at(0).eta()-event.jets->at(1).eta();
+	    //	    auto deltaeta = event.jets->at(i).eta()-event.jets->at(j).eta();
 	    if( fabs(deltaeta) < deta_min) return false;
             else return true;
-	  }
-      }
-    return true;
+      // 	  }
+      // }
+	    //    return true;
     
 }
 
@@ -93,17 +94,18 @@ VBFEtaSignjetSelection::VBFEtaSignjetSelection(){}
 bool VBFEtaSignjetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
-    for(unsigned int i = 0; i <event.jets->size(); i++)
-      {
-	for(unsigned int j = i+1; j <event.jets->size(); j++)
-	  {
+    // for(unsigned int i = 0; i <event.jets->size(); i++)
+    //   {
+    // 	for(unsigned int j = i+1; j <event.jets->size(); j++)
+    // 	  {
 
-	    auto etaproduct = event.jets->at(i).eta()*event.jets->at(j).eta();
+	    auto etaproduct = event.jets->at(0).eta()*event.jets->at(1).eta();
+	    //	    auto etaproduct = event.jets->at(i).eta()*event.jets->at(j).eta();
 	    if (etaproduct > 0) return false;
 	    else return true;
-	  }
-      }
-    return true;
+    // 	  }
+    //   }
+    // return true;
     
 }
 
@@ -113,18 +115,20 @@ VBFEtajetSelection::VBFEtajetSelection(float deta_min_): deta_min(deta_min_){}
 bool VBFEtajetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
-     for(unsigned int i = 0; i <event.jets->size(); i++)
-      {
-	for(unsigned int j = i+1; j <event.jets->size(); j++)
-	  {
+     // for(unsigned int i = 0; i <event.jets->size(); i++)
+     //  {
+     // 	for(unsigned int j = i+1; j <event.jets->size(); j++)
+     // 	  {
 
-	    auto etaproduct = event.jets->at(i).eta()*event.jets->at(j).eta();
-	    auto deltaeta = event.jets->at(i).eta()-event.jets->at(j).eta();
+	    auto etaproduct = event.jets->at(0).eta()*event.jets->at(1).eta();
+	    auto deltaeta = event.jets->at(0).eta()-event.jets->at(1).eta();
+	    // auto etaproduct = event.jets->at(i).eta()*event.jets->at(j).eta();
+	    // auto deltaeta = event.jets->at(i).eta()-event.jets->at(j).eta();
 	    if (  (fabs(deltaeta) < deta_min) || (etaproduct > 0)) return false;
 	    else return true;
-	  }
-      }
-     return true;
+     // 	  }
+     //  }
+     // return true;
 }
 
 

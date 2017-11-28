@@ -785,11 +785,11 @@ namespace uhh2examples {
       }
 
     
-       // Selections for AK4
-       bool jets2_selection = jet2_sel->passes(event);
-       if(!jets2_selection) return false;
-       
-       h_jets_2jetsel->fill(event);
+    // Selections for AK4
+    bool jets2_selection = jet2_sel->passes(event);
+    if(!jets2_selection) return false;
+    
+    h_jets_2jetsel->fill(event);
 
     bool vbfdeta_selection = vbfdeta_sel->passes(event);
     if(vbfdeta_selection){
