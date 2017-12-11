@@ -935,53 +935,47 @@ namespace uhh2examples {
     bool VVMtopjet_selection = VVmass_sel->passes(event);
     bool WWMtopjet_selection = WWmass_sel->passes(event);
 
-    if(VVMtopjet_selection ) //for fit
+    if(WWMtopjet_selection )
       {
-	h_Wtopjets_VVMass->fill(event);
-	h_topjets_VVMass->fill(event);
-	h_Dijets_VVMass->fill(event);
-	h_jets_VVMass->fill(event);
-	h_VVMass->fill(event);
-
-	if(tau21topjet_selection)
-	  {
-	    h_Wtopjets_tau21->fill(event);
-	    h_topjets_tau21->fill(event);
-	  }
-	if(tau21topjet04_selection)
-	  {
-	    h_Wtopjets_tau21_04->fill(event);
-	    h_topjets_tau21_04->fill(event);
-	  }
-	if(tau21topjet05_selection)
-	  {
-	    h_Wtopjets_tau21_05->fill(event);
-	    h_topjets_tau21_05->fill(event);
-	  }
-	if(tau21topjet06_selection)
-	  {
-	    h_Wtopjets_tau21_06->fill(event);
-	    h_topjets_tau21_06->fill(event);
-	  }
-
-     
-
-	if(WWMtopjet_selection )
-	  {
-	    h_Wtopjets_WWMass->fill(event);
-	    h_topjets_WWMass->fill(event);
-	  }
-	if(tau21topjet_selection && WWMtopjet_selection)
-	  {
-	    h_Wtopjets_tau21WW->fill(event);
-	    h_topjets_tau21WW->fill(event);
-	  }
-
-      }    
-
-
+	h_Wtopjets_WWMass->fill(event);
+	h_topjets_WWMass->fill(event);
+      }
+    if(tau21topjet_selection && WWMtopjet_selection)
+      {
+	h_Wtopjets_tau21WW->fill(event);
+	h_topjets_tau21WW->fill(event);
+      }
+    
     if(!VVMtopjet_selection) return false;
+    
+    h_Wtopjets_VVMass->fill(event);
+    h_topjets_VVMass->fill(event);
+    h_Dijets_VVMass->fill(event);
+    h_jets_VVMass->fill(event);
+    h_VVMass->fill(event);
 
+    if(tau21topjet_selection)
+      {
+	h_Wtopjets_tau21->fill(event);
+	h_topjets_tau21->fill(event);
+      }
+    if(tau21topjet04_selection)
+      {
+	h_Wtopjets_tau21_04->fill(event);
+	h_topjets_tau21_04->fill(event);
+      }
+    if(tau21topjet05_selection)
+      {
+	h_Wtopjets_tau21_05->fill(event);
+	h_topjets_tau21_05->fill(event);
+      }
+    if(tau21topjet06_selection)
+      {
+	h_Wtopjets_tau21_06->fill(event);
+	h_topjets_tau21_06->fill(event);
+      }
+    
+     
     // Selections for AK4
     bool jets2_selection = jet2_sel->passes(event);
     if(!jets2_selection) return false;
@@ -996,10 +990,11 @@ namespace uhh2examples {
     // }
     
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
-    if(vbfetasign_selection){
-      h_jets_vbfetasign->fill(event);
-      if(PRINT) cout << "vbfeta_sign jets" <<endl;
-    }
+    if(!vbfetasign_selection) return false;
+    
+    h_jets_vbfetasign->fill(event);
+    if(PRINT) cout << "vbfeta_sign jets" <<endl;
+    
 
     bool vbfeta_selection = vbfeta_sel->passes(event);
     bool vbfeta4_selection = vbfeta4_sel->passes(event);
@@ -1044,11 +1039,10 @@ namespace uhh2examples {
 	      }   
     
 	    if(PRINT) cout << "jets tau and SD" <<endl;
-	    
-	    
-	  }
+	    	    
+	  }//invM1000
 	
-      }	  
+      }	//VBF VV (VBF delta eta sel)  
 
     if(!invM1000jet_selection) return false;
 

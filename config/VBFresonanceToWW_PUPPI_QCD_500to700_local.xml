@@ -4,12 +4,12 @@
 
 <!--                   Background                   -->
 
-<!ENTITY MC_QCD_HT1500to2000 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/MC_QCD_HT1500to2000.xml">
+<!ENTITY MC_QCD_HT500to700 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/MC_QCD_HT500to700.xml">
  ]>
 
 <!--
 <ConfigParse NEventsBreak="50000" FileSplit="0" />
-<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_trying"/>
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_QCD_500to700"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -17,16 +17,15 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/tau21_eta/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Background                   -->
 
- <InputData Version="MC_QCD_HT1500to2000" Lumi="98190.300" Type="MC" NEventsMax="-1" Cacheable="False">
-      &MC_QCD_HT1500to2000; <InputTree Name="AnalysisTree"/> 
+<InputData Version="MC_QCD_HT500to700" Lumi="1938.622" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT500to700; <InputTree Name="AnalysisTree"/>
     <!--  <OutputTree Name="AnalysisTree"/> -->
 </InputData> 
-
 
            
         <UserConfig>
@@ -42,7 +41,7 @@
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
 <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
-
+           <Item Name="channel" Value="qcd" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
                  PrimaryVertexCollection
@@ -69,7 +68,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWFitModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
