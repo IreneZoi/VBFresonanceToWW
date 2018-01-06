@@ -50,6 +50,8 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 20,0,1); 
 
   book<TH1F>("invMass","M_{jj} [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_check2AK4","M_{jj} [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_check1AK4","M_{jj} [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("invMass_checkLeptons","M_{jj} [GeV/c^{2}]",3,1000,1600);
   book<TH1F>("pdgID","pdgID",33,-16,16);
   book<TH1F>("pdgID_checkLeptons","pdgID",33,-16,16);
@@ -62,15 +64,16 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
 
 
   //  h_topjets = ctx.get_handle<std::vector <TopJet> >("topjets");
-  //  h_particles = ctx.get_handle<std::vector <GenParticle> >("genparticles");
+  h_jets = ctx.get_handle<std::vector <Jet> >("jets");
+  h_particles = ctx.get_handle<std::vector <GenParticle> >("genparticles");
   isMC = (ctx.get("dataset_type") == "MC");
  }
 
 
 void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
   assert(event.topjets);
-  // if(isMC)
-  //   assert(event.genparticles);
+  if(isMC)
+    assert(event.genparticles);
 
   
 
@@ -153,20 +156,35 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 	hist("invMass_checkLeptons")->Fill(mass, weight);
 
 
-      // const std::vector<GenParticle> &  genp = event.get(h_particles);
-      // if(isMC)
-      // 	{ 
+      if(isMC)
+      	{ 
+	  const std::vector<GenParticle> &  genp = event.get(h_particles);
+	  const std::vector<Jet> &  ak4 = event.get(h_jets);
+
+	  //	  for(unsigned int i=0; i<event.genp->size(); i++)
+	  const GenParticle & gq1 = genp[3];
+	  const GenParticle & gq2 = genp[4];
+	  if(ak4.size()>2)
+	    {
+	      const Jet & j1 = ak4[0];
+	      const Jet & j2 = ak4[1];
+	      
+	      if((deltaR(j1,gq1)<0.2 && deltaR(j2,gq2)<0.2)||(deltaR(j2,gq1)<0.2 && deltaR(j1,gq2)<0.2))
+		  hist("invMass_check2AK4")->Fill(mass, weight);
+	      if(deltaR(j1,gq1)<0.2 || deltaR(j2,gq2)<0.2 || deltaR(j2,gq1)<0.2 || deltaR(j1,gq2)<0.2)
+		  hist("invMass_check1AK4")->Fill(mass, weight);
+		
+	    }
       // 	    {
       // 	      for(int i =0;i<4;i++)
       // 		{
-      // 		  const GenParticle & gpd = genp[i+7];
       // 		  hist("pdgID")->Fill(gpd.pdgId(), weight);
 		  
       // 		  if(mass< 1600)
       // 		    hist("pdgID_checkLeptons")->Fill(gpd.pdgId(), weight);
       // 		}
       // 	    }
-      // 	}
+     	}
       hist("invMass_forfit")->Fill(mass, weight);
       hist("invMass_rootfile")->Fill(mass, weight);
       float deta = jet->at(0).eta() - jet->at(1).eta();

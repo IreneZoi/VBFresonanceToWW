@@ -18,7 +18,7 @@ class VBFresonanceToWW_WTopJetHists : public uhh2::Hists{
  protected:
     TH1F *pt, *eta, *phi, *mass, *chf, *tau1, *tau2;
     //uhh2::Event::Handle<GenTopJet> h_gentopjets;
-    //    uhh2::Event::Handle<std::vector <TopJet>  > h_topjets;
+    uhh2::Event::Handle<std::vector <Jet>  > h_jets;
     bool isMC;
-    //    uhh2::Event::Handle<std::vector <GenParticle>  > h_particles;
+    uhh2::Event::Handle<std::vector <GenParticle>  > h_particles;
 };
