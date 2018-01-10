@@ -141,6 +141,9 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_topjets_noOverlapping;
     std::unique_ptr<Hists> h_jets_noOverlapping;
 
+    std::unique_ptr<Hists> h_Wtopjets_noOverlapping_eta;
+    std::unique_ptr<Hists> h_jets_noOverlapping_eta;
+
     std::unique_ptr<Hists> h_topjets_2topjetsel;
     std::unique_ptr<Hists> h_Wtopjets_2topjetsel;
     
@@ -474,8 +477,8 @@ namespace uhh2examples {
       }
 
 
-    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
-    //    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
+    //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
+    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
     //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     
@@ -579,6 +582,9 @@ namespace uhh2examples {
     h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
     h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
 
+    h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping_eta"));
+    h_jets_noOverlapping_eta.reset(new JetHists(ctx, "jets_noOverlapping_eta"));
+
     h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_invM"));
     h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
 
@@ -629,11 +635,16 @@ namespace uhh2examples {
     h_jets_vbfetasign.reset(new JetHists(ctx, "jets_vbfetasign"));
     h_Wtopjets_vbfetasign.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_vbfetasign"));
 
-    h_Dijets_VBF.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF"));
-    h_jets_VBF.reset(new JetHists(ctx, "jets_VBF"));
-    h_Wtopjets_withVBF.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF"));
-    h_topjets_withVBF.reset(new TopJetHists(ctx, "topjets_withVBF"));
+    // h_Dijets_VBF.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF"));
+    // h_jets_VBF.reset(new JetHists(ctx, "jets_VBF"));
+    // h_Wtopjets_withVBF.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF"));
+    // h_topjets_withVBF.reset(new TopJetHists(ctx, "topjets_withVBF"));
 
+    h_VBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "VBF_VVMass"));
+    h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
+    h_jets_VBF_VVMass.reset(new JetHists(ctx, "jets_VBF_VVMass"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
+    h_topjets_withVBF_VVMass.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass"));
 
     h_Dijets_VBF_invM500.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM500"));
     h_Wtopjets_withVBF_invM500.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM500"));
@@ -661,11 +672,6 @@ namespace uhh2examples {
 
 
 
-    h_VBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "VBF_VVMass"));
-    h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
-    h_jets_VBF_VVMass.reset(new JetHists(ctx, "jets_VBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
-    h_topjets_withVBF_VVMass.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass"));
 
     /*
     h_Wtopjets_withVBF_tau21.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_tau21"));
@@ -938,6 +944,9 @@ namespace uhh2examples {
     h_topjets_noOverlapping->fill(event);
     h_Wtopjets_noOverlapping->fill(event);
     h_jets_noOverlapping->fill(event);
+    sort_by_eta<Jet>(*event.jets);
+    h_Wtopjets_noOverlapping_eta->fill(event);
+    h_jets_noOverlapping_eta->fill(event);
 
 
     //genjet
