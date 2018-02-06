@@ -482,8 +482,8 @@ namespace uhh2examples {
       }
 
 
-    //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
-    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
+    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
+    //jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
     //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     

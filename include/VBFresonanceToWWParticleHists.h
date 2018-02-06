@@ -19,5 +19,9 @@ class VBFresonanceToWWParticleHists : public uhh2::Hists{
     //uhh2::Event::Handle<GenTopJet> h_gentopjets;
     uhh2::Event::Handle<std::vector <GenParticle>  > h_particles;
 
+    TH2F *Wpt1_Wpt2;
+    TH2F *Weta1_Weta2;
+    TH2F *Weta1_Weta2_low;
+    TH2F *Weta1_Weta2_high;
 
 };

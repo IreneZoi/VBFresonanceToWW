@@ -49,14 +49,14 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("TAU2_2","#tau_{2_{2}}",20,0,1);
   book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 20,0,1); 
 
-  book<TH1F>("invMass","M_{jj} [GeV/c^{2}]",30,1000,7000);
-  book<TH1F>("invMass_check2AK4","M_{jj} [GeV/c^{2}]",30,1000,7000);
-  book<TH1F>("invMass_check1AK4","M_{jj} [GeV/c^{2}]",30,1000,7000);
-  book<TH1F>("invMass_checkLeptons","M_{jj} [GeV/c^{2}]",3,1000,1600);
+  book<TH1F>("invMass","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_check2AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_check1AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_checkLeptons","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("pdgID","pdgID",33,-16,16);
   book<TH1F>("pdgID_checkLeptons","pdgID",33,-16,16);
-  book<TH1F>("invMass_forfit","M_{jj} [GeV/c^{2}]",30,1050,4050);
-  book<TH1F>("invMass_rootfile","M_{jj} [GeV/c^{2}]",13000,0,13000);
+  book<TH1F>("invMass_forfit","M_{jj}-AK8 [GeV/c^{2}]",30,1050,4050);
+  book<TH1F>("invMass_rootfile","M_{jj}-AK8 [GeV/c^{2}]",13000,0,13000);
 
   book<TH1F>("delta_eta","#Delta #eta_{jj}",80,-5,5);
   book<TH1F>("delta_phi","#Delta #phi_{jj}",200,-2*M_PI,2*M_PI);
@@ -152,8 +152,8 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 
       float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
       hist("invMass")->Fill(mass, weight);
-      if(mass< 1600)
-	hist("invMass_checkLeptons")->Fill(mass, weight);
+
+      //      if(mass< 1600)
 
 
       if(isMC)
@@ -175,15 +175,53 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 		  hist("invMass_check1AK4")->Fill(mass, weight);
 		
 	    }
-      // 	    {
-      // 	      for(int i =0;i<4;i++)
-      // 		{
-      // 		  hist("pdgID")->Fill(gpd.pdgId(), weight);
-		  
-      // 		  if(mass< 1600)
-      // 		    hist("pdgID_checkLeptons")->Fill(gpd.pdgId(), weight);
-      // 		}
-      // 	    }
+	  GenParticle qW1;
+	  GenParticle qW2;
+	  GenParticle qW3;
+	  GenParticle qW4;
+	  int k = 0;
+	  bool quark=false;
+	  //std::cout << " new" << std::endl;
+  for(unsigned int i=0; i<genp.size(); i++)
+    {
+	
+      const GenParticle & gp = genp[i];
+      if(
+	 abs(gp.pdgId())>0 
+	 && abs(gp.pdgId())<7 
+	 && gp.mother1()>0 
+	 && gp.mother2()>gp.mother1()
+	 )
+	{
+	  if(k==0)
+	    {
+	      qW1 = gp;
+	      //std::cout<< k <<std::endl;
+	    }
+	  if(k==1)
+	    {
+	    qW2 = gp;
+	      //std::cout<< k <<std::endl;
+	    }
+	  if(k==2)
+	    {
+	    qW3 = gp;
+	      //std::cout<< k <<std::endl;
+	    }
+	  if(k==3)
+	    {
+	      qW4 = gp;
+	      //	      k=0;
+	      quark = true;
+	      //std::cout<< k <<std::endl;
+	    }
+	  k++;
+	}
+  }
+
+  if(quark) 	hist("invMass_checkLeptons")->Fill(mass, weight);
+
+
      	}
       hist("invMass_forfit")->Fill(mass, weight);
       hist("invMass_rootfile")->Fill(mass, weight);

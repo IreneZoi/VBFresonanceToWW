@@ -168,6 +168,8 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_jets_VVMass;
     std::unique_ptr<Hists> h_VVMass;
 
+    std::unique_ptr<Hists> h_Wtopjets_AK4cleaner;
+    std::unique_ptr<Hists> h_jets_AK4cleaner;
     /*    
     std::unique_ptr<Hists> h_Wtopjets_tau21;
     std::unique_ptr<Hists> h_topjets_tau21;
@@ -605,6 +607,10 @@ namespace uhh2examples {
     h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
+
+    h_Wtopjets_AK4cleaner.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_AK4cleaner"));
+    h_jets_AK4cleaner.reset(new JetHists(ctx, "jets_AK4cleaner"));
+
     /*
     h_Wtopjets_tau21.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_tau21"));
     h_topjets_tau21.reset(new TopJetHists(ctx, "topjets_tau21"));
@@ -807,7 +813,7 @@ namespace uhh2examples {
 
     bool pass_cm = common->process(event);
     if(!pass_cm) return false; 
-    //    if(PRINT)     Gen_printer->process(event);
+    //    if(PRINT)    Gen_printer->process(event);
 
     h_commonmod->fill(event);
     h_topjets_commonmod->fill(event);
@@ -820,6 +826,8 @@ namespace uhh2examples {
     // 2. test selections and fill histograms
     if(isMC)
       {
+	sort_by_pt<GenTopJet>(*event.gentopjets);
+
 	h_input_gentopjets->fill(event);
 	h_input_gendijets->fill(event);
 	h_input_genjets->fill(event);
@@ -889,7 +897,7 @@ namespace uhh2examples {
 
     h_Wtopjets_jec->fill(event);
 
-    jetcleaner->process(event);
+    //    jetcleaner->process(event);
     topjetcleaner->process(event);
 
     h_cleaner->fill(event);
@@ -944,9 +952,9 @@ namespace uhh2examples {
     h_topjets_noOverlapping->fill(event);
     h_Wtopjets_noOverlapping->fill(event);
     h_jets_noOverlapping->fill(event);
-    sort_by_eta<Jet>(*event.jets);
-    h_Wtopjets_noOverlapping_eta->fill(event);
-    h_jets_noOverlapping_eta->fill(event);
+    //    sort_by_eta<Jet>(*event.jets);
+    //h_Wtopjets_noOverlapping_eta->fill(event);
+    //h_jets_noOverlapping_eta->fill(event);
 
 
     //genjet
@@ -1062,6 +1070,9 @@ namespace uhh2examples {
     h_jets_VVMass->fill(event);
     h_VVMass->fill(event);
 
+    jetcleaner->process(event);
+    h_Wtopjets_AK4cleaner->fill(event);
+    h_jets_AK4cleaner->fill(event);
     /*
     if(tau21topjet_selection)
       {
