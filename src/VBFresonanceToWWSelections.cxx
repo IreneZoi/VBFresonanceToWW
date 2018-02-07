@@ -51,20 +51,12 @@ bool ElectronVeto::passes(const Event & event){
 }
 
 
-DijetSelection::DijetSelection(float dphi_min_, float third_frac_max_): dphi_min(dphi_min_), third_frac_max(third_frac_max_){}
+DijetInvSelection::DijetInvSelection(float size_max_): size_max(size_max_){}
     
-bool DijetSelection::passes(const Event & event){
+bool DijetInvSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
-    if(event.jets->size() < 2) return false;
-    const auto & jet0 = event.jets->at(0);
-    const auto & jet1 = event.jets->at(1);
-    auto dphi = deltaPhi(jet0, jet1);
-    if(dphi < dphi_min) return false;
-    if(event.jets->size() == 2) return true;
-    const auto & jet2 = event.jets->at(2);
-    auto third_jet_frac = jet2.pt() / (0.5 * (jet0.pt() + jet1.pt()));
-    return third_jet_frac < third_frac_max;
-
+    if(event.jets->size() >= size_max) return false;
+    else return true;
 }
 
 VBFdeltaEtajetSelection::VBFdeltaEtajetSelection(float deta_min_): deta_min(deta_min_){}
@@ -109,6 +101,19 @@ bool VBFEtaSignjetSelection::passes(const Event & event){
     
 }
 
+VBFEtaSignjetInvSelection::VBFEtaSignjetInvSelection(){}
+    
+bool VBFEtaSignjetInvSelection::passes(const Event & event){
+    assert(event.jets); // if this fails, it probably means jets are not read in
+    if(event.jets->size() >= 2) 
+      {
+	auto etaproduct = event.jets->at(0).eta()*event.jets->at(1).eta();
+	if (etaproduct <= 0) return false;
+	else return true;
+      }
+    else return true;
+}
+
 
 VBFEtajetSelection::VBFEtajetSelection(float deta_min_): deta_min(deta_min_){}
     
@@ -129,6 +134,20 @@ bool VBFEtajetSelection::passes(const Event & event){
      // 	  }
      //  }
      // return true;
+}
+
+
+VBFEtajetInvSelection::VBFEtajetInvSelection(float deta_max_): deta_max(deta_max_){}
+    
+bool VBFEtajetInvSelection::passes(const Event & event){
+    assert(event.jets); // if this fails, it probably means jets are not read in
+    if(event.jets->size() >= 2) 
+      {
+	auto deltaeta = event.jets->at(0).eta()-event.jets->at(1).eta();
+	if (  (fabs(deltaeta) >= deta_max) ) return false;
+	else return true;
+      }
+    else return true;
 }
 
 
@@ -231,6 +250,22 @@ bool invMassVBFjetSelection::passes(const Event & event){
 	  else return true;
 
 	  if(PRINT) cout << "end SD mass selection" <<endl;
+}
+
+
+invMassVBFjetInvSelection::invMassVBFjetInvSelection(float invM_max_): invM_max(invM_max_){}
+
+bool invMassVBFjetInvSelection::passes(const Event & event){
+  assert(event.jets); // if this fails, it probably means jets are not read in                                                                                                                          
+  if(event.jets->size() >= 2)
+    {
+      auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
+      if( invariantMass >= invM_max) return false;
+      else return true;
+    }
+  else return true;
+
+  if(PRINT) cout << "end SD mass selection" <<endl;
 }
 
 

@@ -30,12 +30,12 @@ private:
 };
 
 
-class DijetSelection: public uhh2::Selection {
+class DijetInvSelection: public uhh2::Selection {
 public:
-    DijetSelection(float dphi_min = 2.7f, float third_frac_max = 0.2f);
+    DijetInvSelection(float size_max = 2.f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
-    float dphi_min, third_frac_max;
+    float size_max;
 };
 
 class VBFdeltaEtajetSelection: public uhh2::Selection {
@@ -55,6 +55,14 @@ private:
    
 };
 
+class VBFEtaSignjetInvSelection: public uhh2::Selection {
+public:
+    VBFEtaSignjetInvSelection();
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+   
+};
+
 
 class VBFEtajetSelection: public uhh2::Selection {
 public:
@@ -62,6 +70,14 @@ public:
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float deta_min;
+};
+
+class VBFEtajetInvSelection: public uhh2::Selection {
+public:
+    VBFEtajetInvSelection(float deta_max = 3.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float deta_max;
 };
 
 
@@ -105,6 +121,17 @@ public:
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float invM_min;
+};
+
+
+
+
+class invMassVBFjetInvSelection: public uhh2::Selection {
+public:
+    invMassVBFjetInvSelection(float invM_max = 500.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float invM_max;
 };
 
 }
