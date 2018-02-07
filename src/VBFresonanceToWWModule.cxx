@@ -258,7 +258,7 @@ namespace uhh2examples {
     
     // 2. set up selections
     njet_sel.reset(new NJetSelection(2)); // see common/include/NSelections.h
-    dijet_sel.reset(new DijetSelection()); // see VBFresonanceToWWSelections
+    //    dijet_sel.reset(new DijetSelection()); // see VBFresonanceToWWSelections
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
     jet1_sel.reset(new NJetSelection(1)); // at least 1 jets      
     topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets

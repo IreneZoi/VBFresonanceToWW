@@ -36,11 +36,11 @@ namespace uhh2examples {
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
-  class VBFresonanceToWWFitModule: public AnalysisModule {
+  class VBFresonanceToWWTestModule: public AnalysisModule {
   public:
     
 
-    explicit VBFresonanceToWWFitModule(Context & ctx);
+    explicit VBFresonanceToWWTestModule(Context & ctx);
     virtual bool process(Event & event) override;
 
   private:
@@ -170,6 +170,7 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_Wtopjets_AK4cleaner;
     std::unique_ptr<Hists> h_jets_AK4cleaner;
+
     /*    
     std::unique_ptr<Hists> h_Wtopjets_tau21;
     std::unique_ptr<Hists> h_topjets_tau21;
@@ -201,6 +202,11 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_jets_vbfetasign;
     std::unique_ptr<Hists> h_Wtopjets_vbfetasign;
     
+    std::unique_ptr<Hists> h_jets_VBF;
+    std::unique_ptr<Hists> h_Dijets_VBF;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF;
+    std::unique_ptr<Hists> h_topjets_withVBF;
+
     std::unique_ptr<Hists> h_VBF_VVMass;
     std::unique_ptr<Hists> h_jets_VBF_VVMass;
     std::unique_ptr<Hists> h_Dijets_VBF_VVMass;
@@ -354,13 +360,13 @@ namespace uhh2examples {
   };
 
 
-  VBFresonanceToWWFitModule::VBFresonanceToWWFitModule(Context & ctx){
+  VBFresonanceToWWTestModule::VBFresonanceToWWTestModule(Context & ctx){
     // In the constructor, the typical tasks are to initialize the
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
     
-    cout << "Hello World from VBFresonanceToWWFitModule!" << endl;
+    cout << "Hello World from VBFresonanceToWWTestModule!" << endl;
 
     Gen_printer.reset(new GenParticlesPrinter(ctx));
     
@@ -767,7 +773,7 @@ namespace uhh2examples {
   }
 
 
-  bool VBFresonanceToWWFitModule::process(Event & event) {
+  bool VBFresonanceToWWTestModule::process(Event & event) {
     // This is the main procedure, called for each event. Typically,
     // do some pre-processing by calling the modules' process method
     // of the modules constructed in the constructor (1).
@@ -778,7 +784,7 @@ namespace uhh2examples {
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
     
-    if(PRINT)    cout << "VBFresonanceToWWFitModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
+    if(PRINT)    cout << "VBFresonanceToWWTestModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
 
     /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
@@ -892,7 +898,6 @@ namespace uhh2examples {
 
     h_Wtopjets_jec->fill(event);
 
-    //    jetcleaner->process(event);
     topjetcleaner->process(event);
 
     h_cleaner->fill(event);
@@ -947,9 +952,9 @@ namespace uhh2examples {
     h_topjets_noOverlapping->fill(event);
     h_Wtopjets_noOverlapping->fill(event);
     h_jets_noOverlapping->fill(event);
-    //    sort_by_eta<Jet>(*event.jets);
-    //h_Wtopjets_noOverlapping_eta->fill(event);
-    //h_jets_noOverlapping_eta->fill(event);
+    sort_by_eta<Jet>(*event.jets);
+    h_Wtopjets_noOverlapping_eta->fill(event);
+    h_jets_noOverlapping_eta->fill(event);
 
 
     //genjet
@@ -1068,6 +1073,7 @@ namespace uhh2examples {
     jetcleaner->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
     h_jets_AK4cleaner->fill(event);
+
     /*
     if(tau21topjet_selection)
       {
@@ -1369,7 +1375,7 @@ namespace uhh2examples {
 
 
   // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
-  // make sure the VBFresonanceToWWFitModule is found by class name. This is ensured by this macro:
-  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWFitModule)
+  // make sure the VBFresonanceToWWTestModule is found by class name. This is ensured by this macro:
+  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWTestModule)
 
 }
