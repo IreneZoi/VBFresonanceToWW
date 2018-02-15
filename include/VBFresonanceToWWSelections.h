@@ -109,10 +109,10 @@ private:
 
 class nSubjTopjetSelection: public uhh2::Selection {
 public:
-    nSubjTopjetSelection(float tau21_max = 0.35f);
+    nSubjTopjetSelection(float tau21_min = 0.f, float tau21_max = 0.35f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
-    float tau21_max;
+    float tau21_min, tau21_max;
 };
 
 class invMassVBFjetSelection: public uhh2::Selection {

@@ -98,14 +98,15 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
     std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
-    std::unique_ptr<Selection> tau21topjet_sel, tau21topjet04_sel, tau21topjet05_sel, tau21topjet06_sel, tau21topjet07_sel;
+    std::unique_ptr<Selection> tau21topjetHP_sel, tau21topjetLP_sel;//tau21topjet04_sel, tau21topjet05_sel, tau21topjet06_sel, tau21topjet07_sel;
     //VBF jets
     std::unique_ptr<Selection> jet2_sel;
     std::unique_ptr<Selection> vbfdeta_sel, vbfdeta4_sel, vbfdeta5_sel, vbfdeta6_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
     std::unique_ptr<Selection> vbfeta_sel, vbfeta4_sel, vbfeta5_sel, vbfeta6_sel;
-    std::unique_ptr<Selection> invM500_sel, invM1000_sel, invM1500_sel, invM2000_sel;
-    std::unique_ptr<Selection> invM2500_sel, invM3000_sel, invM3500_sel, invM4000_sel;
+    std::unique_ptr<Selection> invM1500_sel;
+    // std::unique_ptr<Selection> invM500_sel, invM1000_sel, invM1500_sel, invM2000_sel;
+    // std::unique_ptr<Selection> invM2500_sel, invM3000_sel, invM3500_sel, invM4000_sel;
     //    std::unique_ptr<Selection> invM400_sel, invM600_sel, invM800_sel, invM1200_sel;
     //genjet
     //    std::unique_ptr<Selection> eta_topgensel, cleaner_topgensel, gentopjets_deta_sel, invMgentopjet_sel, noOverlapping_genjetsel, vbfdeta_gensel , vbfetasign_gensel, vbfeta_gensel;
@@ -168,6 +169,16 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_jets_VVMass;
     std::unique_ptr<Hists> h_VVMass;
 
+    std::unique_ptr<Hists> h_Wtopjets_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_topjets_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_Dijets_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_jets_VVMass_tau21HP;
+
+    std::unique_ptr<Hists> h_Wtopjets_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_topjets_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_Dijets_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_jets_VVMass_tau21LP;
+
     std::unique_ptr<Hists> h_Wtopjets_AK4cleaner;
     std::unique_ptr<Hists> h_jets_AK4cleaner;
     /*    
@@ -207,15 +218,39 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass;
     std::unique_ptr<Hists> h_topjets_withVBF_VVMass;
 
-    std::unique_ptr<Hists> h_Dijets_VBF_invM500;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM500;
-    
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_topjets_withVBF_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_jets_VBF_VVMass_tau21HP;
+    std::unique_ptr<Hists> h_Dijets_VBF_VVMass_tau21HP;
+
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_topjets_withVBF_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_jets_VBF_VVMass_tau21LP;
+    std::unique_ptr<Hists> h_Dijets_VBF_VVMass_tau21LP;
     
     std::unique_ptr<Hists> h_Dijets_VBF_invM1500;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1500;
+
+    std::unique_ptr<Hists> h_Dijets_VBF_invM1500_tau21HP;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1500_tau21HP;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM1500_tau21LP;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1500_tau21LP;
     
+
+
+    /*
+    std::unique_ptr<Hists> h_Dijets_VBF_invM400;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM400;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM500;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM500;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM600;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM600;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM800;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM1200;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1200;
     std::unique_ptr<Hists> h_Dijets_VBF_invM2000;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM2000;
 
@@ -230,19 +265,8 @@ namespace uhh2examples {
     
     std::unique_ptr<Hists> h_Dijets_VBF_invM4000;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM4000;
+  
 
-
-    /*
-    std::unique_ptr<Hists> h_Dijets_VBF_invM400;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM400;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM600;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM600;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM800;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1200;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1200;
     */
 
     /*
@@ -506,11 +530,12 @@ namespace uhh2examples {
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
     WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
-    tau21topjet_sel.reset(new nSubjTopjetSelection()); // see VBFresonanceToWWSelections
-    tau21topjet04_sel.reset(new nSubjTopjetSelection(0.4f)); // see VBFresonanceToWWSelections
-    tau21topjet05_sel.reset(new nSubjTopjetSelection(0.5f)); // see VBFresonanceToWWSelections
-    tau21topjet06_sel.reset(new nSubjTopjetSelection(0.6f)); // see VBFresonanceToWWSelections
-    tau21topjet07_sel.reset(new nSubjTopjetSelection(0.7f)); // see VBFresonanceToWWSelections
+    tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
+    tau21topjetLP_sel.reset(new nSubjTopjetSelection(0.35f,0.75f)); // see VBFresonanceToWWSelections
+    // tau21topjet04_sel.reset(new nSubjTopjetSelection(0.4f)); // see VBFresonanceToWWSelections
+    // tau21topjet05_sel.reset(new nSubjTopjetSelection(0.5f)); // see VBFresonanceToWWSelections
+    // tau21topjet06_sel.reset(new nSubjTopjetSelection(0.6f)); // see VBFresonanceToWWSelections
+    // tau21topjet07_sel.reset(new nSubjTopjetSelection(0.7f)); // see VBFresonanceToWWSelections
 
     //    jet1_sel.reset(new NJetSelection(1)); // at least 1 jets      
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
@@ -520,14 +545,14 @@ namespace uhh2examples {
     vbfeta4_sel.reset(new VBFEtajetSelection(4.0f)); // see VBFresonanceToWWSelections
     vbfeta5_sel.reset(new VBFEtajetSelection(5.0f)); // see VBFresonanceToWWSelections
     vbfeta6_sel.reset(new VBFEtajetSelection(6.0f)); // see VBFresonanceToWWSelections
-    invM500_sel.reset(new invMassVBFjetSelection()); // see VBFresonanceToWWSelections
-    invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
     invM1500_sel.reset(new invMassVBFjetSelection(1500.0f)); // see VBFresonanceToWWSelections
-    invM2000_sel.reset(new invMassVBFjetSelection(2000.0f)); // see VBFresonanceToWWSelections
-    invM2500_sel.reset(new invMassVBFjetSelection(2500.0f)); // see VBFresonanceToWWSelections
-    invM3000_sel.reset(new invMassVBFjetSelection(3000.0f)); // see VBFresonanceToWWSelections
-    invM3500_sel.reset(new invMassVBFjetSelection(3500.0f)); // see VBFresonanceToWWSelections
-    invM4000_sel.reset(new invMassVBFjetSelection(4000.0f)); // see VBFresonanceToWWSelections
+    // invM500_sel.reset(new invMassVBFjetSelection()); // see VBFresonanceToWWSelections
+    // invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
+    // invM2000_sel.reset(new invMassVBFjetSelection(2000.0f)); // see VBFresonanceToWWSelections
+    // invM2500_sel.reset(new invMassVBFjetSelection(2500.0f)); // see VBFresonanceToWWSelections
+    // invM3000_sel.reset(new invMassVBFjetSelection(3000.0f)); // see VBFresonanceToWWSelections
+    // invM3500_sel.reset(new invMassVBFjetSelection(3500.0f)); // see VBFresonanceToWWSelections
+    // invM4000_sel.reset(new invMassVBFjetSelection(4000.0f)); // see VBFresonanceToWWSelections
     // invM400_sel.reset(new invMassVBFjetSelection(400.0f)); // see VBFresonanceToWWSelections
     // invM600_sel.reset(new invMassVBFjetSelection(600.0f)); // see VBFresonanceToWWSelections
     // invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
@@ -603,6 +628,17 @@ namespace uhh2examples {
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
+    h_Wtopjets_VVMass_tau21HP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass_tau21HP"));
+    h_topjets_VVMass_tau21HP.reset(new TopJetHists(ctx, "topjets_VVMass_tau21HP"));
+    h_Dijets_VVMass_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass_tau21HP"));
+    h_jets_VVMass_tau21HP.reset(new JetHists(ctx, "jets_VVMass_tau21HP"));
+
+    h_Wtopjets_VVMass_tau21LP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass_tau21LP"));
+    h_topjets_VVMass_tau21LP.reset(new TopJetHists(ctx, "topjets_VVMass_tau21LP"));
+    h_Dijets_VVMass_tau21LP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass_tau21LP"));
+    h_jets_VVMass_tau21LP.reset(new JetHists(ctx, "jets_VVMass_tau21LP"));
+
+
     h_Wtopjets_AK4cleaner.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_AK4cleaner"));
     h_jets_AK4cleaner.reset(new JetHists(ctx, "jets_AK4cleaner"));
 
@@ -647,14 +683,32 @@ namespace uhh2examples {
     h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
     h_topjets_withVBF_VVMass.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass"));
 
+    h_Dijets_VBF_VVMass_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass_tau21HP"));
+    h_jets_VBF_VVMass_tau21HP.reset(new JetHists(ctx, "jets_VBF_VVMass_tau21HP"));
+    h_Wtopjets_withVBF_VVMass_tau21HP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_tau21HP"));
+    h_topjets_withVBF_VVMass_tau21HP.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass_tau21HP"));
+
+    h_Dijets_VBF_VVMass_tau21LP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass_tau21LP"));
+    h_jets_VBF_VVMass_tau21LP.reset(new JetHists(ctx, "jets_VBF_VVMass_tau21LP"));
+    h_Wtopjets_withVBF_VVMass_tau21LP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_tau21LP"));
+    h_topjets_withVBF_VVMass_tau21LP.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass_tau21LP"));
+
+
+    h_Dijets_VBF_invM1500.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1500"));
+    h_Wtopjets_withVBF_invM1500.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1500"));
+
+    h_Dijets_VBF_invM1500_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1500_tau21HP"));
+    h_Wtopjets_withVBF_invM1500_tau21HP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1500_tau21HP"));
+
+    h_Dijets_VBF_invM1500_tau21LP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1500_tau21LP"));
+    h_Wtopjets_withVBF_invM1500_tau21LP.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1500_tau21LP"));
+
+    /*
     h_Dijets_VBF_invM500.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM500"));
     h_Wtopjets_withVBF_invM500.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM500"));
 
     h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
     h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1000"));
-
-    h_Dijets_VBF_invM1500.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1500"));
-    h_Wtopjets_withVBF_invM1500.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1500"));
 
     h_Dijets_VBF_invM2000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM2000"));
     h_Wtopjets_withVBF_invM2000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM2000"));
@@ -672,9 +726,6 @@ namespace uhh2examples {
     h_Wtopjets_withVBF_invM4000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM4000"));
 
 
-
-
-    /*
     h_Wtopjets_withVBF_tau21.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_tau21"));
     h_Dijets_VBF_tau21.reset(new TopJetHists(ctx, "topjets_withVBF_tau21"));
 
@@ -1026,11 +1077,12 @@ namespace uhh2examples {
 
     bool invMtopjet_selection = invMtopjet_sel->passes(event);
     bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
-    bool tau21topjet_selection = tau21topjet_sel->passes(event);
-    bool tau21topjet04_selection = tau21topjet04_sel->passes(event);
-    bool tau21topjet05_selection = tau21topjet05_sel->passes(event);
-    bool tau21topjet06_selection = tau21topjet06_sel->passes(event);
-    bool tau21topjet07_selection = tau21topjet07_sel->passes(event);
+    bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
+    bool tau21topjetLP_selection = tau21topjetLP_sel->passes(event);
+    // bool tau21topjet04_selection = tau21topjet04_sel->passes(event);
+    // bool tau21topjet05_selection = tau21topjet05_sel->passes(event);
+    // bool tau21topjet06_selection = tau21topjet06_sel->passes(event);
+    // bool tau21topjet07_selection = tau21topjet07_sel->passes(event);
 
     if(invMtopjet_selection )
       {
@@ -1039,7 +1091,7 @@ namespace uhh2examples {
 	h_Dijets_compare->fill(event);
 	h_jets_compare->fill(event);
 	h_compare->fill(event);
-	if(invMtopjet_SDselection && tau21topjet_selection)
+	if(invMtopjet_SDselection && tau21topjetHP_selection)
 	  h_Wtopjets_compareSD->fill(event);
 
       }
@@ -1051,7 +1103,7 @@ namespace uhh2examples {
 	h_Wtopjets_WWMass->fill(event);
 	h_topjets_WWMass->fill(event);
       }
-    if(tau21topjet_selection && WWMtopjet_selection)
+    if(tau21topjetHP_selection && WWMtopjet_selection)
       {
 	h_Wtopjets_tau21WW->fill(event);
 	h_topjets_tau21WW->fill(event);
@@ -1064,6 +1116,22 @@ namespace uhh2examples {
     h_Dijets_VVMass->fill(event);
     h_jets_VVMass->fill(event);
     h_VVMass->fill(event);
+
+    if(tau21topjetHP_selection)
+      {
+	h_Wtopjets_VVMass_tau21HP->fill(event);
+	h_topjets_VVMass_tau21HP->fill(event);
+	h_Dijets_VVMass_tau21HP->fill(event);
+	h_jets_VVMass_tau21HP->fill(event);
+      }
+    if(tau21topjetLP_selection)
+      {
+	h_Wtopjets_VVMass_tau21LP->fill(event);
+	h_topjets_VVMass_tau21LP->fill(event);
+	h_Dijets_VVMass_tau21LP->fill(event);
+	h_jets_VVMass_tau21LP->fill(event);
+      }
+
 
     jetcleaner->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
@@ -1117,61 +1185,58 @@ namespace uhh2examples {
     bool vbfeta4_selection = vbfeta4_sel->passes(event);
     bool vbfeta5_selection = vbfeta5_sel->passes(event);
     bool vbfeta6_selection = vbfeta6_sel->passes(event);
-    bool invM500jet_selection = invM500_sel->passes(event);
-    bool invM1000jet_selection = invM1000_sel->passes(event);
+    // bool invM500jet_selection = invM500_sel->passes(event);
+    // bool invM1000jet_selection = invM1000_sel->passes(event);
     bool invM1500jet_selection = invM1500_sel->passes(event);
-    bool invM2000jet_selection = invM2000_sel->passes(event);
-    bool invM2500jet_selection = invM2500_sel->passes(event);
-    bool invM3000jet_selection = invM3000_sel->passes(event);
-    bool invM3500jet_selection = invM3500_sel->passes(event);
-    bool invM4000jet_selection = invM4000_sel->passes(event);
-
-    // if(!vbfeta_selection) return false;
-    if(vbfeta_selection)
-      {    
-	// h_jets_VBF->fill(event);
-	// h_Dijets_VBF->fill(event);
-	// h_Wtopjets_withVBF->fill(event);
-	// h_topjets_withVBF->fill(event);
-	
-	// if(PRINT) cout << "vbfeta_selection topjets" <<endl;
-	
-	// if(VVMtopjet_selection)
-	//   {
-	h_VBF_VVMass->fill(event);
-	h_jets_VBF_VVMass->fill(event);
-	h_Dijets_VBF_VVMass->fill(event);
-	h_Wtopjets_withVBF_VVMass->fill(event);
-	h_topjets_withVBF_VVMass->fill(event);
-
-	/*
-	if(invM1000jet_selection )
-	  {
-	    h_Dijets_VBF_invM1000->fill(event);
-	    h_Wtopjets_withVBF_invM1000->fill(event);
-
-	    if(WWMtopjet_selection)
-	      {
-		h_Wtopjets_withVBF_WWMass->fill(event);
-		h_topjets_withVBF_WWMass->fill(event);
-		if(PRINT) cout << "SD mass fill" <<endl;	
-	      }
-	    if(tau21topjet_selection && WWMtopjet_selection)
-	      {
-		h_Wtopjets_withVBF_tau21WW->fill(event);
-		h_topjets_withVBF_tau21WW->fill(event);
-		if(PRINT) cout << "tau fill" <<endl;
-	      }   
-    
-	    if(PRINT) cout << "jets tau and SD" <<endl;
-	    	    
-	  }//invM1000
-	*/
-      }	//VBF VV (VBF delta eta sel)  
+    // bool invM2000jet_selection = invM2000_sel->passes(event);
+    // bool invM2500jet_selection = invM2500_sel->passes(event);
+    // bool invM3000jet_selection = invM3000_sel->passes(event);
+    // bool invM3500jet_selection = invM3500_sel->passes(event);
+    // bool invM4000jet_selection = invM4000_sel->passes(event);
 
     if(!vbfeta_selection) return false;
 
+    h_VBF_VVMass->fill(event);
+    h_jets_VBF_VVMass->fill(event);
+    h_Dijets_VBF_VVMass->fill(event);
+    h_Wtopjets_withVBF_VVMass->fill(event);
+    h_topjets_withVBF_VVMass->fill(event);
 
+
+    if(tau21topjetHP_selection)
+      {
+	h_Wtopjets_withVBF_VVMass_tau21HP->fill(event);
+	h_topjets_withVBF_VVMass_tau21HP->fill(event);
+	h_Dijets_VBF_VVMass_tau21HP->fill(event);
+	h_jets_VBF_VVMass_tau21HP->fill(event);
+      }
+    if(tau21topjetLP_selection)
+      {
+	h_Wtopjets_withVBF_VVMass_tau21LP->fill(event);
+	h_topjets_withVBF_VVMass_tau21LP->fill(event);
+	h_Dijets_VBF_VVMass_tau21LP->fill(event);
+	h_jets_VBF_VVMass_tau21LP->fill(event);
+      }
+
+
+
+
+    if(!invM1500jet_selection) return false;
+    h_Dijets_VBF_invM1500->fill(event);
+    h_Wtopjets_withVBF_invM1500->fill(event);
+
+    if(tau21topjetHP_selection)
+      {
+	h_Wtopjets_withVBF_invM1500_tau21HP->fill(event);
+	h_Dijets_VBF_invM1500_tau21HP->fill(event);
+      }
+    if(tau21topjetLP_selection)
+      {
+	h_Wtopjets_withVBF_invM1500_tau21LP->fill(event);
+	h_Dijets_VBF_invM1500_tau21LP->fill(event);
+      }
+
+/*
 
     if(!invM500jet_selection) return false;
     h_Dijets_VBF_invM500->fill(event);
@@ -1179,9 +1244,6 @@ namespace uhh2examples {
     if(!invM1000jet_selection) return false;
     h_Dijets_VBF_invM1000->fill(event);
     h_Wtopjets_withVBF_invM1000->fill(event);
-    if(!invM1500jet_selection) return false;
-    h_Dijets_VBF_invM1500->fill(event);
-    h_Wtopjets_withVBF_invM1500->fill(event);
     if(!invM2000jet_selection) return false;
     h_Dijets_VBF_invM2000->fill(event);
     h_Wtopjets_withVBF_invM2000->fill(event);
@@ -1199,7 +1261,6 @@ namespace uhh2examples {
     h_Wtopjets_withVBF_invM4000->fill(event);
 
 
-/*
     //deta 3, different tau21
     if(vbfeta_selection && tau21topjet_selection)
       {    

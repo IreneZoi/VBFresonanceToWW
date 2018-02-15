@@ -216,14 +216,13 @@ bool invMassTopjetSelection::passes(const Event & event){
 }
 
 
-nSubjTopjetSelection::nSubjTopjetSelection(float tau21_max_): tau21_max(tau21_max_){}
+nSubjTopjetSelection::nSubjTopjetSelection(float tau21_min_, float tau21_max_): tau21_min(tau21_min_), tau21_max(tau21_max_){}
 
 bool nSubjTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in   
-
   if(event.topjets->size() < 2) return false;
 
-
+  
   float tau1_1 = event.topjets->at(0).tau1();                                                                                                                                                            
   float tau2_1 = event.topjets->at(0).tau2();                                                                                                                                                            
   float tau21_1 = tau2_1/tau1_1;             
@@ -232,11 +231,8 @@ bool nSubjTopjetSelection::passes(const Event & event){
   float tau2_2 = event.topjets->at(1).tau2();
   float tau21_2 = tau2_2/tau1_2;
 
-
-
-
-  if( tau21_1 > tau21_max || tau21_2 > tau21_max ) return false;
-	  else return true;
+  if( tau21_1 > tau21_max || tau21_2 > tau21_max || tau21_1 <= tau21_min || tau21_2 <= tau21_min ) return false;
+  else return true;
 }
 
 invMassVBFjetSelection::invMassVBFjetSelection(float invM_min_): invM_min(invM_min_){}
