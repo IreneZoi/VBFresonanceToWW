@@ -36,11 +36,11 @@ namespace uhh2examples {
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
-  class VBFresonanceToWWInvertedModule: public AnalysisModule {
+  class VBFresonanceToWWInvertedLSBModule: public AnalysisModule {
   public:
     
 
-    explicit VBFresonanceToWWInvertedModule(Context & ctx);
+    explicit VBFresonanceToWWInvertedLSBModule(Context & ctx);
     virtual bool process(Event & event) override;
 
   private:
@@ -91,7 +91,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invMtopjet_sel;
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
-    std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
+    std::unique_ptr<Selection> VVmass_sel, LOWmass_sel, HIGHmass_sel;
     std::unique_ptr<Selection> tau21topjet_sel;
     //VBF jets
     std::unique_ptr<Selection> jet2_sel;
@@ -154,13 +154,13 @@ namespace uhh2examples {
   };
 
 
-  VBFresonanceToWWInvertedModule::VBFresonanceToWWInvertedModule(Context & ctx){
+  VBFresonanceToWWInvertedLSBModule::VBFresonanceToWWInvertedLSBModule(Context & ctx){
     // In the constructor, the typical tasks are to initialize the
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
     
-    cout << "Hello World from VBFresonanceToWWInvertedModule!" << endl;
+    cout << "Hello World from VBFresonanceToWWInvertedLSBModule!" << endl;
 
     Gen_printer.reset(new GenParticlesPrinter(ctx));
     
@@ -274,7 +274,8 @@ namespace uhh2examples {
     invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
-    WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
+    LOWmass_sel.reset(new VVMassTopjetSelection(45.0f,65.0f));// see VBFresonanceToWWSelections
+    HIGHmass_sel.reset(new HighMassTopjetSelection(135.0f));// see VBFresonanceToWWSelections
     tau21topjet_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
 
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
@@ -308,8 +309,8 @@ namespace uhh2examples {
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    // h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
+    // h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
 
     h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
     h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1000"));
@@ -327,7 +328,7 @@ namespace uhh2examples {
   }
 
 
-  bool VBFresonanceToWWInvertedModule::process(Event & event) {
+  bool VBFresonanceToWWInvertedLSBModule::process(Event & event) {
     // This is the main procedure, called for each event. Typically,
     // do some pre-processing by calling the modules' process method
     // of the modules constructed in the constructor (1).
@@ -338,7 +339,7 @@ namespace uhh2examples {
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
     
-    if(PRINT)    cout << "VBFresonanceToWWInvertedModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
+    if(PRINT)    cout << "VBFresonanceToWWInvertedLSBModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
 
     /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
@@ -481,10 +482,9 @@ namespace uhh2examples {
 	h_compare->fill(event);
 
       }
-    bool VVMtopjet_selection = VVmass_sel->passes(event);
-    bool WWMtopjet_selection = WWmass_sel->passes(event);
+    bool LOWMtopjet_selection = LOWmass_sel->passes(event);
     bool tau21topjet_selection = tau21topjet_sel->passes(event);
-    if(!VVMtopjet_selection) return false;
+    if(!LOWMtopjet_selection) return false;
     if(!tau21topjet_selection) return false;
     
     h_Wtopjets_VVMass->fill(event);
@@ -559,7 +559,7 @@ namespace uhh2examples {
 
 
   // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
-  // make sure the VBFresonanceToWWInvertedModule is found by class name. This is ensured by this macro:
-  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWInvertedModule)
+  // make sure the VBFresonanceToWWInvertedLSBModule is found by class name. This is ensured by this macro:
+  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWInvertedLSBModule)
 
 }

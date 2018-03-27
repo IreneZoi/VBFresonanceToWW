@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 	  
 	  <!--                      Data                       --> 
-	  <!ENTITY DATA_JetHT_Run2016B SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016B_03Feb.xml" > 
+	  <!ENTITY DATA_JetHT_Run2016B SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016B_03Feb.xml" >
 	  <!ENTITY DATA_JetHT_Run2016C SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016C_03Feb.xml" >
 	  <!ENTITY DATA_JetHT_Run2016D SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016D_03Feb.xml" >
 	  <!ENTITY DATA_JetHT_Run2016E SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016E_03Feb.xml" >
@@ -14,7 +14,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="40" />
-<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_JetHT_CHS"/>
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_JetHT_PUPPI_inv_LSB"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -22,7 +22,7 @@
   <Library Name="libSUHH2VBFresonanceToWW"/>
   <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/CHS_pt20AK4/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/InvertedLSB/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Data                   -->
@@ -73,8 +73,7 @@
             <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
             <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
-            <Item Name="JetCollection" Value="slimmedJets" /> <!-- CHS-->
-<!--            <Item Name="JetCollection" Value="slimmedJetsPuppi" />-->
+            <Item Name="JetCollection" Value="slimmedJetsPuppi" />
             <Item Name="GenJetCollection" Value="slimmedGenJetsAK8" />
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
@@ -109,7 +108,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWCHSModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWInvertedLSBModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC

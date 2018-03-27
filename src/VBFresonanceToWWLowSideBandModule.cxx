@@ -36,11 +36,11 @@ namespace uhh2examples {
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
-  class VBFresonanceToWWFitModule: public AnalysisModule {
+  class VBFresonanceToWWLowSideBandModule: public AnalysisModule {
   public:
     
 
-    explicit VBFresonanceToWWFitModule(Context & ctx);
+    explicit VBFresonanceToWWLowSideBandModule(Context & ctx);
     virtual bool process(Event & event) override;
 
   private:
@@ -97,7 +97,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invMtopjet_sel;
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
-    std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
+    std::unique_ptr<Selection> VVmass_sel, LOWmass_sel, HIGHmass_sel;
     std::unique_ptr<Selection> tau21topjetHP_sel;
     //    std::unique_ptr<Selection> tau21topjet045_sel;
     //VBF jets
@@ -371,13 +371,13 @@ namespace uhh2examples {
   };
 
 
-  VBFresonanceToWWFitModule::VBFresonanceToWWFitModule(Context & ctx){
+  VBFresonanceToWWLowSideBandModule::VBFresonanceToWWLowSideBandModule(Context & ctx){
     // In the constructor, the typical tasks are to initialize the
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
     
-    cout << "Hello World from VBFresonanceToWWFitModule!" << endl;
+    cout << "Hello World from VBFresonanceToWWLowSideBandModule!" << endl;
 
     Gen_printer.reset(new GenParticlesPrinter(ctx));
     
@@ -522,7 +522,9 @@ namespace uhh2examples {
     invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
-    WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
+    //    WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
+    LOWmass_sel.reset(new VVMassTopjetSelection(45.0f,65.0f));// see VBFresonanceToWWSelections
+    HIGHmass_sel.reset(new HighMassTopjetSelection(135.0f));// see VBFresonanceToWWSelections
     tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
     // tau21topjet045_sel.reset(new nSubjTopjetSelection(0.f,0.45f)); // see VBFresonanceToWWSelections
     // tau21topjet04_sel.reset(new nSubjTopjetSelection(0.4f)); // see VBFresonanceToWWSelections
@@ -800,7 +802,7 @@ namespace uhh2examples {
   }
 
 
-  bool VBFresonanceToWWFitModule::process(Event & event) {
+  bool VBFresonanceToWWLowSideBandModule::process(Event & event) {
     // This is the main procedure, called for each event. Typically,
     // do some pre-processing by calling the modules' process method
     // of the modules constructed in the constructor (1).
@@ -811,7 +813,7 @@ namespace uhh2examples {
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
     
-    if(PRINT)    cout << "VBFresonanceToWWFitModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
+    if(PRINT)    cout << "VBFresonanceToWWLowSideBandModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
 
     /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
@@ -1073,21 +1075,10 @@ namespace uhh2examples {
 	  h_Wtopjets_compareSD->fill(event);
 
       }
-    bool VVMtopjet_selection = VVmass_sel->passes(event);
-    bool WWMtopjet_selection = WWmass_sel->passes(event);
-
-    if(WWMtopjet_selection )
-      {
-	h_Wtopjets_WWMass->fill(event);
-	h_topjets_WWMass->fill(event);
-      }
-    if(tau21topjetHP_selection && WWMtopjet_selection)
-      {
-	h_Wtopjets_tau21WW->fill(event);
-	h_topjets_tau21WW->fill(event);
-      }
+    bool LowMtopjet_selection = LOWmass_sel->passes(event);
     
-    if(!VVMtopjet_selection) return false;
+    if(!LowMtopjet_selection) return false;
+    if(!tau21topjetHP_selection) return false;
     
     h_Wtopjets_VVMass->fill(event);
     h_topjets_VVMass->fill(event);
@@ -1095,16 +1086,7 @@ namespace uhh2examples {
     h_jets_VVMass->fill(event);
     h_VVMass->fill(event);
 
-    if(tau21topjetHP_selection)
-      {
-	h_Wtopjets_VVMass_tau21HP->fill(event);
-	h_topjets_VVMass_tau21HP->fill(event);
-	h_Dijets_VVMass_tau21HP->fill(event);
-	h_jets_VVMass_tau21HP->fill(event);
-      }
-    // if(tau21topjet_045_selection)
-    // 	h_Wtopjets_VVMass_tau21_045->fill(event);
-
+    //VBF
 
     jetcleaner->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
@@ -1177,26 +1159,12 @@ namespace uhh2examples {
     h_topjets_withVBF_VVMass->fill(event);
 
 
-    if(tau21topjetHP_selection)
-      {
-	h_Wtopjets_withVBF_VVMass_tau21HP->fill(event);
-	h_topjets_withVBF_VVMass_tau21HP->fill(event);
-	h_Dijets_VBF_VVMass_tau21HP->fill(event);
-	h_jets_VBF_VVMass_tau21HP->fill(event);
-      }
-    // if(tau21topjet_045_selection)
-    // 	h_Wtopjets_withVBF_VVMass_tau21_045->fill(event);
 
 
     if(!invM1000jet_selection) return false;
     h_Dijets_VBF_invM1000->fill(event);
     h_Wtopjets_withVBF_invM1000->fill(event);
 
-    if(tau21topjetHP_selection)
-      {
-	h_Wtopjets_withVBF_invM1000_tau21HP->fill(event);
-	h_Dijets_VBF_invM1000_tau21HP->fill(event);
-      }
     // if(tau21topjet_045_selection)
     // 	h_Wtopjets_VBF_invM1000_tau21_045->fill(event);
 
@@ -1420,7 +1388,7 @@ namespace uhh2examples {
 
 
   // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
-  // make sure the VBFresonanceToWWFitModule is found by class name. This is ensured by this macro:
-  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWFitModule)
+  // make sure the VBFresonanceToWWLowSideBandModule is found by class name. This is ensured by this macro:
+  UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWLowSideBandModule)
 
 }

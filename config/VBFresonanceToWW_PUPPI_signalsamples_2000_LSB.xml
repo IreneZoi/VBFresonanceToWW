@@ -11,7 +11,7 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/FinalAndInverted/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/LSB/" PostFix="" TargetLumi="36814.0" >
 <!--   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="36814.0" >-->
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
@@ -24,13 +24,11 @@
        </InputData>
 -->
 
-<!--
         <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" /> 
             <OutputTree Name="AnalysisTree" /> 
        </InputData>
--->
 
        <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_49.root" Lumi="0.0"/>
@@ -83,6 +81,7 @@
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_2.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_1.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
         </InputData>
 
     <!--                    Background                   -->
@@ -157,7 +156,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWInvertedModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWLowSideBandModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
