@@ -91,7 +91,7 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invMtopjet_sel;
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
-    std::unique_ptr<Selection> VVmass_sel, LOWmass_sel, HIGHmass_sel;
+    std::unique_ptr<Selection> VVmass_sel, LOWmass_sel, HIGHmass_sel, HIGHmassLeading_sel, VVmassSecLeading_sel;
     std::unique_ptr<Selection> tau21topjet_sel;
     //VBF jets
     std::unique_ptr<Selection> jet2_sel;
@@ -126,16 +126,6 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass_inverted;
-
-    std::unique_ptr<Hists> h_VBF_VVMass;
-    std::unique_ptr<Hists> h_jets_VBF_VVMass;
-    std::unique_ptr<Hists> h_Dijets_VBF_VVMass;
-    std::unique_ptr<Hists> h_topjets_withVBF_VVMass;
-
-    
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
-    
 
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
@@ -274,8 +264,10 @@ namespace uhh2examples {
     invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
+    VVmassSecLeading_sel.reset(new VVMassSecLeadingTopjetSelection());// see VBFresonanceToWWSelections
     LOWmass_sel.reset(new VVMassTopjetSelection(45.0f,65.0f));// see VBFresonanceToWWSelections
     HIGHmass_sel.reset(new HighMassTopjetSelection(135.0f));// see VBFresonanceToWWSelections
+    HIGHmassLeading_sel.reset(new HighMassLeadingTopjetSelection(135.0f));// see VBFresonanceToWWSelections
     tau21topjet_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
 
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
@@ -310,10 +302,9 @@ namespace uhh2examples {
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
     // h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
-    // h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
 
-    h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
-    h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1000"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
 
 
     //genjet
@@ -462,11 +453,14 @@ namespace uhh2examples {
     //    sort_by_eta<Jet>(*event.jets);
 
     bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
+    if(PRINT) std::cout<<"SelectionModule - invMtopjet_fitselection - Size topjets Collection "<<event.jets->size() <<std::endl;
     if(!invMtopjet_fitselection )
       return false;
+    if(PRINT) std::cout<<"SelectionModule - invMtopjet_fitselection applied - Size topjets Collection "<<event.jets->size() <<std::endl;
 
 
     bool topjets_deta_selection = topjets_deta_sel->passes(event);
+
     if(!topjets_deta_selection)
       return false;
 
@@ -482,9 +476,20 @@ namespace uhh2examples {
 	h_compare->fill(event);
 
       }
-    bool HIGHMtopjet_selection = HIGHmass_sel->passes(event);
+
+    if(PRINT) std::cout<<"SelectionModule - SB selection - Size topjets Collection "<<event.jets->size() <<std::endl;
+
+    // bool HIGHMtopjet_selection = HIGHmass_sel->passes(event);
+    // if(PRINT) std::cout<<"SelectionModule - High M - Size topjets Collection "<<event.jets->size() <<std::endl;
+    bool HIGHMLeadingtopjet_selection = HIGHmassLeading_sel->passes(event);
+    if(PRINT) std::cout<<"SelectionModule - High M leading - Size topjets Collection "<<event.jets->size() <<std::endl;
+    bool VVMLeadingtopjet_selection = VVmassSecLeading_sel->passes(event);
+    if(PRINT) std::cout<<"SelectionModule - V M sec leading - Size topjets Collection "<<event.jets->size() <<std::endl;
     bool tau21topjet_selection = tau21topjet_sel->passes(event);
-    if(!HIGHMtopjet_selection) return false;
+    if(!HIGHMLeadingtopjet_selection) return false;
+    if(PRINT) std::cout<<"SelectionModule - high M leading applied - Size topjets Collection "<<event.jets->size() <<std::endl;
+    if( !VVMLeadingtopjet_selection) return false;
+    if(PRINT) std::cout<<"SelectionModule - V M sec leading applied - Size topjets Collection "<<event.jets->size() <<std::endl;
     if(!tau21topjet_selection) return false;
     
     h_Wtopjets_VVMass->fill(event);
@@ -514,9 +519,9 @@ namespace uhh2examples {
 
     if(!jets2_selection) return false;
     if(!vbfetasign_selection) return false;
-   if(!vbfeta_selection) return false;
+    if(!vbfeta_selection) return false;
     if(!invM1000jet_selection) return false;
-    h_Wtopjets_withVBF_invM1000->fill(event);
+    h_Wtopjets_withVBF_VVMass->fill(event);
 
 
 

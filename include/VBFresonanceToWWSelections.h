@@ -90,12 +90,35 @@ private:
 };
 
 
+class VVMassSecLeadingTopjetSelection: public uhh2::Selection {
+public:
+    VVMassSecLeadingTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min, M_sd_max;
+};
 class VVMassTopjetSelection: public uhh2::Selection {
 public:
     VVMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
     virtual bool passes(const uhh2::Event & event) override;
 private:
     float M_sd_min, M_sd_max;
+};
+
+class HighMassLeadingTopjetSelection: public uhh2::Selection {
+public:
+    HighMassLeadingTopjetSelection(float M_sd_min = 135.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min;
+};
+
+class HighMassTopjetSelection: public uhh2::Selection {
+public:
+    HighMassTopjetSelection(float M_sd_min = 135.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min;
 };
 
 class invMassTopjetSelection: public uhh2::Selection {
