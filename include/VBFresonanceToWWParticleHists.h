@@ -23,8 +23,9 @@ class VBFresonanceToWWParticleHists : public uhh2::Hists{
     TH2F *Weta1_Weta2;
     TH2F *Weta1_Weta2_low;
     TH2F *Weta1_Weta2_high;
-    TH2F *Wcosteta1_Wcosteta2;
-    TH2F *Wcosteta1_Wcosteta2_low;
-    TH2F *Wcosteta1_Wcosteta2_high;
+    TH2F *Wcostheta1_Wcostheta2;
+    TH2F *Wcostheta1_Wcostheta2_low;
+    TH2F *Wcostheta1_Wcostheta2_high;
+    TH2F *Wcostheta_Wpt;
 
 };

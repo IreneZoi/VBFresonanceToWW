@@ -98,55 +98,57 @@ VBFresonanceToWWParticleHists::VBFresonanceToWWParticleHists(Context & ctx,
   Weta1_Weta2_high = book<TH2F>("Weta1_vs_Weta2_high", "W eta1 vs W eta2",100,-10,10, 100,-10,10); //irene 
 
 
-  book<TH1F>("Teta_W","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_low","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_low1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_low2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_low","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_low1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_low2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_low","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_low1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_low2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_high","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_high1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W_high2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_high","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_high1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W1_high2","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_high","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_high1","#teta ",100,0,3.5);
-  book<TH1F>("Teta_W2_high2","#teta ",100,0,3.5);
+  book<TH1F>("Theta_W","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_low","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_low1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_low2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_low","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_low1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_low2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_low","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_low1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_low2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_high","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_high1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W_high2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_high","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_high1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W1_high2","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_high","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_high1","#theta ",100,0,3.5);
+  book<TH1F>("Theta_W2_high2","#theta ",100,0,3.5);
 
 
-  book<TH1F>("Costeta_W","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_low","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_low1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_low2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_low","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_low1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_low2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_low","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_low1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_low2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_high","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_high1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W_high2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_high","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_high1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W1_high2","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_high","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_high1","cos(#teta) ",100,-1.,1.);
-  book<TH1F>("Costeta_W2_high2","cos(#teta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_low","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_low1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_low2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_low","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_low1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_low2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_low","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_low1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_low2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_high","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_high1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W_high2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_high","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_high1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W1_high2","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_high","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_high1","cos(#theta) ",100,-1.,1.);
+  book<TH1F>("Costheta_W2_high2","cos(#theta) ",100,-1.,1.);
 
 
-  Wcosteta1_Wcosteta2 = book<TH2F>("Wcosteta1_vs_Wcosteta2", "W costeta1 vs W costeta2",100,-1.,1., 100,-1.,1.); //irene 
-  Wcosteta1_Wcosteta2_low = book<TH2F>("Wcosteta1_vs_Wcosteta2_low", "W costeta1 vs W costeta2",100,-1.,1., 100,-1.,1.); //irene 
-  Wcosteta1_Wcosteta2_high = book<TH2F>("Wcosteta1_vs_Wcosteta2_high", "W costeta1 vs W costeta2",100,-1.,1., 100,-1.,1.); //irene 
+  Wcostheta1_Wcostheta2 = book<TH2F>("Wcostheta1_vs_Wcostheta2", "W costheta1 vs W costheta2",100,-1.,1., 100,-1.,1.); //irene 
+  Wcostheta1_Wcostheta2_low = book<TH2F>("Wcostheta1_vs_Wcostheta2_low", "W costheta1 vs W costheta2",100,-1.,1., 100,-1.,1.); //irene 
+  Wcostheta1_Wcostheta2_high = book<TH2F>("Wcostheta1_vs_Wcostheta2_high", "W costheta1 vs W costheta2",100,-1.,1., 100,-1.,1.); //irene 
+
+  Wcostheta_Wpt = book<TH2F>("Wcostheta_vs_Wpt", "W costheta vs W pt",100,-1.,1., 100,0,2500); //irene 
 
 
   book<TH1F>("Eta_q_W","#eta ",100,-10,10);
@@ -335,21 +337,25 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
       hist("Eta_W")->Fill(eta_W, weight);
       Weta1_Weta2->Fill(eta_W1,eta_W2,weight);
 
-      float teta_W = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W));
-      float costeta_W = TMath::Cos(teta_W);
-      float teta_W1 = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W1));
-      float costeta_W1 = TMath::Cos(teta_W1);
-      float teta_W2 = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W2));
-      float costeta_W2 = TMath::Cos(teta_W2);
+      float theta_W = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W));
+      float costheta_W = TMath::Cos(theta_W);
+      float theta_W1 = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W1));
+      float costheta_W1 = TMath::Cos(theta_W1);
+      float theta_W2 = 2*TMath::ATan(TMath::Power(TMath::E(),-eta_W2));
+      float costheta_W2 = TMath::Cos(theta_W2);
 
-      hist("Teta_W")->Fill(teta_W, weight);
-      hist("Teta_W1")->Fill(teta_W1, weight);
-      hist("Teta_W2")->Fill(teta_W2, weight);
+      hist("Theta_W")->Fill(theta_W1, weight);
+      hist("Theta_W")->Fill(theta_W2, weight);
+      hist("Theta_W1")->Fill(theta_W1, weight);
+      hist("Theta_W2")->Fill(theta_W2, weight);
 
-      hist("Costeta_W")->Fill(costeta_W, weight);
-      hist("Costeta_W1")->Fill(costeta_W1, weight);
-      hist("Costeta_W2")->Fill(costeta_W2, weight);
-      Wcosteta1_Wcosteta2->Fill(costeta_W1,costeta_W2,weight);
+      hist("Costheta_W")->Fill(costheta_W1, weight);
+      hist("Costheta_W")->Fill(costheta_W2, weight);
+      hist("Costheta_W1")->Fill(costheta_W1, weight);
+      hist("Costheta_W2")->Fill(costheta_W2, weight);
+      Wcostheta1_Wcostheta2->Fill(costheta_W1,costheta_W2,weight);
+      Wcostheta_Wpt->Fill(costheta_W1,pt_W1,weight);
+      Wcostheta_Wpt->Fill(costheta_W2,pt_W2,weight);
 
       // std::cout << " W1 " << std::endl;
       // std::cout << "mass: " << mass_W1 << " pt: " << pt_W1 << " eta:" << eta_W1 << " phi: " << phi_W1 << std::endl; 
@@ -391,14 +397,14 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
 	  hist("Eta_W_low")->Fill(eta_W, weight);
 	  Weta1_Weta2_low->Fill(eta_W1,eta_W2,weight);
 
-	  hist("Teta_W_low")->Fill(teta_W, weight);
-	  hist("Teta_W1_low")->Fill(teta_W1, weight);
-	  hist("Teta_W2_low")->Fill(teta_W2, weight);
+	  hist("Theta_W_low")->Fill(theta_W, weight);
+	  hist("Theta_W1_low")->Fill(theta_W1, weight);
+	  hist("Theta_W2_low")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_low")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_low")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_low")->Fill(costeta_W2, weight);
-	  Wcosteta1_Wcosteta2_low->Fill(costeta_W1,costeta_W2,weight);
+	  hist("Costheta_W_low")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_low")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_low")->Fill(costheta_W2, weight);
+	  Wcostheta1_Wcostheta2_low->Fill(costheta_W1,costheta_W2,weight);
       
 	  hist("Mass_q_W_low")->Fill(mass_q_W, weight);
 	  hist("PT_q_W_low")->Fill(pt_q_W, weight);
@@ -429,14 +435,14 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
 	  hist("Eta_W_high")->Fill(eta_W, weight);
 	  Weta1_Weta2_high->Fill(eta_W1,eta_W2,weight);
 
-	  hist("Teta_W_high")->Fill(teta_W, weight);
-	  hist("Teta_W1_high")->Fill(teta_W1, weight);
-	  hist("Teta_W2_high")->Fill(teta_W2, weight);
+	  hist("Theta_W_high")->Fill(theta_W, weight);
+	  hist("Theta_W1_high")->Fill(theta_W1, weight);
+	  hist("Theta_W2_high")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_high")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_high")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_high")->Fill(costeta_W2, weight);
-	  Wcosteta1_Wcosteta2_high->Fill(costeta_W1,costeta_W2,weight);
+	  hist("Costheta_W_high")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_high")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_high")->Fill(costheta_W2, weight);
+	  Wcostheta1_Wcostheta2_high->Fill(costheta_W1,costheta_W2,weight);
       
 	  hist("Mass_q_W_high")->Fill(mass_q_W, weight);
 	  hist("PT_q_W_high")->Fill(pt_q_W, weight);
@@ -447,42 +453,42 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
 
       if(pt_W1 <700 && pt_W1 > 100)
 	{
-	  hist("Teta_W_low1")->Fill(teta_W, weight);
-	  hist("Teta_W1_low1")->Fill(teta_W1, weight);
-	  hist("Teta_W2_low1")->Fill(teta_W2, weight);
+	  hist("Theta_W_low1")->Fill(theta_W, weight);
+	  hist("Theta_W1_low1")->Fill(theta_W1, weight);
+	  hist("Theta_W2_low1")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_low1")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_low1")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_low1")->Fill(costeta_W2, weight);
+	  hist("Costheta_W_low1")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_low1")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_low1")->Fill(costheta_W2, weight);
 	}
       if(pt_W2 <700 && pt_W2 > 100)
 	{
-	  hist("Teta_W_low2")->Fill(teta_W, weight);
-	  hist("Teta_W1_low2")->Fill(teta_W1, weight);
-	  hist("Teta_W2_low2")->Fill(teta_W2, weight);
+	  hist("Theta_W_low2")->Fill(theta_W, weight);
+	  hist("Theta_W1_low2")->Fill(theta_W1, weight);
+	  hist("Theta_W2_low2")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_low2")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_low2")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_low2")->Fill(costeta_W2, weight);
+	  hist("Costheta_W_low2")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_low2")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_low2")->Fill(costheta_W2, weight);
 	}
       if(pt_W1 > 800)
 	{
-	  hist("Teta_W_high1")->Fill(teta_W, weight);
-	  hist("Teta_W1_high1")->Fill(teta_W1, weight);
-	  hist("Teta_W2_high1")->Fill(teta_W2, weight);
+	  hist("Theta_W_high1")->Fill(theta_W, weight);
+	  hist("Theta_W1_high1")->Fill(theta_W1, weight);
+	  hist("Theta_W2_high1")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_high1")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_high1")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_high1")->Fill(costeta_W2, weight);
+	  hist("Costheta_W_high1")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_high1")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_high1")->Fill(costheta_W2, weight);
 	}
       if(pt_W2 > 800)
 	{
-	  hist("Teta_W_high2")->Fill(teta_W, weight);
-	  hist("Teta_W1_high2")->Fill(teta_W1, weight);
-	  hist("Teta_W2_high2")->Fill(teta_W2, weight);
+	  hist("Theta_W_high2")->Fill(theta_W, weight);
+	  hist("Theta_W1_high2")->Fill(theta_W1, weight);
+	  hist("Theta_W2_high2")->Fill(theta_W2, weight);
 
-	  hist("Costeta_W_high2")->Fill(costeta_W, weight);
-	  hist("Costeta_W1_high2")->Fill(costeta_W1, weight);
-	  hist("Costeta_W2_high2")->Fill(costeta_W2, weight);
+	  hist("Costheta_W_high2")->Fill(costheta_W, weight);
+	  hist("Costheta_W1_high2")->Fill(costheta_W1, weight);
+	  hist("Costheta_W2_high2")->Fill(costheta_W2, weight);
 	}
 }
