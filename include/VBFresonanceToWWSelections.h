@@ -97,6 +97,16 @@ public:
 private:
     float M_sd_min, M_sd_max;
 };
+
+class VVMassLeadingTopjetSelection: public uhh2::Selection {
+public:
+    VVMassLeadingTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min, M_sd_max;
+};
+
+
 class VVMassTopjetSelection: public uhh2::Selection {
 public:
     VVMassTopjetSelection(float M_sd_min = 65.0f, float M_sd_max = 105.0f);
@@ -112,6 +122,15 @@ public:
 private:
     float M_sd_min;
 };
+
+class HighMassSecLeadingTopjetSelection: public uhh2::Selection {
+public:
+    HighMassSecLeadingTopjetSelection(float M_sd_min = 135.0f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float M_sd_min;
+};
+
 
 class HighMassTopjetSelection: public uhh2::Selection {
 public:
