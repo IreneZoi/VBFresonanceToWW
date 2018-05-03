@@ -125,7 +125,11 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_VVMass;
 
     std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass;
+    std::unique_ptr<Hists> h_Dijets_withVBF_VVMass;
+    std::unique_ptr<Hists> h_withVBF_VVMass;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_VVMass_inverted;
+    std::unique_ptr<Hists> h_Dijets_withVBF_VVMass_inverted;
+    std::unique_ptr<Hists> h_withVBF_VVMass_inverted;
 
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
@@ -303,9 +307,12 @@ namespace uhh2examples {
 
     // h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
     h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    h_Dijets_withVBF_VVMass_inverted.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_withVBF_VVMass_inverted"));
+    h_withVBF_VVMass_inverted.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass_inverted"));
 
     h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
-
+    h_Dijets_withVBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_withVBF_VVMass"));
+    h_withVBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass"));
 
     //genjet
     h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
@@ -508,8 +515,11 @@ namespace uhh2examples {
     bool invM1000_invselection = invM1000_invsel->passes(event);
 
     if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
-      h_Wtopjets_withVBF_VVMass_inverted->fill(event);
-
+      {
+	h_Wtopjets_withVBF_VVMass_inverted->fill(event);
+	h_Dijets_withVBF_VVMass_inverted->fill(event);
+	h_withVBF_VVMass_inverted->fill(event);
+      }
 
     // Selections for AK4
     bool jets2_selection = jet2_sel->passes(event);
@@ -522,6 +532,8 @@ namespace uhh2examples {
     if(!vbfeta_selection) return false;
     if(!invM1000jet_selection) return false;
     h_Wtopjets_withVBF_VVMass->fill(event);
+    h_Dijets_withVBF_VVMass->fill(event);
+    h_withVBF_VVMass->fill(event);
 
 
 
