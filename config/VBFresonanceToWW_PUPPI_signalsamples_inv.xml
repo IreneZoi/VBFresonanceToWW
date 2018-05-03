@@ -11,7 +11,7 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/FinalAndInverted/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testMET/" PostFix="" TargetLumi="36814.0" >
 <!--   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="36814.0" >-->
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
