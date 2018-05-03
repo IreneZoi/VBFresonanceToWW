@@ -30,7 +30,11 @@ VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirna
 
   // primary vertices
   book<TH1F>("N_pv", "N^{PV}", 25, 0, 50);
+  book<TH1F>("met_over_ptAK8", "MET/#sum p_{t} AK8 ", 40, 0., 2.);
+  book<TH1F>("met_over_ptAK4", "MET/#sum p_{t} AK4 ", 40, 0., 2.);
+  book<TH1F>("met_over_ptAK8_AK4", "MET/#sum p_{t} AK8 AK4 ", 80, 0., 4.);
 
+  book<TH1F>("met_over_mjjAK8", "MET/#sum M_{jj} AK8", 40, 0., 2.);
 
 }
 
@@ -72,6 +76,7 @@ void VBFresonanceToWWHists::fill(const Event & event){
       //}
 
   std::vector<Jet>* jets = event.jets;
+  std::vector<TopJet>* topjets = event.topjets;
   int Njets = jets->size();
   hist("N_jets")->Fill(Njets, weight);
   
@@ -98,6 +103,33 @@ void VBFresonanceToWWHists::fill(const Event & event){
   
   int Npvs = event.pvs->size();
   hist("N_pv")->Fill(Npvs, weight);
+
+
+
+  float Sum_ptAK8=0.0;
+  for(const TopJet & thisjet : *topjets){
+    Sum_ptAK8+=thisjet.pt();
+  }
+  float Sum_ptAK4=0.0;
+  for(const Jet & thatjet : *jets){
+    Sum_ptAK4+=thatjet.pt();
+  }
+
+  hist("met_over_ptAK8")->Fill(event.met->pt()/Sum_ptAK8, weight);
+  hist("met_over_ptAK4")->Fill(event.met->pt()/Sum_ptAK4, weight);
+  hist("met_over_ptAK8_AK4")->Fill(event.met->pt()/(Sum_ptAK8+Sum_ptAK4), weight);
+  int Ntopjets = topjets->size();
+  if(Ntopjets>=2)
+    hist("met_over_mjjAK8")->Fill(event.met->pt()/(topjets->at(0).v4()+topjets->at(1).v4()).M(), weight);
+
+
+ 
+
+
+
+
+
+
 }
 
 VBFresonanceToWWHists::~VBFresonanceToWWHists(){}
