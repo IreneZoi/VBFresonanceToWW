@@ -21,4 +21,5 @@ class VBFresonanceToWW_WTopJetHists : public uhh2::Hists{
     uhh2::Event::Handle<std::vector <Jet>  > h_jets;
     bool isMC;
     uhh2::Event::Handle<std::vector <GenParticle>  > h_particles;
+    TString puppi_sd_reweight;
 };
