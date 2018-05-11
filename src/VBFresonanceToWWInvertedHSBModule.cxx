@@ -63,11 +63,11 @@ namespace uhh2examples {
     std::unique_ptr<TopJetCorrector> topjet_corrector_G;
     std::unique_ptr<TopJetCorrector> topjet_corrector_H;
 
-    std::unique_ptr<SubJetCorrector> subjet_corrector;
-    std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
-    std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
-    std::unique_ptr<SubJetCorrector> subjet_corrector_G;
-    std::unique_ptr<SubJetCorrector> subjet_corrector_H;
+    // std::unique_ptr<SubJetCorrector> subjet_corrector;
+    // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
+    // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
+    // std::unique_ptr<SubJetCorrector> subjet_corrector_G;
+    // std::unique_ptr<SubJetCorrector> subjet_corrector_H;
 
 
     std::unique_ptr<JetResolutionSmearer> jetER_smearer;
@@ -214,7 +214,7 @@ namespace uhh2examples {
       { 
 	jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
 	topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
-	subjet_corrector.reset(new SubJetCorrector(ctx,JEC_AK4));
+	//	subjet_corrector.reset(new SubJetCorrector(ctx,JEC_AK4));
 	if(channel_=="signal")
 	  {
 	    jetER_smearer.reset(new JetResolutionSmearer(ctx));
@@ -234,10 +234,10 @@ namespace uhh2examples {
 	topjet_corrector_G.reset(new TopJetCorrector(ctx,JEC_AK8_G ));
 	topjet_corrector_H.reset(new TopJetCorrector(ctx,JEC_AK8_H ));
 	
-	subjet_corrector_BCD.reset(new SubJetCorrector(ctx, JEC_AK4_BCD));
-	subjet_corrector_EF.reset(new SubJetCorrector(ctx, JEC_AK4_EF));
-	subjet_corrector_G.reset(new SubJetCorrector(ctx,JEC_AK4_G ));
-	subjet_corrector_H.reset(new SubJetCorrector(ctx,JEC_AK4_H ));
+	// subjet_corrector_BCD.reset(new SubJetCorrector(ctx, JEC_AK4_BCD));
+	// subjet_corrector_EF.reset(new SubJetCorrector(ctx, JEC_AK4_EF));
+	// subjet_corrector_G.reset(new SubJetCorrector(ctx,JEC_AK4_G ));
+	// subjet_corrector_H.reset(new SubJetCorrector(ctx,JEC_AK4_H ));
 
       }
 
@@ -376,8 +376,9 @@ namespace uhh2examples {
     // JET CLEANING
     if(isMC)
       {
+	jet_corrector->process(event);
 	topjet_corrector->process(event);
-	subjet_corrector->process(event);
+	//	subjet_corrector->process(event);
 	jet_corrector->correct_met(event);
 	if(channel_=="signal")
 	  {
@@ -388,25 +389,25 @@ namespace uhh2examples {
       if(event.run <= runnr_BCD)  {       
 	jet_corrector_BCD->process(event);
 	topjet_corrector_BCD->process(event);
-	subjet_corrector_BCD->process(event);
+	//	subjet_corrector_BCD->process(event);
 	jet_corrector_BCD->correct_met(event);
      }
       else if(event.run < runnr_EF){       
 	jet_corrector_EF->process(event);
 	topjet_corrector_EF->process(event);
-	subjet_corrector_EF->process(event);
+	//	subjet_corrector_EF->process(event);
 	jet_corrector_EF->correct_met(event);
       } 
       else if(event.run <= runnr_G) {       
 	jet_corrector_G->process(event);
 	topjet_corrector_G->process(event);
-	subjet_corrector_G->process(event);
+	//	subjet_corrector_G->process(event);
 	jet_corrector_G->correct_met(event);
       } 
       else if(event.run > runnr_G) {       
 	jet_corrector_H->process(event);
 	topjet_corrector_H->process(event);
-	subjet_corrector_H->process(event);
+	//	subjet_corrector_H->process(event);
 	jet_corrector_H->correct_met(event);
       } 
     }
