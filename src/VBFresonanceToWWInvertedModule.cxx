@@ -21,6 +21,8 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHistsCorrectedSDMass.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSaveCorrectedSDMass.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
@@ -95,9 +97,9 @@ namespace uhh2examples {
     std::unique_ptr<Selection> tau21topjet_sel;
     //VBF jets
     std::unique_ptr<Selection> jet2_sel;
-    std::unique_ptr<Selection> vbfdeta_sel, vbfdeta4_sel, vbfdeta5_sel, vbfdeta6_sel;
+    std::unique_ptr<Selection> vbfdeta_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
-    std::unique_ptr<Selection> vbfeta_sel, vbfeta4_sel, vbfeta5_sel, vbfeta6_sel;
+    std::unique_ptr<Selection> vbfeta_sel;
     std::unique_ptr<Selection> invM1000_sel;
     //inverted VBF jets
     std::unique_ptr<Selection> jet2_invsel;
@@ -111,6 +113,8 @@ namespace uhh2examples {
   
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
+
+    std::unique_ptr<Hists> h_Wtopjets_correctSD;
 
     std::unique_ptr<Hists> h_Wtopjets_compare;
     std::unique_ptr<Hists> h_topjets_compare;
@@ -283,9 +287,6 @@ namespace uhh2examples {
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    vbfeta4_sel.reset(new VBFEtajetSelection(4.0f)); // see VBFresonanceToWWSelections
-    vbfeta5_sel.reset(new VBFEtajetSelection(5.0f)); // see VBFresonanceToWWSelections
-    vbfeta6_sel.reset(new VBFEtajetSelection(6.0f)); // see VBFresonanceToWWSelections
     invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
 
@@ -297,26 +298,28 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
+    h_Wtopjets_correctSD.reset(new VBFresonanceToWWSaveCorrectedSDMass(ctx, "Wtopjets_correctSD"));
 
-    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
+
+    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
 
-    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass"));
+    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
     h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
     h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
     h_withVBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
     h_withVBF_VVMass_inverted.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass_inverted"));
 
     // h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
-    // h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM1000"));
+    // h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000"));
 
 
     //genjet
@@ -420,6 +423,7 @@ namespace uhh2examples {
     sort_by_pt<Jet>(*event.jets);
     sort_by_pt<TopJet>(*event.topjets);
 
+    h_Wtopjets_correctSD->fill(event);
 
     topjetcleaner->process(event);
     jetcleaner->process(event);

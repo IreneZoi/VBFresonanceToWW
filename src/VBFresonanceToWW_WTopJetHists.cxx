@@ -73,6 +73,11 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   isMC = (ctx.get("dataset_type") == "MC");
 
   puppi_sd_reweight  = ctx.get("puppi_sd_reweight");
+  file = TFile::Open( puppi_sd_reweight);
+  puppisd_corrGEN      = (TF1*)file->Get("puppiJECcorr_gen");
+  puppisd_corrRECO_cen = (TF1*)file->Get("puppiJECcorr_reco_0eta1v3");
+  puppisd_corrRECO_for = (TF1*)file->Get("puppiJECcorr_reco_1v3eta2v5");
+
  }
 
 
@@ -140,10 +145,10 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
        
 
       // PUPPI soft drop mass correction
-      TFile file(puppi_sd_reweight);
-      TF1 * puppisd_corrGEN      = (TF1*)file.Get("puppiJECcorr_gen");
-      TF1 * puppisd_corrRECO_cen = (TF1*)file.Get("puppiJECcorr_reco_0eta1v3");
-      TF1 * puppisd_corrRECO_for = (TF1*)file.Get("puppiJECcorr_reco_1v3eta2v5");
+      // TFile file(puppi_sd_reweight);
+      // TF1 * puppisd_corrGEN      = (TF1*)file.Get("puppiJECcorr_gen");
+      // TF1 * puppisd_corrRECO_cen = (TF1*)file.Get("puppiJECcorr_reco_0eta1v3");
+      // TF1 * puppisd_corrRECO_for = (TF1*)file.Get("puppiJECcorr_reco_1v3eta2v5");
       float genCorr_1  = 1.;
       float recoCorr_1 = 1.;
       float totalWeight_1 = 1.;

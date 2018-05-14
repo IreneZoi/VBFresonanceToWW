@@ -173,28 +173,33 @@ bool HighMassTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet1 = Tjets[0];
-  const auto & jet2 = Tjets[1];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum1;
-  LorentzVector subjet_sum2;
-  if(PRINT) cout << "lorentz subj" <<endl;
-  for (const auto s1 : jet1.subjets())
-    {
-      subjet_sum1 += s1.v4();
-    }
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet1 = Tjets[0];
+  // const auto & jet2 = Tjets[1];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum1;
+  // LorentzVector subjet_sum2;
+  // if(PRINT) cout << "lorentz subj" <<endl;
+  // for (const auto s1 : jet1.subjets())
+  //   {
+  //     subjet_sum1 += s1.v4();
+  //   }
 
-  auto JetSDMass1 = subjet_sum1.M();
-  if(PRINT) cout << "sd mass 1 " <<endl;
+  // auto JetSDMass1 = subjet_sum1.M();
+  // if(PRINT) cout << "sd mass 1 " <<endl;
 
-  for (const auto s2 : jet2.subjets())
-    {
-      subjet_sum2 += s2.v4();
-    }
-  auto JetSDMass2 = subjet_sum2.M();
-  if(PRINT) cout << "sd mass 2" <<endl;
+  // for (const auto s2 : jet2.subjets())
+  //   {
+  //     subjet_sum2 += s2.v4();
+  //   }
+  // auto JetSDMass2 = subjet_sum2.M();
+  // if(PRINT) cout << "sd mass 2" <<endl;
+
+
+
+  auto JetSDMass1 = event.topjets->at(0).softdropmass();
+  auto JetSDMass2 = event.topjets->at(1).softdropmass();
 
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min) return false;
   if(PRINT) cout << "sd mass selection" <<endl;
@@ -212,19 +217,21 @@ bool HighMassLeadingTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(event.topjets->size() < 2) return false;
   if(PRINT) cout << " asserted topjets" <<endl;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet1 = Tjets[0];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum1;
-  if(PRINT) cout << "lorentz subj" <<endl;
-  for (const auto s1 : jet1.subjets())
-    {
-      subjet_sum1 += s1.v4();
-    }
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet1 = Tjets[0];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum1;
+  // if(PRINT) cout << "lorentz subj" <<endl;
+  // for (const auto s1 : jet1.subjets())
+  //   {
+  //     subjet_sum1 += s1.v4();
+  //   }
 
-  auto JetSDMass1 = subjet_sum1.M();
-  if(PRINT) cout << "sd mass 1 " <<endl;
+  // auto JetSDMass1 = subjet_sum1.M();
+  // if(PRINT) cout << "sd mass 1 " <<endl;
+
+  auto JetSDMass1 = event.topjets->at(0).softdropmass();
 
   if( JetSDMass1 < M_sd_min) return false;
   if(PRINT) cout << "sd mass selection" <<endl;
@@ -240,19 +247,21 @@ bool HighMassSecLeadingTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(event.topjets->size() < 2) return false;
   if(PRINT) cout << " asserted topjets" <<endl;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet1 = Tjets[1];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum1;
-  if(PRINT) cout << "lorentz subj" <<endl;
-  for (const auto s1 : jet1.subjets())
-    {
-      subjet_sum1 += s1.v4();
-    }
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet1 = Tjets[1];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum1;
+  // if(PRINT) cout << "lorentz subj" <<endl;
+  // for (const auto s1 : jet1.subjets())
+  //   {
+  //     subjet_sum1 += s1.v4();
+  //   }
 
-  auto JetSDMass1 = subjet_sum1.M();
-  if(PRINT) cout << "sd mass 1 " <<endl;
+  // auto JetSDMass1 = subjet_sum1.M();
+  // if(PRINT) cout << "sd mass 1 " <<endl;
+
+  auto JetSDMass1 = event.topjets->at(0).softdropmass();
 
   if( JetSDMass1 < M_sd_min) return false;
   if(PRINT) cout << "sd mass selection" <<endl;
@@ -270,25 +279,27 @@ bool VVMassSecLeadingTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet2 = Tjets[1];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum2;
-  if(PRINT) cout << "lorentz subj" <<endl;
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet2 = Tjets[1];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum2;
+  // if(PRINT) cout << "lorentz subj" <<endl;
 
-  for (const auto s2 : jet2.subjets())
-    {
-      subjet_sum2 += s2.v4();
-    }
-  auto JetSDMass2 = subjet_sum2.M();
-  if(PRINT) cout << "sd mass 2" <<endl;
+  // for (const auto s2 : jet2.subjets())
+  //   {
+  //     subjet_sum2 += s2.v4();
+  //   }
+  // auto JetSDMass2 = subjet_sum2.M();
+  // if(PRINT) cout << "sd mass 2" <<endl;
 
-	  if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
-	  if(PRINT) cout << "sd mass selection" <<endl;
-	  
-	  else return true;
-	  if(PRINT) cout << "end SD mass selection" <<endl;
+  auto JetSDMass2 = event.topjets->at(1).softdropmass();
+
+  if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
+  if(PRINT) cout << "sd mass selection" <<endl;
+  
+  else return true;
+  if(PRINT) cout << "end SD mass selection" <<endl;
 
 }
 
@@ -299,26 +310,29 @@ bool VVMassLeadingTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet2 = Tjets[0];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum2;
-  if(PRINT) cout << "lorentz subj" <<endl;
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet2 = Tjets[0];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum2;
+  // if(PRINT) cout << "lorentz subj" <<endl;
 
-  for (const auto s2 : jet2.subjets())
-    {
-      subjet_sum2 += s2.v4();
-    }
-  auto JetSDMass2 = subjet_sum2.M();
-  if(PRINT) cout << "sd mass 2" <<endl;
+  // for (const auto s2 : jet2.subjets())
+  //   {
+  //     subjet_sum2 += s2.v4();
+  //   }
+  // auto JetSDMass2 = subjet_sum2.M();
+  // if(PRINT) cout << "sd mass 2" <<endl;
 
-	  if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
-	  if(PRINT) cout << "sd mass selection" <<endl;
+  //  auto JetSDMass1 = event.topjets->at(0).softdropmass();
+  auto JetSDMass2 = event.topjets->at(1).softdropmass();
+
+  if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
+  if(PRINT) cout << "sd mass selection" <<endl;
 	  
-	  else return true;
-	  if(PRINT) cout << "end SD mass selection" <<endl;
-
+  else return true;
+  if(PRINT) cout << "end SD mass selection" <<endl;
+  
 }
 
 VVMassTopjetSelection::VVMassTopjetSelection(float M_sd_min_, float M_sd_max_): M_sd_min(M_sd_min_), M_sd_max(M_sd_max_){}
@@ -328,35 +342,38 @@ bool VVMassTopjetSelection::passes(const Event & event){
   assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
-  std::vector<TopJet> Tjets = *event.topjets;
-  if(PRINT) cout << "TopJet" <<endl;
-  const auto & jet1 = Tjets[0];
-  const auto & jet2 = Tjets[1];
-  if(PRINT) cout << "jets" <<endl;
-  LorentzVector subjet_sum1;
-  LorentzVector subjet_sum2;
-  if(PRINT) cout << "lorentz subj" <<endl;
-  for (const auto s1 : jet1.subjets())
-    {
-      subjet_sum1 += s1.v4();
-    }
+  // std::vector<TopJet> Tjets = *event.topjets;
+  // if(PRINT) cout << "TopJet" <<endl;
+  // const auto & jet1 = Tjets[0];
+  // const auto & jet2 = Tjets[1];
+  // if(PRINT) cout << "jets" <<endl;
+  // LorentzVector subjet_sum1;
+  // LorentzVector subjet_sum2;
+  // if(PRINT) cout << "lorentz subj" <<endl;
+  // for (const auto s1 : jet1.subjets())
+  //   {
+  //     subjet_sum1 += s1.v4();
+  //   }
 
-  auto JetSDMass1 = subjet_sum1.M();
-  if(PRINT) cout << "sd mass 1 " <<endl;
+  // auto JetSDMass1 = subjet_sum1.M();
+  // if(PRINT) cout << "sd mass 1 " <<endl;
 
-  for (const auto s2 : jet2.subjets())
-    {
-      subjet_sum2 += s2.v4();
-    }
-  auto JetSDMass2 = subjet_sum2.M();
-  if(PRINT) cout << "sd mass 2" <<endl;
+  // for (const auto s2 : jet2.subjets())
+  //   {
+  //     subjet_sum2 += s2.v4();
+  //   }
+  // auto JetSDMass2 = subjet_sum2.M();
+  // if(PRINT) cout << "sd mass 2" <<endl;
 
-	  if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
-	  if(PRINT) cout << "sd mass selection" <<endl;
-	  
-	  else return true;
-	  if(PRINT) cout << "end SD mass selection" <<endl;
+  auto JetSDMass1 = event.topjets->at(0).softdropmass();
+  auto JetSDMass2 = event.topjets->at(1).softdropmass();
 
+  if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
+  if(PRINT) cout << "sd mass selection" <<endl;
+  
+  else return true;
+  if(PRINT) cout << "end SD mass selection" <<endl;
+  
 }
 
 

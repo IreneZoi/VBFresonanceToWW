@@ -2,6 +2,8 @@
 
 #include "UHH2/core/include/Hists.h"
 #include "UHH2/core/include/Event.h"
+#include "TFile.h"
+#include "TF1.h"
 //#include "ZPrimeTotTPrimeGenSelections.h"
 #include "UHH2/core/include/LorentzVector.h"
 /**
@@ -22,4 +24,10 @@ class VBFresonanceToWW_WTopJetHists : public uhh2::Hists{
     bool isMC;
     uhh2::Event::Handle<std::vector <GenParticle>  > h_particles;
     TString puppi_sd_reweight;
+
+    TFile * file;
+    TF1 * puppisd_corrGEN     ;// = (TF1*)file.Get("puppiJECcorr_gen");
+    TF1 * puppisd_corrRECO_cen ;//= (TF1*)file.Get("puppiJECcorr_reco_0eta1v3");
+    TF1 * puppisd_corrRECO_for ;//= (TF1*)file.Get("puppiJECcorr_reco_1v3eta2v5");
+
 };

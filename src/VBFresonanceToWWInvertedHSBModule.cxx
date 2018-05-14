@@ -21,6 +21,8 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHistsCorrectedSDMass.h"
+#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSaveCorrectedSDMass.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
@@ -111,6 +113,7 @@ namespace uhh2examples {
   
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
+    std::unique_ptr<Hists> h_Wtopjets_correctSD;
 
     std::unique_ptr<Hists> h_Wtopjets_compare;
     std::unique_ptr<Hists> h_topjets_compare;
@@ -292,6 +295,7 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
+    h_Wtopjets_correctSD.reset(new VBFresonanceToWWSaveCorrectedSDMass(ctx, "Wtopjets_correctSD"));
 
     h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
@@ -415,6 +419,7 @@ namespace uhh2examples {
     sort_by_pt<Jet>(*event.jets);
     sort_by_pt<TopJet>(*event.topjets);
 
+    h_Wtopjets_correctSD->fill(event);
 
     topjetcleaner->process(event);
     jetcleaner->process(event);
