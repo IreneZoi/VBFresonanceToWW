@@ -22,11 +22,10 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHistsCorrectedSDMass.h"
-#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSaveCorrectedSDMass.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT true
+#define PRINT false
 
 using namespace std;
 using namespace uhh2;
@@ -64,6 +63,8 @@ namespace uhh2examples {
     std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
     std::unique_ptr<TopJetCorrector> topjet_corrector_G;
     std::unique_ptr<TopJetCorrector> topjet_corrector_H;
+
+    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
 
     // std::unique_ptr<SubJetCorrector> subjet_corrector;
     // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
@@ -123,9 +124,9 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_muon_leptonVeto;
     std::unique_ptr<Hists> h_Wtopjets_leptonVeto;
 
+    std::unique_ptr<Hists> h_topjets_afterSD;
+
     std::unique_ptr<Hists> h_Wtopjets_jec;
-    std::unique_ptr<Hists> h_Wtopjets_correctSD;
-    std::unique_ptr<Hists> h_Wtopjets_checkSD;
 
     std::unique_ptr<Hists> h_cleaner;
     std::unique_ptr<Hists> h_Wtopjets_cleaner;
@@ -353,6 +354,9 @@ namespace uhh2examples {
       }
 
 
+    topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+
+
     //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
     //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
@@ -415,8 +419,8 @@ namespace uhh2examples {
     h_Wtopjets_leptonVeto.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_leptonVeto"));
 
     h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
-    h_Wtopjets_correctSD.reset(new VBFresonanceToWWSaveCorrectedSDMass(ctx, "Wtopjets_correctSD"));
-    h_Wtopjets_checkSD.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_checkSD"));
+
+    h_topjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
 
     h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
     h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
@@ -600,6 +604,7 @@ namespace uhh2examples {
 	topjet_corrector->process(event);
 	//	subjet_corrector->process(event);
 	jet_corrector->correct_met(event);
+
 	if(channel_=="signal")
 	  {
 	    //	    cout << "Smearing" << endl;
@@ -611,6 +616,7 @@ namespace uhh2examples {
 	//	jetlepton_cleaner_BCD->process(event);    
 	jet_corrector_BCD->process(event);
 	topjet_corrector_BCD->process(event);
+
 	//	subjet_corrector_BCD->process(event);
 	jet_corrector_BCD->correct_met(event);
      }
@@ -642,11 +648,8 @@ namespace uhh2examples {
     h_Wtopjets_jec->fill(event);
     if(PRINT)    cout << "VBFresonanceToWWFitModule: jec applied " << endl;
 
-    h_Wtopjets_correctSD->fill(event);
-    if(PRINT)    cout << "VBFresonanceToWWFitModule: corrected SD mass " << endl;
-
-    h_Wtopjets_checkSD->fill(event);
-    if(PRINT)    cout << "VBFresonanceToWWFitModule: check SD mass " << endl;
+    topjet_sdmasscorrector->process(event);
+    h_topjets_afterSD->fill(event);
 
     //    jetcleaner->process(event);
     topjetcleaner->process(event);

@@ -4,8 +4,6 @@
 
 
 #include "TH1F.h"
-#include "TFile.h"
-#include "TF1.h"
 #include <iostream>
 
 using namespace uhh2;
@@ -40,14 +38,12 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
 
   //substructure
   book<TH1F>("SoftDropMass_1", "M_{1}^{SD} [GeV/c^{2}]", 100,0,300);
-  book<TH1F>("CorrectedSoftDropMass_1", "Corrected M_{1}^{SD} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_1","CHF_{1}",100,0,1);
   book<TH1F>("TAU1_1","#tau_{1_{1}}",20,0,1); 
   book<TH1F>("TAU2_1","#tau_{2_{1}}",20,0,1);
   book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 20,0,1); 
 
   book<TH1F>("SoftDropMass_2", "M_{2}^{SD} [GeV/c^{2}]", 100,0,300);
-  book<TH1F>("CorrectedSoftDropMass_2", "Corrected M_{2}^{SD} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_2","CHF_{2}",100,0,1);
   book<TH1F>("TAU1_2","#tau_{1_{2}}",20,0,1); 
   book<TH1F>("TAU2_2","#tau_{2_{2}}",20,0,1);
@@ -72,11 +68,6 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   h_particles = ctx.get_handle<std::vector <GenParticle> >("genparticles");
   isMC = (ctx.get("dataset_type") == "MC");
 
-  puppi_sd_reweight  = ctx.get("puppi_sd_reweight");
-  file = TFile::Open( puppi_sd_reweight);
-  puppisd_corrGEN      = (TF1*)file->Get("puppiJECcorr_gen");
-  puppisd_corrRECO_cen = (TF1*)file->Get("puppiJECcorr_reco_0eta1v3");
-  puppisd_corrRECO_for = (TF1*)file->Get("puppiJECcorr_reco_1v3eta2v5");
 
  }
 
@@ -144,44 +135,6 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
       hist("SoftDropMass_2")->Fill(JetSDMass2, weight);
        
 
-      // PUPPI soft drop mass correction
-      // TFile file(puppi_sd_reweight);
-      // TF1 * puppisd_corrGEN      = (TF1*)file.Get("puppiJECcorr_gen");
-      // TF1 * puppisd_corrRECO_cen = (TF1*)file.Get("puppiJECcorr_reco_0eta1v3");
-      // TF1 * puppisd_corrRECO_for = (TF1*)file.Get("puppiJECcorr_reco_1v3eta2v5");
-      float genCorr_1  = 1.;
-      float recoCorr_1 = 1.;
-      float totalWeight_1 = 1.;
-        
-      genCorr_1 =  puppisd_corrGEN->Eval( jet1.pt() );
-      if( fabs(jet1.eta())  <= 1.3 ){
-	recoCorr_1 = puppisd_corrRECO_cen->Eval( jet1.pt() );
-      }
-      else{
-	recoCorr_1 = puppisd_corrRECO_for->Eval( jet1.pt() );
-      }
-  
-      totalWeight_1 = genCorr_1 * recoCorr_1;
-
-      JetSDMass1 = JetSDMass1*totalWeight_1;
-      hist("CorrectedSoftDropMass_1")->Fill(JetSDMass1, weight);      
-
-      float genCorr_2  = 1.;
-      float recoCorr_2 = 1.;
-      float totalWeight_2 = 1.;
-        
-      genCorr_2 =  puppisd_corrGEN->Eval( jet2.pt() );
-      if( fabs(jet2.eta())  <= 1.3 ){
-	recoCorr_1 = puppisd_corrRECO_cen->Eval( jet2.pt() );
-      }
-      else{
-	recoCorr_2 = puppisd_corrRECO_for->Eval( jet2.pt() );
-      }
-  
-      totalWeight_2 = genCorr_2 * recoCorr_2;
-
-      JetSDMass2 = JetSDMass2*totalWeight_1;
-      hist("CorrectedSoftDropMass_2")->Fill(JetSDMass2, weight);      
 
       float chf_1 = jet->at(0).chargedHadronEnergyFraction();
       hist("CHF_1")->Fill(chf_1, weight);

@@ -22,7 +22,6 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWParticleHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHistsCorrectedSDMass.h"
-#include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWSaveCorrectedSDMass.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
@@ -65,6 +64,7 @@ namespace uhh2examples {
     std::unique_ptr<TopJetCorrector> topjet_corrector_G;
     std::unique_ptr<TopJetCorrector> topjet_corrector_H;
 
+    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
     // std::unique_ptr<SubJetCorrector> subjet_corrector;
     // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
     // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
@@ -113,8 +113,6 @@ namespace uhh2examples {
   
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-
-    std::unique_ptr<Hists> h_Wtopjets_correctSD;
 
     std::unique_ptr<Hists> h_Wtopjets_compare;
     std::unique_ptr<Hists> h_topjets_compare;
@@ -253,6 +251,8 @@ namespace uhh2examples {
 
       }
 
+    topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     
@@ -298,9 +298,6 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
-    h_Wtopjets_correctSD.reset(new VBFresonanceToWWSaveCorrectedSDMass(ctx, "Wtopjets_correctSD"));
-
-
     h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
@@ -423,7 +420,7 @@ namespace uhh2examples {
     sort_by_pt<Jet>(*event.jets);
     sort_by_pt<TopJet>(*event.topjets);
 
-    h_Wtopjets_correctSD->fill(event);
+    topjet_sdmasscorrector->process(event); 
 
     topjetcleaner->process(event);
     jetcleaner->process(event);
