@@ -780,8 +780,8 @@ namespace uhh2examples {
     bool topjets_deta_selection = topjets_deta_sel->passes(event);
     if(!topjets_deta_selection)
       return false;
-    h_Wtopjets_deta->fill(event);
-    h_topjets_deta->fill(event);
+    // h_Wtopjets_deta->fill(event);
+    // h_topjets_deta->fill(event);
 
     bool invMtopjet_selection = invMtopjet_sel->passes(event);
     bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
