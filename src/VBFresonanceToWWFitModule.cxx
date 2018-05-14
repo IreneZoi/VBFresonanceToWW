@@ -385,7 +385,7 @@ namespace uhh2examples {
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-    invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
+    //    invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
     // WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
@@ -788,17 +788,17 @@ namespace uhh2examples {
     bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
     // bool tau21topjet_045_selection = tau21topjet045_sel->passes(event);
 
-    if(invMtopjet_selection )
-      {
-	h_Wtopjets_compare->fill(event);
-	h_topjets_compare->fill(event);
-	h_Dijets_compare->fill(event);
-	h_jets_compare->fill(event);
-	h_compare->fill(event);
-	if(invMtopjet_SDselection && tau21topjetHP_selection)
-	  h_Wtopjets_compareSD->fill(event);
+    // if(invMtopjet_selection )
+    //   {
+    h_Wtopjets_compare->fill(event);
+    h_topjets_compare->fill(event);
+    h_Dijets_compare->fill(event);
+    h_jets_compare->fill(event);
+    h_compare->fill(event);
+    if(invMtopjet_SDselection && tau21topjetHP_selection)
+      h_Wtopjets_compareSD->fill(event);
 
-      }
+      // }
     bool VVMtopjet_selection = VVmass_sel->passes(event);
     
     if(!VVMtopjet_selection) return false;
