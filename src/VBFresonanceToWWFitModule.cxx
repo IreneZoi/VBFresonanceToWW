@@ -91,7 +91,7 @@ namespace uhh2examples {
     //W jets
     std::unique_ptr<Selection> topjet2_sel;
     std::unique_ptr<Selection> invMtopjet_fitsel;
-    std::unique_ptr<Selection> invMtopjet_sel;
+    // std::unique_ptr<Selection> invMtopjet_sel;
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
     std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
@@ -792,27 +792,35 @@ namespace uhh2examples {
 
       h_Wtopjets_invM->fill(event);
       h_topjets_invM->fill(event);
+    if(PRINT) std::cout<<"inv M "<<std::endl;
 
     bool topjets_deta_selection = topjets_deta_sel->passes(event);
     if(!topjets_deta_selection)
       return false;
     // h_Wtopjets_deta->fill(event);
     // h_topjets_deta->fill(event);
+    if(PRINT) std::cout<<"deta "<<std::endl;
 
-    bool invMtopjet_selection = invMtopjet_sel->passes(event);
+    // bool invMtopjet_selection = invMtopjet_sel->passes(event);
+    // if(PRINT) std::cout<<"invM 2 "<<std::endl;
+
     bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
+    if(PRINT) std::cout<<"sd "<<std::endl;
     bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
+    if(PRINT) std::cout<<"tau21 "<<std::endl;
     // bool tau21topjet_045_selection = tau21topjet045_sel->passes(event);
 
     // if(invMtopjet_selection )
     //   {
     h_Wtopjets_compare->fill(event);
+    if(PRINT) std::cout<<"compare "<<std::endl;
     h_topjets_compare->fill(event);
     h_Dijets_compare->fill(event);
     h_jets_compare->fill(event);
     h_compare->fill(event);
     if(invMtopjet_SDselection && tau21topjetHP_selection)
       h_Wtopjets_compareSD->fill(event);
+    if(PRINT) std::cout<<"compare and sd "<<std::endl;
 
       // }
     bool VVMtopjet_selection = VVmass_sel->passes(event);
@@ -824,13 +832,15 @@ namespace uhh2examples {
     h_Dijets_VVMass->fill(event);
     h_jets_VVMass->fill(event);
     h_VVMass->fill(event);
+    if(PRINT) std::cout<<"VV "<<std::endl;
 
     if(!tau21topjetHP_selection) return false;
     h_Wtopjets_VVMass_tau21HP->fill(event);
     h_topjets_VVMass_tau21HP->fill(event);
     h_Dijets_VVMass_tau21HP->fill(event);
     h_jets_VVMass_tau21HP->fill(event);
-	
+	    if(PRINT) std::cout<<"tau21 "<<std::endl;
+
 
     jetcleaner->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
@@ -867,9 +877,12 @@ namespace uhh2examples {
     h_Dijets_VBF_VVMass->fill(event);
     h_Wtopjets_withVBF_VVMass->fill(event);
     h_topjets_withVBF_VVMass->fill(event);
+    if(PRINT) std::cout<<"VBF "<<std::endl;
 
     if(!invM500jet_selection) return false;
     h_Wtopjets_withVBF_invM500->fill(event);
+    if(PRINT) std::cout<<"VBF 500"<<std::endl;
+
     if(!invM600jet_selection) return false;
     h_Wtopjets_withVBF_invM600->fill(event);
     if(!invM700jet_selection) return false;
@@ -883,6 +896,7 @@ namespace uhh2examples {
     if(!invM1000jet_selection) return false;
     h_Dijets_VBF_invM1000->fill(event);
     h_Wtopjets_withVBF_invM1000->fill(event);
+    if(PRINT) std::cout<<"VBF 1000"<<std::endl;
 
 
     // store Jets *before cleaning* in the ntuple                                                                                                                                                     
