@@ -47,6 +47,8 @@ namespace uhh2examples {
   private:
     std::string channel_;
 
+    Event::Handle<vector<Jet>> h_IdCriteriaJets;
+
     std::unique_ptr<CommonModules> common;
 
     std::unique_ptr<AnalysisModule> Gen_printer;  
@@ -276,6 +278,7 @@ namespace uhh2examples {
     
     // 1. setup other modules. CommonModules and the JetCleaner:
 
+    h_IdCriteriaJets = ctx.get_handle<vector<Jet>>("patJetsAK8PFPUPPI");
 
     MuId  = AndId<Muon>(MuonIDTight(), PtEtaCut(30., 2.4));
     EleId = AndId<Electron>(ElectronID_HEEP_RunII_25ns, PtEtaCut(35., 2.5));
@@ -565,6 +568,45 @@ namespace uhh2examples {
     // keep Jets *before cleaning* to store them in the ntuple if event is accepted   
     std::unique_ptr< std::vector<Jet> >    uncleaned_jets   (new std::vector<Jet>   (*event.jets));   
     std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
+
+
+
+
+    vector<Jet> IdCriteriaJets = event.get(h_IdCriteriaJets);
+    std::vector<int> skipindex;
+    for(unsigned int i=0;i<event.topjets->size();i++){
+      int N_Daughters = event.topjets->at(i).numberOfDaughters();
+      float nEMFrac = event.topjets->at(i).neutralEmEnergyFraction();
+      float nHFrac = event.topjets->at(i).neutralHadronEnergyFraction();
+      float chEMFrac = event.topjets->at(i).chargedEmEnergyFraction();
+      float chHFrac = event.topjets->at(i).chargedHadronEnergyFraction();
+      float chMulti = event.topjets->at(i).chargedMultiplicity();
+
+      double deltaR_min=99999.;
+      int nearest_index=0;
+      for(unsigned int j=0;j<IdCriteriaJets.size();j++){
+	if(std::find(skipindex.begin(),skipindex.end(),j) != skipindex.end()) continue;
+	double deltaR_candiate=deltaR(IdCriteriaJets.at(j),event.topjets->at(i));
+	if(deltaR_candiate<deltaR_min){
+	  deltaR_min = deltaR_candiate;
+	  nearest_index=j;
+	}
+	skipindex.push_back(nearest_index);
+	N_Daughters = IdCriteriaJets.at(nearest_index).numberOfDaughters();
+	nEMFrac = IdCriteriaJets.at(nearest_index).neutralEmEnergyFraction();
+	nHFrac = IdCriteriaJets.at(nearest_index).neutralHadronEnergyFraction();
+	chEMFrac = IdCriteriaJets.at(nearest_index).chargedEmEnergyFraction();
+	chHFrac =IdCriteriaJets.at(nearest_index).chargedHadronEnergyFraction();
+	chMulti = IdCriteriaJets.at(nearest_index).chargedMultiplicity();
+      }
+      event.topjets->at(i).set_numberOfDaughters(N_Daughters);
+      event.topjets->at(i).set_neutralEmEnergyFraction(nEMFrac);
+      event.topjets->at(i).set_neutralHadronEnergyFraction(nHFrac);
+      event.topjets->at(i).set_chargedEmEnergyFraction(chEMFrac);
+      event.topjets->at(i).set_chargedHadronEnergyFraction(chHFrac);
+      event.topjets->at(i).set_chargedMultiplicity(chMulti);
+    }
+
 
     // 1. run all modules other modules.
 
