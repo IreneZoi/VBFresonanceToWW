@@ -2,14 +2,14 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 	  
 	  <!--                      Data                       --> 
-	  <!ENTITY DATA_JetHT_Run2016B SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016B_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016C SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016C_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016D SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016D_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016E SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016E_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016F SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016F_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016G SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016G_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016H_ver2 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016H_ver2_03Feb.xml" >
-	  <!ENTITY DATA_JetHT_Run2016H_ver3 SYSTEM "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/datasets/RunII_80X_v3/DATA_JetHT_Run2016H_ver3_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016B SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016B_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016C SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016C_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016D SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016D_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016E SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016E_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016F SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016F_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016G SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016G_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016H_ver2 SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016H_ver2_03Feb.xml" >
+	  <!ENTITY DATA_JetHT_Run2016H_ver3 SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/xmlfiles/DATA_JetHT_Run2016H_ver3_03Feb.xml" >
 	  ]>
 
 <!--
@@ -22,10 +22,12 @@
   <Library Name="libSUHH2VBFresonanceToWW"/>
   <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/FinalAndInverted/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testSelection/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Data                   -->
+<!--
+
 <InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="1000" Cacheable="False">
       &DATA_JetHT_Run2016B; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
@@ -45,7 +47,7 @@
       &DATA_JetHT_Run2016E; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
-
+-->
 <InputData Version="DATA_JetHT_Run2016F" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016F; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
@@ -78,6 +80,7 @@
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
+            <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
 	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
             <Item Name="channel" Value="data" />
@@ -108,7 +111,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWFitModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWSelectionModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC

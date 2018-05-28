@@ -16,7 +16,7 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testMET/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testSelection/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
 
     <!--                    Background                   -->
@@ -39,6 +39,7 @@
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="METName" Value="slimmedMETsPuppi" />
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
+            <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
 <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
            <Item Name="channel" Value="qcd" />
@@ -68,7 +69,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWFitModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWSelectionModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
