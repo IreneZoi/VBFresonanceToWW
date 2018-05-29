@@ -14,7 +14,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="40" />
-<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_JetHT_PUPPI"/>
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_JetHT_PUPPI_pre"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -26,11 +26,10 @@
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Data                   -->
-<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="1000" Cacheable="False">
+<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016B; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
-
 <InputData Version="DATA_JetHT_Run2016C" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016C; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
@@ -55,7 +54,6 @@
       &DATA_JetHT_Run2016G; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
-
 <InputData Version="DATA_JetHT_Run2016H_ver2" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016H_ver2; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
@@ -109,7 +107,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWFitModule" /> 
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWPreSelectionModule" /> 
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
