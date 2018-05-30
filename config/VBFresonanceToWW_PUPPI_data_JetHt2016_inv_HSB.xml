@@ -26,7 +26,7 @@
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Data                   -->
-<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="1000" Cacheable="False">
+<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016B; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 

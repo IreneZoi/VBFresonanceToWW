@@ -26,9 +26,8 @@
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    
     <!--                    Data                   -->
-<!--
 
-<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="1000" Cacheable="False">
+<InputData Version="DATA_JetHT_Run2016B" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016B; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
@@ -47,7 +46,6 @@
       &DATA_JetHT_Run2016E; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
--->
 <InputData Version="DATA_JetHT_Run2016F" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016F; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
@@ -57,16 +55,14 @@
       &DATA_JetHT_Run2016G; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
-
 <InputData Version="DATA_JetHT_Run2016H_ver2" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016H_ver2; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
- </InputData> 
+ </InputData>
 <InputData Version="DATA_JetHT_Run2016H_ver3" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
       &DATA_JetHT_Run2016H_ver3; <InputTree Name="AnalysisTree"/> 
       <OutputTree Name="AnalysisTree"/> 
  </InputData> 
-
 
            
         <UserConfig>
