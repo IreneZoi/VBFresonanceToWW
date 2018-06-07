@@ -249,7 +249,7 @@ bool HighMassSecLeadingTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " asserted topjets" <<endl;
   // std::vector<TopJet> Tjets = *event.topjets;
   // if(PRINT) cout << "TopJet" <<endl;
-  // const auto & jet1 = Tjets[1];
+ // const auto & jet1 = Tjets[1];
   // if(PRINT) cout << "jets" <<endl;
   // LorentzVector subjet_sum1;
   // if(PRINT) cout << "lorentz subj" <<endl;
@@ -343,7 +343,7 @@ bool VVMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   // std::vector<TopJet> Tjets = *event.topjets;
-  // if(PRINT) cout << "TopJet" <<endl;
+  if(PRINT) cout << "TopJet size "<< event.topjets->size() <<endl;
   // const auto & jet1 = Tjets[0];
   // const auto & jet2 = Tjets[1];
   // if(PRINT) cout << "jets" <<endl;
@@ -366,8 +366,9 @@ bool VVMassTopjetSelection::passes(const Event & event){
   // if(PRINT) cout << "sd mass 2" <<endl;
 
   auto JetSDMass1 = event.topjets->at(0).softdropmass();
+  if(PRINT) cout << "TopJet 1 SD "<< event.topjets->at(0).softdropmass() <<endl;
   auto JetSDMass2 = event.topjets->at(1).softdropmass();
-
+  if(PRINT) cout << "TopJet 2 SD "<< event.topjets->at(1).softdropmass() <<endl;
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
   if(PRINT) cout << "sd mass selection" <<endl;
   
@@ -426,15 +427,13 @@ invMassVBFjetInvSelection::invMassVBFjetInvSelection(float invM_max_): invM_max(
 
 bool invMassVBFjetInvSelection::passes(const Event & event){
   assert(event.jets); // if this fails, it probably means jets are not read in                                                                                                                          
-  if(event.jets->size() >= 2)
-    {
-      auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
-      if( invariantMass >= invM_max) return false;
-      else return true;
-    }
+  if(event.jets->size() < 2) return false;
+
+  auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
+  if( invariantMass >= invM_max) return false;
   else return true;
 
-  if(PRINT) cout << "end SD mass selection" <<endl;
+  if(PRINT) cout << "end inv mass AK4 inv selection" <<endl;
 }
 
 
