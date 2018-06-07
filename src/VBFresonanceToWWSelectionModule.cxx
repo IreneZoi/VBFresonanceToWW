@@ -719,9 +719,9 @@ namespace uhh2examples {
    //  /////////////////AK4 cleaning end ////////////////
 
 
-    h_topjets_noOverlapping->fill(event);
-    h_Wtopjets_noOverlapping->fill(event);
-    h_jets_noOverlapping->fill(event);
+    // h_topjets_noOverlapping->fill(event);
+    // h_Wtopjets_noOverlapping->fill(event);
+    // h_jets_noOverlapping->fill(event);
     //    sort_by_eta<Jet>(*event.jets);
     //h_Wtopjets_noOverlapping_eta->fill(event);
     //h_jets_noOverlapping_eta->fill(event);
@@ -786,20 +786,20 @@ namespace uhh2examples {
     //   }
 
 
-    bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
-    if(!invMtopjet_fitselection )
-      return false;
+    // bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
+    // if(!invMtopjet_fitselection )
+    //   return false;
 
-      h_Wtopjets_invM->fill(event);
-      h_topjets_invM->fill(event);
-    if(PRINT) std::cout<<"inv M "<<std::endl;
+    //   h_Wtopjets_invM->fill(event);
+    //   h_topjets_invM->fill(event);
+    // if(PRINT) std::cout<<"inv M "<<std::endl;
 
-    bool topjets_deta_selection = topjets_deta_sel->passes(event);
-    if(!topjets_deta_selection)
-      return false;
-    // h_Wtopjets_deta->fill(event);
-    // h_topjets_deta->fill(event);
-    if(PRINT) std::cout<<"deta "<<std::endl;
+    // bool topjets_deta_selection = topjets_deta_sel->passes(event);
+    // if(!topjets_deta_selection)
+    //   return false;
+    // // h_Wtopjets_deta->fill(event);
+    // // h_topjets_deta->fill(event);
+    // if(PRINT) std::cout<<"deta "<<std::endl;
 
     // bool invMtopjet_selection = invMtopjet_sel->passes(event);
     // if(PRINT) std::cout<<"invM 2 "<<std::endl;

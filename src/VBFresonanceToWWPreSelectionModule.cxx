@@ -571,7 +571,7 @@ namespace uhh2examples {
 
 
 
-
+    /*
     vector<Jet> IdCriteriaJets = event.get(h_IdCriteriaJets);
     std::vector<int> skipindex;
     for(unsigned int i=0;i<event.topjets->size();i++){
@@ -606,7 +606,7 @@ namespace uhh2examples {
       event.topjets->at(i).set_chargedHadronEnergyFraction(chHFrac);
       event.topjets->at(i).set_chargedMultiplicity(chMulti);
     }
-
+    */
 
     // 1. run all modules other modules.
 
@@ -765,20 +765,20 @@ namespace uhh2examples {
     h_Wtopjets_noOverlapping->fill(event);
     h_jets_noOverlapping->fill(event);
 
-    // bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
-    // if(!invMtopjet_fitselection )
-    //   return false;
+    bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
+    if(!invMtopjet_fitselection )
+      return false;
 
-    //   h_Wtopjets_invM->fill(event);
-    //   h_topjets_invM->fill(event);
-    // if(PRINT) std::cout<<"inv M "<<std::endl;
+      h_Wtopjets_invM->fill(event);
+      h_topjets_invM->fill(event);
+    if(PRINT) std::cout<<"inv M "<<std::endl;
 
-    // bool topjets_deta_selection = topjets_deta_sel->passes(event);
-    // if(!topjets_deta_selection)
-    //   return false;
-    // // h_Wtopjets_deta->fill(event);
-    // // h_topjets_deta->fill(event);
-    // if(PRINT) std::cout<<"deta "<<std::endl;
+    bool topjets_deta_selection = topjets_deta_sel->passes(event);
+    if(!topjets_deta_selection)
+      return false;
+    // h_Wtopjets_deta->fill(event);
+    // h_topjets_deta->fill(event);
+    if(PRINT) std::cout<<"deta "<<std::endl;
 
     // // bool invMtopjet_selection = invMtopjet_sel->passes(event);
     // // if(PRINT) std::cout<<"invM 2 "<<std::endl;
@@ -791,12 +791,12 @@ namespace uhh2examples {
 
     // // if(invMtopjet_selection )
     // //   {
-    // h_Wtopjets_compare->fill(event);
-    // if(PRINT) std::cout<<"compare "<<std::endl;
-    // h_topjets_compare->fill(event);
-    // h_Dijets_compare->fill(event);
-    // h_jets_compare->fill(event);
-    // h_compare->fill(event);
+    h_Wtopjets_compare->fill(event);
+    if(PRINT) std::cout<<"compare "<<std::endl;
+    h_topjets_compare->fill(event);
+    h_Dijets_compare->fill(event);
+    h_jets_compare->fill(event);
+    h_compare->fill(event);
     // if(invMtopjet_SDselection && tau21topjetHP_selection)
     //   h_Wtopjets_compareSD->fill(event);
     // if(PRINT) std::cout<<"compare and sd "<<std::endl;
@@ -878,18 +878,18 @@ namespace uhh2examples {
     // if(PRINT) std::cout<<"VBF 1000"<<std::endl;
 
 
-    // store Jets *before cleaning* in the ntuple                                                                                                                                                     
-    event.jets->clear();
-    event.jets->reserve(uncleaned_jets->size());
-    for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
-    sort_by_pt<Jet>(*event.jets);
-    if(PRINT) cout << "jets clear reserve push" <<endl;
+    // // store Jets *before cleaning* in the ntuple                                                                                                                                                     
+    // event.jets->clear();
+    // event.jets->reserve(uncleaned_jets->size());
+    // for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
+    // sort_by_pt<Jet>(*event.jets);
+    // if(PRINT) cout << "jets clear reserve push" <<endl;
     
-    event.topjets->clear();
-    event.topjets->reserve(uncleaned_topjets->size());
-    for(const auto & j : *uncleaned_topjets) event.topjets->push_back(j);
-    sort_by_pt<TopJet>(*event.topjets);
-      if(PRINT) cout << "topjets clear reserve push" <<endl;
+    // event.topjets->clear();
+    // event.topjets->reserve(uncleaned_topjets->size());
+    // for(const auto & j : *uncleaned_topjets) event.topjets->push_back(j);
+    // sort_by_pt<TopJet>(*event.topjets);
+    //   if(PRINT) cout << "topjets clear reserve push" <<endl;
 
     // 3. decide whether or not to keep the current event in the output:
     return true;
