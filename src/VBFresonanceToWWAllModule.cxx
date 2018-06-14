@@ -80,6 +80,8 @@ namespace uhh2examples {
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<TopJetCleaner> topjetcleaner;
 
+    std::unique_ptr<JetCleaner> ak4pfidfilter;
+    std::unique_ptr<TopJetCleaner> ak8pfidfilter;
 
     // Data/MC scale factors
     std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
@@ -240,6 +242,8 @@ namespace uhh2examples {
     MuonId     MuId;
     ElectronId EleId;
 
+    JetId AK4PFID;
+    TopJetId AK8PFID;
   };
 
 
@@ -371,6 +375,14 @@ namespace uhh2examples {
     //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     
+    AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+    AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+
+
+    ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
+    ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+
+
     if(PRINT) cout << "cleaners" <<endl;
     
 
@@ -704,7 +716,8 @@ namespace uhh2examples {
     h_topjets_afterSD->fill(event);
 
     //    jetcleaner->process(event);
-    topjetcleaner->process(event);
+    topjetcleaner->process(event);   
+    ak8pfidfilter->process(event);
 
     h_cleaner->fill(event);
     h_Wtopjets_cleaner->fill(event);
@@ -879,6 +892,7 @@ namespace uhh2examples {
 
 
     jetcleaner->process(event);
+    ak4pfidfilter->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
     h_jets_AK4cleaner->fill(event);
      
