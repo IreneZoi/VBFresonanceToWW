@@ -293,8 +293,10 @@ namespace uhh2examples {
     
 
     //    common->disable_mcpileupreweight(); //irene                                                                                                                                                      
+    common->disable_jetpfidfilter();
     common->disable_jersmear(); //irene
-    common->disable_jec(); //irene       
+    common->disable_jec(); //irene  
+    common->switch_jetlepcleaner(false);     
     //    common->disable_metfilters(); //irene                                                                                           
     if(PRINT) cout << "common" <<endl;
     //    common->set_jet_id(PtEtaCut(30.0, 2.4)); 
