@@ -13,6 +13,7 @@
 #include "UHH2/common/include/PrintingModules.h"
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/common/include/MuonHists.h"
+#include "UHH2/common/include/EventHists.h"
 #include "UHH2/common/include/JetHists.h"
 #include "UHH2/common/include/GenJetsHists.h"
 #include "UHH2/common/include/NSelections.h"
@@ -46,43 +47,53 @@ namespace uhh2examples {
 
   private:
     std::string channel_;
-    
-    std::unique_ptr<CommonModules> common;
 
-    std::unique_ptr<AnalysisModule> Gen_printer;  
-
-    std::unique_ptr<JetCorrector> jet_corrector;
-
-    std::unique_ptr<JetCorrector> jet_corrector_BCD;
-    std::unique_ptr<JetCorrector> jet_corrector_EF;
-    std::unique_ptr<JetCorrector> jet_corrector_G;
-    std::unique_ptr<JetCorrector> jet_corrector_H;
-
-    std::unique_ptr<TopJetCorrector> topjet_corrector;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_G;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_H;
-
-    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
-
-    // std::unique_ptr<SubJetCorrector> subjet_corrector;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_G;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_H;
-
-
-    std::unique_ptr<JetResolutionSmearer> jetER_smearer;
-    std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
-
-    std::unique_ptr<JetCleaner> jetcleaner;
-    std::unique_ptr<TopJetCleaner> topjetcleaner;
-
+    std::unique_ptr<uhh2::AnalysisModule> MCWeightModule;
+    std::unique_ptr<uhh2::AnalysisModule> MCPileupReweightModule;
 
     // Data/MC scale factors
     std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
     std::unique_ptr<uhh2::AnalysisModule> lumiweight;
+
+    // Event::Handle<vector<Jet>> h_IdCriteriaJets;
+    // std::unique_ptr<CommonModules> common;
+
+    std::unique_ptr<AnalysisModule> Gen_printer;  
+
+    // std::unique_ptr<JetCorrector> jet_corrector;
+
+    // std::unique_ptr<JetCorrector> jet_corrector_BCD;
+    // std::unique_ptr<JetCorrector> jet_corrector_EF;
+    // std::unique_ptr<JetCorrector> jet_corrector_G;
+    // std::unique_ptr<JetCorrector> jet_corrector_H;
+
+    // std::unique_ptr<TopJetCorrector> topjet_corrector;
+    // std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
+    // std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
+    // std::unique_ptr<TopJetCorrector> topjet_corrector_G;
+    // std::unique_ptr<TopJetCorrector> topjet_corrector_H;
+
+    // std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
+
+    // // std::unique_ptr<SubJetCorrector> subjet_corrector;
+    // // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
+    // // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
+    // // std::unique_ptr<SubJetCorrector> subjet_corrector_G;
+    // // std::unique_ptr<SubJetCorrector> subjet_corrector_H;
+
+
+    // std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+    // std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
+
+    std::unique_ptr<JetCleaner> jetcleaner;
+    // std::unique_ptr<TopJetCleaner> topjetcleaner;
+
+    std::unique_ptr<JetCleaner> ak4pfidfilter;
+    // std::unique_ptr<TopJetCleaner> ak8pfidfilter;
+
+    // // Data/MC scale factors
+    // std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
+    // std::unique_ptr<uhh2::AnalysisModule> lumiweight;
 
     //********** SELECTIONS ***************  
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
@@ -101,17 +112,14 @@ namespace uhh2examples {
     std::unique_ptr<Selection> jet2_sel;
     std::unique_ptr<Selection> vbfdeta_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
-    std::unique_ptr<Selection> vbfeta_sel;
-    std::unique_ptr<Selection> invM500_sel;
-    std::unique_ptr<Selection> invM600_sel;
-    std::unique_ptr<Selection> invM700_sel;
+    std::unique_ptr<Selection> vbfeta_sel, vbfeta35_sel, vbfeta4_sel, vbfeta45_sel, vbfeta5_sel, vbfeta55_sel, vbfeta6_sel;
     std::unique_ptr<Selection> invM800_sel;
-    std::unique_ptr<Selection> invM900_sel;
     std::unique_ptr<Selection> invM1000_sel;
   
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_input;
+    std::unique_ptr<Hists> h_event_input;
     std::unique_ptr<Hists> h_topjets_input;
     std::unique_ptr<Hists> h_jets_input;
     std::unique_ptr<Hists> h_Wtopjets_input;
@@ -159,6 +167,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets_compare;
     std::unique_ptr<Hists> h_jets_compare;
     std::unique_ptr<Hists> h_compare;
+    std::unique_ptr<Hists> h_event_compare;
 
     std::unique_ptr<Hists> h_Wtopjets_compareSD;
 
@@ -189,9 +198,7 @@ namespace uhh2examples {
     
     std::unique_ptr<Hists> h_jets_2jetsel;
     std::unique_ptr<Hists> h_Wtopjets_2jetsel;
-    
-    std::unique_ptr<Hists> h_jets_vbfdeltaeta;
-    
+        
     std::unique_ptr<Hists> h_jets_vbfetasign;
     std::unique_ptr<Hists> h_Wtopjets_vbfetasign;
     
@@ -206,13 +213,13 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_jets_VBF_VVMass_tau21HP;
     std::unique_ptr<Hists> h_Dijets_VBF_VVMass_tau21HP;
 
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM500;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM600;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM700;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM900;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM800_de45;
+
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de45;
 
     
     std::unique_ptr<Hists> h_input_gentopjets;
@@ -239,6 +246,8 @@ namespace uhh2examples {
     MuonId     MuId;
     ElectronId EleId;
 
+    JetId AK4PFID;
+    TopJetId AK8PFID;
   };
 
 
@@ -274,8 +283,14 @@ namespace uhh2examples {
       cout << " " << kv.first << " = " << kv.second << endl;
     }
     
-    // 1. setup other modules. CommonModules and the JetCleaner:
+    if(isMC){
+      MCWeightModule.reset(new MCLumiWeight(ctx));
+      MCPileupReweightModule.reset(new MCPileupReweight(ctx));
+    }
 
+
+    // 1. setup other modules. CommonModules and the JetCleaner:
+    // h_IdCriteriaJets = ctx.get_handle<vector<Jet>>("patJetsAK8PFPUPPI");
 
     // MuId  = AndId<Muon>(MuonIDTight(), PtEtaCut(30., 2.4));
     // EleId = AndId<Electron>(ElectronID_HEEP_RunII_25ns, PtEtaCut(35., 2.5));
@@ -288,8 +303,10 @@ namespace uhh2examples {
     
 
     // //    common->disable_mcpileupreweight(); //irene                                                                                                                                                      
+    // common->switch_jetlepcleaner(false);     
+    // common->disable_jetpfidfilter();
     // common->disable_jersmear(); //irene
-    // common->disable_jec(); //irene       
+    // common->disable_jec(); //irene  
     // //    common->disable_metfilters(); //irene                                                                                           
     // if(PRINT) cout << "common" <<endl;
     // //    common->set_jet_id(PtEtaCut(30.0, 2.4)); 
@@ -367,10 +384,18 @@ namespace uhh2examples {
 
     // //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
-    //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
-    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
+    // //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
+    // topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
     
-    if(PRINT) cout << "cleaners" <<endl;
+     AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+    // AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+
+
+    // ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
+    ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+
+
+    // if(PRINT) cout << "cleaners" <<endl;
     
 
 
@@ -383,13 +408,13 @@ namespace uhh2examples {
     // // common->set_jet_id(PtEtaCut(30.0, 2.4));
     // // before the 'common->init(ctx)' line.
     
-    // // 2. set up selections ***
+    // 2. set up selections ***
 
-    // //    njet_sel.reset(new NJetSelection(2)); // see common/include/NSelections.h
-    // muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
-    // electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
+    //    njet_sel.reset(new NJetSelection(2)); // see common/include/NSelections.h
+    muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
+    electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
 
-    // //    topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
+    //    topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
@@ -399,20 +424,18 @@ namespace uhh2examples {
     // WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
     tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
-    vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
+    vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    invM500_sel.reset(new invMassVBFjetSelection(500.0f)); // see VBFresonanceToWWSelections
-    invM600_sel.reset(new invMassVBFjetSelection(600.0f)); // see VBFresonanceToWWSelections
-    invM700_sel.reset(new invMassVBFjetSelection(700.0f)); // see VBFresonanceToWWSelections
+    vbfeta45_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
     invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
-    invM900_sel.reset(new invMassVBFjetSelection(900.0f)); // see VBFresonanceToWWSelections
     invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
 
 
     // 3. Set up Hists classes:
     h_input.reset(new VBFresonanceToWWHists(ctx, "input"));
+    h_event_input.reset(new EventHists(ctx, "event_input"));
     h_ele_input.reset(new ElectronHists(ctx, "ele_input"));
     h_muon_input.reset(new MuonHists(ctx, "muon_input"));
     h_topjets_input.reset(new TopJetHists(ctx, "topjets_input"));
@@ -461,6 +484,7 @@ namespace uhh2examples {
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
+    h_event_compare.reset(new EventHists(ctx, "event_compare"));
 
     h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareSD"));
 
@@ -484,11 +508,8 @@ namespace uhh2examples {
     h_jets_2jetsel.reset(new JetHists(ctx, "jets_2AK4"));
     h_Wtopjets_2jetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK4"));
 
-    h_jets_vbfdeltaeta.reset(new JetHists(ctx, "jets_vbfdeltaeta"));
-
     h_jets_vbfetasign.reset(new JetHists(ctx, "jets_vbfetasign"));
     h_Wtopjets_vbfetasign.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_vbfetasign"));
-
 
     h_VBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "VBF_VVMass"));
     h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
@@ -503,13 +524,12 @@ namespace uhh2examples {
 
 
 
-    h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
-    h_Wtopjets_withVBF_invM500.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM500"));
-    h_Wtopjets_withVBF_invM600.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM600"));
-    h_Wtopjets_withVBF_invM700.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM700"));
     h_Wtopjets_withVBF_invM800.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800"));
-    h_Wtopjets_withVBF_invM900.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM900"));
+    h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
+    h_Dijets_VBF_invM800_de45.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM800_45"));
     h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000"));
+    h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
+    h_Wtopjets_withVBF_invM1000_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000_de45"));
 
 
     //genjet
@@ -551,6 +571,12 @@ namespace uhh2examples {
     if(PRINT)    cout << "VBFresonanceToWWSelectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
     
 
+    if(isMC){
+      MCWeightModule->process(event);
+      MCPileupReweightModule->process(event);
+    }
+
+
     /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -562,262 +588,246 @@ namespace uhh2examples {
 		lumiweight->process(event);
       }
     */
-    // keep Jets *before cleaning* to store them in the ntuple if event is accepted   
-    std::unique_ptr< std::vector<Jet> >    uncleaned_jets   (new std::vector<Jet>   (*event.jets));   
-    std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
-
-   //  // 1. run all modules other modules.
-
-   //  h_input->fill(event);
-   //  h_topjets_input->fill(event);
-   //  h_jets_input->fill(event);
-   //  h_Wtopjets_input->fill(event);
-   //  h_ele_input->fill(event);
-   //  h_muon_input->fill(event);
 
 
-   //  bool pass_cm = common->process(event);
-   //  if(!pass_cm) return false; 
-   //  //    if(PRINT)    Gen_printer->process(event);
+    /*
+    vector<Jet> IdCriteriaJets = event.get(h_IdCriteriaJets);
+    if(PRINT)    cout << " jet id criteria" << endl;
 
-   //  h_commonmod->fill(event);
-   //  h_topjets_commonmod->fill(event);
-   //  h_jets_commonmod->fill(event);
-   //  h_Wtopjets_commonmod->fill(event);
-   //  h_ele_commonmod->fill(event);
-   //  h_muon_commonmod->fill(event);
+    std::vector<int> skipindex;
+    for(unsigned int i=0;i<event.topjets->size();i++){
+      if(PRINT)    cout << " event topjet " << i << endl;
+
+      int N_Daughters = event.topjets->at(i).numberOfDaughters();
+      float nEMFrac = event.topjets->at(i).neutralEmEnergyFraction();
+      float nHFrac = event.topjets->at(i).neutralHadronEnergyFraction();
+      float chEMFrac = event.topjets->at(i).chargedEmEnergyFraction();
+      float chHFrac = event.topjets->at(i).chargedHadronEnergyFraction();
+      float chMulti = event.topjets->at(i).chargedMultiplicity();
+
+      double deltaR_min=99999.;
+      int nearest_index=0;
+      for(unsigned int j=0;j<IdCriteriaJets.size();j++){
+	if(std::find(skipindex.begin(),skipindex.end(),j) != skipindex.end()) continue;
+	double deltaR_candiate=deltaR(IdCriteriaJets.at(j),event.topjets->at(i));
+	if(deltaR_candiate<deltaR_min){
+	  deltaR_min = deltaR_candiate;
+	  nearest_index=j;
+	}
+	skipindex.push_back(nearest_index);
+	N_Daughters = IdCriteriaJets.at(nearest_index).numberOfDaughters();
+	nEMFrac = IdCriteriaJets.at(nearest_index).neutralEmEnergyFraction();
+	nHFrac = IdCriteriaJets.at(nearest_index).neutralHadronEnergyFraction();
+	chEMFrac = IdCriteriaJets.at(nearest_index).chargedEmEnergyFraction();
+	chHFrac =IdCriteriaJets.at(nearest_index).chargedHadronEnergyFraction();
+	chMulti = IdCriteriaJets.at(nearest_index).chargedMultiplicity();
+      }
+      event.topjets->at(i).set_numberOfDaughters(N_Daughters);
+      event.topjets->at(i).set_neutralEmEnergyFraction(nEMFrac);
+      event.topjets->at(i).set_neutralHadronEnergyFraction(nHFrac);
+      event.topjets->at(i).set_chargedEmEnergyFraction(chEMFrac);
+      event.topjets->at(i).set_chargedHadronEnergyFraction(chHFrac);
+      event.topjets->at(i).set_chargedMultiplicity(chMulti);
+    }
+
+    // 1. run all modules other modules.
+
+    h_input->fill(event);
+    h_event_input->fill(event);
+    h_topjets_input->fill(event);
+    h_jets_input->fill(event);
+    h_Wtopjets_input->fill(event);
+    h_ele_input->fill(event);
+    h_muon_input->fill(event);
+
+
+    bool pass_cm = common->process(event);
+    if(!pass_cm) return false; 
+    //    if(PRINT)    Gen_printer->process(event);
+
+    h_commonmod->fill(event);
+    h_topjets_commonmod->fill(event);
+    h_jets_commonmod->fill(event);
+    h_Wtopjets_commonmod->fill(event);
+    h_ele_commonmod->fill(event);
+    h_muon_commonmod->fill(event);
 
     
-   //  // 2. test selections and fill histograms
-   //  if(isMC)
-   //    {
-   // 	sort_by_pt<GenTopJet>(*event.gentopjets);
+    // 2. test selections and fill histograms
+    if(isMC)
+      {
+	sort_by_pt<GenTopJet>(*event.gentopjets);
 
-   // 	h_input_gentopjets->fill(event);
-   // 	h_input_gendijets->fill(event);
-   // 	h_input_genjets->fill(event);
-   // 	h_input_genparticle->fill(event);
-   //    }
+	h_input_gentopjets->fill(event);
+	h_input_gendijets->fill(event);
+	h_input_genjets->fill(event);
+	h_input_genparticle->fill(event);
+      }
   
-   //  bool muon_selection = muon_sel->passes(event);
-   //  if(!muon_selection) return false;
-   //  bool electron_selection = electron_sel->passes(event);
-   //  if(!electron_selection) return false;
+    bool muon_selection = muon_sel->passes(event);
+    if(!muon_selection) return false;
+    bool electron_selection = electron_sel->passes(event);
+    if(!electron_selection) return false;
 
-   // h_ele_leptonVeto->fill(event);
-   // h_muon_leptonVeto->fill(event);
+   h_ele_leptonVeto->fill(event);
+   h_muon_leptonVeto->fill(event);
 
-   // sort_by_pt<Jet>(*event.jets);
-   // sort_by_pt<TopJet>(*event.topjets);
+   sort_by_pt<Jet>(*event.jets);
+   sort_by_pt<TopJet>(*event.topjets);
 
-   //  h_Wtopjets_leptonVeto->fill(event);
+    h_Wtopjets_leptonVeto->fill(event);
 
-   //  // JET CLEANING
-   //  if(isMC)
-   //    {
-   // 	// jetlepton_cleaner->process(event);
-   // 	jet_corrector->process(event);
-   // 	topjet_corrector->process(event);
-   // 	//	subjet_corrector->process(event);
-   // 	jet_corrector->correct_met(event);
+    // JET CLEANING
+    if(isMC)
+      {
+	// jetlepton_cleaner->process(event);
+	jet_corrector->process(event);
+	topjet_corrector->process(event);
+	//	subjet_corrector->process(event);
+	jet_corrector->correct_met(event);
 
-   // 	if(channel_=="signal")
-   // 	  {
-   // 	    //	    cout << "Smearing" << endl;
-   // 	    jetER_smearer->process(event);
-   // 	    topjetER_smearer->process(event);
-   // 	  }
-   //    }else{
-   //    if(event.run <= runnr_BCD)  {       
-   // 	//	jetlepton_cleaner_BCD->process(event);    
-   // 	jet_corrector_BCD->process(event);
-   // 	topjet_corrector_BCD->process(event);
+	if(channel_=="signal")
+	  {
+	    //	    cout << "Smearing" << endl;
+	    jetER_smearer->process(event);
+	    topjetER_smearer->process(event);
+	  }
+      }else{
+      if(event.run <= runnr_BCD)  {       
+	//	jetlepton_cleaner_BCD->process(event);    
+	jet_corrector_BCD->process(event);
+	topjet_corrector_BCD->process(event);
 
-   // 	//	subjet_corrector_BCD->process(event);
-   // 	jet_corrector_BCD->correct_met(event);
-   //   }
-   //    else if(event.run < runnr_EF){       
-   // 	//	jetlepton_cleaner_EF->process(event);   
-   // 	jet_corrector_EF->process(event);
-   // 	topjet_corrector_EF->process(event);
-   // 	//	subjet_corrector_EF->process(event);
-   // 	jet_corrector_EF->correct_met(event);
-   //    } 
-   //    else if(event.run <= runnr_G) {       
-   // 	//	jetlepton_cleaner_G->process(event);   
-   // 	jet_corrector_G->process(event);
-   // 	topjet_corrector_G->process(event);
-   // 	//	subjet_corrector_G->process(event);
-   // 	jet_corrector_G->correct_met(event);
-   //    } 
-   //    else if(event.run > runnr_G) {       
-   // 	//	jetlepton_cleaner_H->process(event); 
-   // 	jet_corrector_H->process(event);
-   // 	topjet_corrector_H->process(event);
-   // 	//	subjet_corrector_H->process(event);
-   // 	jet_corrector_H->correct_met(event);
-   //    } 
-   //  }
+	//	subjet_corrector_BCD->process(event);
+	jet_corrector_BCD->correct_met(event);
+     }
+      else if(event.run < runnr_EF){       
+	//	jetlepton_cleaner_EF->process(event);   
+	jet_corrector_EF->process(event);
+	topjet_corrector_EF->process(event);
+	//	subjet_corrector_EF->process(event);
+	jet_corrector_EF->correct_met(event);
+      } 
+      else if(event.run <= runnr_G) {       
+	//	jetlepton_cleaner_G->process(event);   
+	jet_corrector_G->process(event);
+	topjet_corrector_G->process(event);
+	//	subjet_corrector_G->process(event);
+	jet_corrector_G->correct_met(event);
+      } 
+      else if(event.run > runnr_G) {       
+	//	jetlepton_cleaner_H->process(event); 
+	jet_corrector_H->process(event);
+	topjet_corrector_H->process(event);
+	//	subjet_corrector_H->process(event);
+	jet_corrector_H->correct_met(event);
+      } 
+    }
 
-   //  sort_by_pt<Jet>(*event.jets);
-   //  sort_by_pt<TopJet>(*event.topjets);
-   //  h_Wtopjets_jec->fill(event);
-   //  if(PRINT)    cout << "VBFresonanceToWWSelectionModule: jec applied " << endl;
+    sort_by_pt<Jet>(*event.jets);
+    sort_by_pt<TopJet>(*event.topjets);
+    h_Wtopjets_jec->fill(event);
+    if(PRINT)    cout << "VBFresonanceToWWSelectionModule: jec applied " << endl;
 
-   //  topjet_sdmasscorrector->process(event);
-   //  h_topjets_afterSD->fill(event);
+    topjet_sdmasscorrector->process(event);
+    h_topjets_afterSD->fill(event);
 
-   //  //    jetcleaner->process(event);
-   //  topjetcleaner->process(event);
+    //    jetcleaner->process(event);
+    topjetcleaner->process(event);   
+    ak8pfidfilter->process(event);
 
-   //  h_cleaner->fill(event);
-   //  h_Wtopjets_cleaner->fill(event);
-   //  h_topjets_cleaner->fill(event);
-   //  h_jets_cleaner->fill(event);
+    h_cleaner->fill(event);
+    h_Wtopjets_cleaner->fill(event);
+    h_topjets_cleaner->fill(event);
+    h_jets_cleaner->fill(event);
 
 
-   //  bool topjets2_selection = topjet2_sel->passes(event);
-   //  if(!topjets2_selection) return false;
+    bool topjets2_selection = topjet2_sel->passes(event);
+    if(!topjets2_selection) return false;
 
-   //  h_topjets_2topjetsel->fill(event);
-   //  h_Wtopjets_2topjetsel->fill(event);
+    h_topjets_2topjetsel->fill(event);
+    h_Wtopjets_2topjetsel->fill(event);
 
     
-   //  //Cleaning(removing) AK4 if overlapping with AK8
-   //  std::vector<Jet>* AK4Jets(new std::vector<Jet> (*event.jets));
-   //  vector<TopJet> Tjets = *event.topjets;
-   //  const TopJet & tj_0 = Tjets[0];
-   //  const TopJet & tj_1 = Tjets[1];
+    //Cleaning(removing) AK4 if overlapping with AK8
+    std::vector<Jet>* AK4Jets(new std::vector<Jet> (*event.jets));
+    vector<TopJet> Tjets = *event.topjets;
+    const TopJet & tj_0 = Tjets[0];
+    const TopJet & tj_1 = Tjets[1];
 
-   //  AK4Jets->clear();
-   //  AK4Jets->reserve(event.jets->size());
+    AK4Jets->clear();
+    AK4Jets->reserve(event.jets->size());
 
-   //  if(PRINT) std::cout<<"SelectionModule L:858 Size AK4 before cleaning "<<event.jets->size() <<std::endl;
-   //  for(const Jet ak4:*event.jets)
-   //    {
-   // 	bool bdeltaR=true;
-   // 	//      for(const TopJet ak8:*event.topjets){
-   // 	//	double deltar = deltaR(ak4,ak8);
+    if(PRINT) std::cout<<"SelectionModule L:858 Size AK4 before cleaning "<<event.jets->size() <<std::endl;
+    for(const Jet ak4:*event.jets)
+      {
+	bool bdeltaR=true;
+	//      for(const TopJet ak8:*event.topjets){
+	//	double deltar = deltaR(ak4,ak8);
 	
-   // 	double deltar_0 = deltaR(ak4,tj_0);
-   // 	double deltar_1 = deltaR(ak4,tj_1);
-   // 	if((deltar_0 < 1.2) || (deltar_1 < 1.2)) bdeltaR=false;
-   // 	if(PRINT) std::cout<<"SelectionModule L:858 bdeltaR  "<<bdeltaR <<std::endl;
-   // 	//    }      
-   // 	if(bdeltaR) AK4Jets->push_back(ak4);
-   //  }
+	double deltar_0 = deltaR(ak4,tj_0);
+	double deltar_1 = deltaR(ak4,tj_1);
+	if((deltar_0 < 1.2) || (deltar_1 < 1.2)) bdeltaR=false;
+	if(PRINT) std::cout<<"SelectionModule L:858 bdeltaR  "<<bdeltaR <<std::endl;
+	//    }      
+	if(bdeltaR) AK4Jets->push_back(ak4);
+    }
 
-   //  sort_by_pt<Jet>(*AK4Jets);
-   //  ////put cleaned AK4 jets in event.jet
-   //  event.jets->clear();
-   //  event.jets->reserve(AK4Jets->size());
-   //  for(const auto & j : *AK4Jets) event.jets->push_back(j); 
-   //  sort_by_pt<Jet>(*event.jets);
-   //  sort_by_pt<TopJet>(*event.topjets);
-   //  if(PRINT) std::cout<<"SelectionModule L:858 Size topjets Collection "<<event.jets->size() <<std::endl;
+    sort_by_pt<Jet>(*AK4Jets);
+    ////put cleaned AK4 jets in event.jet
+    event.jets->clear();
+    event.jets->reserve(AK4Jets->size());
+    for(const auto & j : *AK4Jets) event.jets->push_back(j); 
+    sort_by_pt<Jet>(*event.jets);
+    sort_by_pt<TopJet>(*event.topjets);
+    if(PRINT) std::cout<<"SelectionModule L:858 Size topjets Collection "<<event.jets->size() <<std::endl;
 
-   //  /////////////////AK4 cleaning end ////////////////
+    /////////////////AK4 cleaning end ////////////////
 
 
-    // h_topjets_noOverlapping->fill(event);
-    // h_Wtopjets_noOverlapping->fill(event);
-    // h_jets_noOverlapping->fill(event);
+    h_topjets_noOverlapping->fill(event);
+    h_Wtopjets_noOverlapping->fill(event);
+    h_jets_noOverlapping->fill(event);
     //    sort_by_eta<Jet>(*event.jets);
     //h_Wtopjets_noOverlapping_eta->fill(event);
     //h_jets_noOverlapping_eta->fill(event);
 
 
-    //genjet
-    // if(isMC)
-    //   {
-	
-    // 	bool noOverlapping_genjetselection = noOverlapping_genjetsel->passes(event);
-    // 	bool eta_gentopjetselection = eta_topgensel->passes(event);
-    // 	if(eta_gentopjetselection)
-    // 	  //      if(eta_gentopjetselection && noOverlapping_genjetselection)
-    // 	  {
-    // 	    h_eta_gentopjets->fill(event);
-    // 	  }
-    // 	bool cleaner_gentopjetselection = cleaner_topgensel->passes(event);
-    // 	//      if(eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-    // 	if(eta_gentopjetselection  && cleaner_gentopjetselection ) 
-    // 	  {
-    // 	    h_cleaner_gentopjets->fill(event);
-    // 	  }
-    // 	bool gentopjets_deta_selection = gentopjets_deta_sel->passes(event);
-    // 	if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-    // 	  //      if(gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-    // 	  {
-    // 	    h_Wgentopjets->fill(event);
-    // 	  }
-    // 	bool invMgentopjet_selection = invMgentopjet_sel->passes(event);
-    // 	//      if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-    // 	if(invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-    // 	  {
-    // 	    h_Wgentopjets_invM->fill(event);
-    // 	    h_cleaner_genjets->fill(event);
-	    
-    // 	  }
-    // 	bool vbfdeta_genselection = vbfdeta_gensel->passes(event);
-    // 	if(vbfdeta_genselection){
-    // 	  h_vbfdeltaeta_genjets->fill(event);
-    // 	}
-    // 	bool vbfetasign_genselection = vbfetasign_gensel->passes(event);
-    // 	if(vbfetasign_genselection)// && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-    // 	  {
-    // 	    h_vbfetasign_genjets->fill(event);
-    // 	  }
-    // 	bool vbfeta_genselection = vbfeta_gensel->passes(event);
-    // 	if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection)
-    // 	  //      if(vbfeta_genselection && invMgentopjet_selection && gentopjets_deta_selection && eta_gentopjetselection && cleaner_gentopjetselection && noOverlapping_genjetselection)
-    // 	  {
-    // 	    h_vbfW_genjets->fill(event);
-    // 	    //      h_GenDijets->fill(event);
-    // 	  }
-	
-    // 	if(vbfeta_genselection)
-    // 	  {
-    // 	    h_vbfeta_genjets->fill(event);
-    // 	    h_Wgentopjets_VBF->fill(event);	
-	    
-    // 	  }
-	
-	
-    //   }
 
 
-    // bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
-    // if(!invMtopjet_fitselection )
-    //   return false;
+    bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
+    if(!invMtopjet_fitselection )
+      return false;
 
-    //   h_Wtopjets_invM->fill(event);
-    //   h_topjets_invM->fill(event);
-    // if(PRINT) std::cout<<"inv M "<<std::endl;
+      h_Wtopjets_invM->fill(event);
+      h_topjets_invM->fill(event);
+    if(PRINT) std::cout<<"inv M "<<std::endl;
 
-    // bool topjets_deta_selection = topjets_deta_sel->passes(event);
-    // if(!topjets_deta_selection)
-    //   return false;
-    // // h_Wtopjets_deta->fill(event);
-    // // h_topjets_deta->fill(event);
-    // if(PRINT) std::cout<<"deta "<<std::endl;
+    bool topjets_deta_selection = topjets_deta_sel->passes(event);
+    if(!topjets_deta_selection)
+      return false;
+    if(PRINT) std::cout<<"deta "<<std::endl;
 
-    // bool invMtopjet_selection = invMtopjet_sel->passes(event);
-    // if(PRINT) std::cout<<"invM 2 "<<std::endl;
-
-    bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
-    if(PRINT) std::cout<<"sd "<<std::endl;
-    bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
-    if(PRINT) std::cout<<"tau21 "<<std::endl;
     // bool tau21topjet_045_selection = tau21topjet045_sel->passes(event);
 
     // if(invMtopjet_selection )
     //   {
+
+    */
+
     h_Wtopjets_compare->fill(event);
     if(PRINT) std::cout<<"compare "<<std::endl;
     h_topjets_compare->fill(event);
     h_Dijets_compare->fill(event);
     h_jets_compare->fill(event);
     h_compare->fill(event);
+    h_event_compare->fill(event);
+
+
+    bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
+    if(PRINT) std::cout<<"sd "<<std::endl;
+    bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
+    if(PRINT) std::cout<<"tau21 "<<std::endl;
     if(invMtopjet_SDselection && tau21topjetHP_selection)
       h_Wtopjets_compareSD->fill(event);
     if(PRINT) std::cout<<"compare and sd "<<std::endl;
@@ -834,15 +844,17 @@ namespace uhh2examples {
     h_VVMass->fill(event);
     if(PRINT) std::cout<<"VV "<<std::endl;
 
+
     if(!tau21topjetHP_selection) return false;
     h_Wtopjets_VVMass_tau21HP->fill(event);
     h_topjets_VVMass_tau21HP->fill(event);
     h_Dijets_VVMass_tau21HP->fill(event);
     h_jets_VVMass_tau21HP->fill(event);
-	    if(PRINT) std::cout<<"tau21 "<<std::endl;
+    if(PRINT) std::cout<<"tau21 "<<std::endl;
 
 
     jetcleaner->process(event);
+    ak4pfidfilter->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
     h_jets_AK4cleaner->fill(event);
      
@@ -863,12 +875,7 @@ namespace uhh2examples {
     
 
     bool vbfeta_selection = vbfeta_sel->passes(event);
-    bool invM500jet_selection = invM500_sel->passes(event);
-    bool invM600jet_selection = invM600_sel->passes(event);
-    bool invM700jet_selection = invM700_sel->passes(event);
-    bool invM800jet_selection = invM800_sel->passes(event);
-    bool invM900jet_selection = invM900_sel->passes(event);
-    bool invM1000jet_selection = invM1000_sel->passes(event);
+    bool vbfeta45_selection = vbfeta45_sel->passes(event);
 
     if(!vbfeta_selection) return false;
 
@@ -879,38 +886,41 @@ namespace uhh2examples {
     h_topjets_withVBF_VVMass->fill(event);
     if(PRINT) std::cout<<"VBF "<<std::endl;
 
-    if(!invM500jet_selection) return false;
-    h_Wtopjets_withVBF_invM500->fill(event);
-    if(PRINT) std::cout<<"VBF 500"<<std::endl;
 
-    if(!invM600jet_selection) return false;
-    h_Wtopjets_withVBF_invM600->fill(event);
-    if(!invM700jet_selection) return false;
-    h_Wtopjets_withVBF_invM700->fill(event);
+    bool invM800jet_selection = invM800_sel->passes(event);
+    bool invM1000jet_selection = invM1000_sel->passes(event);
+
+
+
     if(!invM800jet_selection) return false;
     h_Wtopjets_withVBF_invM800->fill(event);
-    if(!invM900jet_selection) return false;
-    h_Wtopjets_withVBF_invM900->fill(event);
-
+    if(vbfeta45_selection)
+      {
+	h_Wtopjets_withVBF_invM800_de45->fill(event);
+	h_Dijets_VBF_invM800_de45->fill(event);
+      }
 
     if(!invM1000jet_selection) return false;
     h_Dijets_VBF_invM1000->fill(event);
     h_Wtopjets_withVBF_invM1000->fill(event);
+    if(vbfeta45_selection)
+      h_Wtopjets_withVBF_invM1000_de45->fill(event);
+
     if(PRINT) std::cout<<"VBF 1000"<<std::endl;
 
 
     // store Jets *before cleaning* in the ntuple                                                                                                                                                     
-    event.jets->clear();
-    event.jets->reserve(uncleaned_jets->size());
-    for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
-    sort_by_pt<Jet>(*event.jets);
-    if(PRINT) cout << "jets clear reserve push" <<endl;
+    // event.jets->clear();
+    // event.jets->reserve(uncleaned_jets->size());
+    // for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
+    // sort_by_pt<Jet>(*event.jets);
+    // if(PRINT) cout << "jets clear reserve push" <<endl;
     
-    event.topjets->clear();
-    event.topjets->reserve(uncleaned_topjets->size());
-    for(const auto & j : *uncleaned_topjets) event.topjets->push_back(j);
-    sort_by_pt<TopJet>(*event.topjets);
-      if(PRINT) cout << "topjets clear reserve push" <<endl;
+    // event.topjets->clear();
+    // event.topjets->reserve(uncleaned_topjets->size());
+    // for(const auto & j : *uncleaned_topjets) event.topjets->push_back(j);
+    // sort_by_pt<TopJet>(*event.topjets);
+    //   if(PRINT) cout << "topjets clear reserve push" <<endl;
 
     // 3. decide whether or not to keep the current event in the output:
     return true;
