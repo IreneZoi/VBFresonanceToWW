@@ -27,6 +27,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
 #define PRINT false
+#define L1pref true
 
 using namespace std;
 using namespace uhh2;
@@ -74,6 +75,7 @@ namespace uhh2examples {
     // std::unique_ptr<TopJetCorrector> topjet_corrector_H;
 
     // std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
+    std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
 
     // // std::unique_ptr<SubJetCorrector> subjet_corrector;
     // // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
@@ -214,12 +216,12 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets_VBF_VVMass_tau21HP;
 
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM800_de45;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de4;
+    std::unique_ptr<Hists> h_Dijets_VBF_invM800_de4;
 
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
     std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de45;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de4;
 
     
     std::unique_ptr<Hists> h_input_gentopjets;
@@ -268,7 +270,12 @@ namespace uhh2examples {
 
     //choose channel from .xml file
     isMC = (ctx.get("dataset_type") == "MC");
+    if(PRINT) cout << "isMC? " << isMC << endl;
+
     channel_ = ctx.get("channel");
+
+    if(PRINT) cout << "channel " << ctx.get("channel") << endl;
+
     /*
     if(isMC)
       { 
@@ -287,6 +294,8 @@ namespace uhh2examples {
       MCWeightModule.reset(new MCLumiWeight(ctx));
       MCPileupReweightModule.reset(new MCPileupReweight(ctx));
     }
+
+    if(PRINT) cout << " LUMI and PU done " << endl;
 
 
     // 1. setup other modules. CommonModules and the JetCleaner:
@@ -378,8 +387,11 @@ namespace uhh2examples {
 
     //   }
 
-
+    if(PRINT && L1pref) cout << "before reset L1" << endl;
     // topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+    //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Jet_L1IsoEG30eff_bxm1_looseJet_2016H.root","jets"));
+    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2016B-F.root","jets"));
+    if(PRINT && L1pref) cout << "after reset L1" << endl;
 
 
     // //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
@@ -427,7 +439,7 @@ namespace uhh2examples {
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    vbfeta45_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
+    vbfeta4_sel.reset(new VBFEtajetSelection(4.0f)); // see VBFresonanceToWWSelections
     invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
     invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
@@ -525,11 +537,11 @@ namespace uhh2examples {
 
 
     h_Wtopjets_withVBF_invM800.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800"));
-    h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
-    h_Dijets_VBF_invM800_de45.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM800_45"));
+    h_Wtopjets_withVBF_invM800_de4.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de4"));
+    h_Dijets_VBF_invM800_de4.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM800_45"));
     h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000"));
     h_Dijets_VBF_invM1000.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_invM1000"));
-    h_Wtopjets_withVBF_invM1000_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000_de45"));
+    h_Wtopjets_withVBF_invM1000_de4.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000_de4"));
 
 
     //genjet
@@ -875,7 +887,7 @@ namespace uhh2examples {
     
 
     bool vbfeta_selection = vbfeta_sel->passes(event);
-    bool vbfeta45_selection = vbfeta45_sel->passes(event);
+    bool vbfeta4_selection = vbfeta4_sel->passes(event);
 
     if(!vbfeta_selection) return false;
 
@@ -894,17 +906,18 @@ namespace uhh2examples {
 
     if(!invM800jet_selection) return false;
     h_Wtopjets_withVBF_invM800->fill(event);
-    if(vbfeta45_selection)
+    if(vbfeta4_selection)
       {
-	h_Wtopjets_withVBF_invM800_de45->fill(event);
-	h_Dijets_VBF_invM800_de45->fill(event);
+	h_Wtopjets_withVBF_invM800_de4->fill(event);
+	h_Dijets_VBF_invM800_de4->fill(event);
+	if(L1pref)	jet_L1PrefiringSF->process(event);
       }
 
     if(!invM1000jet_selection) return false;
     h_Dijets_VBF_invM1000->fill(event);
     h_Wtopjets_withVBF_invM1000->fill(event);
-    if(vbfeta45_selection)
-      h_Wtopjets_withVBF_invM1000_de45->fill(event);
+    if(vbfeta4_selection)
+      h_Wtopjets_withVBF_invM1000_de4->fill(event);
 
     if(PRINT) std::cout<<"VBF 1000"<<std::endl;
 
