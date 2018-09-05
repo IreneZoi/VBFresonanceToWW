@@ -52,11 +52,6 @@ namespace uhh2examples {
     std::unique_ptr<uhh2::AnalysisModule> MCWeightModule;
     std::unique_ptr<uhh2::AnalysisModule> MCPileupReweightModule;
 
-    // Data/MC scale factors
-    std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
-    std::unique_ptr<uhh2::AnalysisModule> lumiweight;
-
-
     std::unique_ptr<AnalysisModule> Gen_printer;  
 
     std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
@@ -233,13 +228,6 @@ namespace uhh2examples {
 
     if(PRINT) cout << "channel " << ctx.get("channel") << endl;
 
-    /*
-    if(isMC)
-      { 
-	pileup_SF.reset(new MCPileupReweight(ctx)); 
-		lumiweight.reset(new MCLumiWeight(ctx));
-      }
-    */
     // If running in SFrame, the keys "dataset_version", "dataset_type", "dataset_lumi",
     // and "target_lumi" are set to the according values in the xml file. For CMSSW, these are
     // not set automatically, but can be set in the python config file.
