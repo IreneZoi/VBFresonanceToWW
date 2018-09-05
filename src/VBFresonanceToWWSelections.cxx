@@ -202,10 +202,10 @@ bool HighMassTopjetSelection::passes(const Event & event){
   auto JetSDMass2 = event.topjets->at(1).softdropmass();
 
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+  //if(PRINT) cout << "sd mass selection" <<endl;
   
   else return true;
-  if(PRINT) cout << "end SD mass selection" <<endl;
+//  if(PRINT) cout << "end SD mass selection" <<endl;
 
 }
 
@@ -234,7 +234,7 @@ bool HighMassLeadingTopjetSelection::passes(const Event & event){
   auto JetSDMass1 = event.topjets->at(0).softdropmass();
 
   if( JetSDMass1 < M_sd_min) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+  //if(PRINT) cout << "sd mass selection" <<endl;
 	  
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
@@ -264,7 +264,7 @@ bool HighMassSecLeadingTopjetSelection::passes(const Event & event){
   auto JetSDMass1 = event.topjets->at(0).softdropmass();
 
   if( JetSDMass1 < M_sd_min) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+  //if(PRINT) cout << "sd mass selection" <<endl;
 	  
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
@@ -296,7 +296,7 @@ bool VVMassSecLeadingTopjetSelection::passes(const Event & event){
   auto JetSDMass2 = event.topjets->at(1).softdropmass();
 
   if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+  //if(PRINT) cout << "sd mass selection" <<endl;
   
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
@@ -328,7 +328,7 @@ bool VVMassLeadingTopjetSelection::passes(const Event & event){
   auto JetSDMass2 = event.topjets->at(1).softdropmass();
 
   if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+  //if(PRINT) cout << "sd mass selection" <<endl;
 	  
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
@@ -370,7 +370,7 @@ bool VVMassTopjetSelection::passes(const Event & event){
   auto JetSDMass2 = event.topjets->at(1).softdropmass();
   if(PRINT) cout << "TopJet 2 SD "<< event.topjets->at(1).softdropmass() <<endl;
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
-  if(PRINT) cout << "sd mass selection" <<endl;
+ // if(PRINT) cout << "sd mass selection" <<endl;
   
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
@@ -428,7 +428,6 @@ invMassVBFjetInvSelection::invMassVBFjetInvSelection(float invM_max_): invM_max(
 bool invMassVBFjetInvSelection::passes(const Event & event){
   assert(event.jets); // if this fails, it probably means jets are not read in                                                                                                                          
   if(event.jets->size() < 2) return false;
-
   auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
   if( invariantMass >= invM_max) return false;
   else return true;
