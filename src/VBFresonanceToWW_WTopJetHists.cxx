@@ -9,16 +9,16 @@
 using namespace uhh2;
 
 
-VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx, 
+VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
 					     const std::string & dirname)  : Hists(ctx, dirname){
   //number
   book<TH1F>("Njets","N jets",10,0,10);
   
-  //mass
+  //mass hist
   book<TH1F>("Mass_1","Mass_{1} [GeV/c^{2}]",100,0,300);
   book<TH1F>("Mass_2","Mass_{2} [GeV/c^{2}]",100,0,300);
 
-  //PT    
+  //PT
   book<TH1F>("PT_1","P_{T,1} [GeV/c]",45,0,2025);
   book<TH1F>("PT_2","P_{T,2} [GeV/c]",45,0,2025);
   book<TH1F>("PT_both","P_{T} [GeV/c]",45,0,2025);
@@ -26,12 +26,12 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   book<TH1F>("PT_1_bigRange","P_{T,1} [GeV/c]",140,0,7000);
   book<TH1F>("PT_2_bigRange","P_{T,2} [GeV/c]",140,0,7000);
   book<TH1F>("PT_both_bigRange","P_{T} [GeV/c]",140,0,7000);
-  
-  // Phi 
+
+  // Phi
   book<TH1F>("Phi_1","#phi_{1} ",100,-M_PI,M_PI);
   book<TH1F>("Phi_2","#phi_{2} ",100,-M_PI,M_PI);
-  
-  //Eta 
+
+  //Eta
   book<TH1F>("Eta_1","#eta_{1}",50,-2.5,2.5);
   book<TH1F>("Eta_2","#eta_{2}",50,-2.5,2.5);
   book<TH1F>("Eta_both","#eta",50,-2.5,2.5);
@@ -39,15 +39,15 @@ VBFresonanceToWW_WTopJetHists::VBFresonanceToWW_WTopJetHists(Context & ctx,
   //substructure
   book<TH1F>("SoftDropMass_1", "M_{1}^{SD} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_1","CHF_{1}",100,0,1);
-  book<TH1F>("TAU1_1","#tau_{1_{1}}",20,0,1); 
+  book<TH1F>("TAU1_1","#tau_{1_{1}}",20,0,1);
   book<TH1F>("TAU2_1","#tau_{2_{1}}",20,0,1);
-  book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 20,0,1); 
+  book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 20,0,1);
 
   book<TH1F>("SoftDropMass_2", "M_{2}^{SD} [GeV/c^{2}]", 100,0,300);
   book<TH1F>("CHF_2","CHF_{2}",100,0,1);
-  book<TH1F>("TAU1_2","#tau_{1_{2}}",20,0,1); 
+  book<TH1F>("TAU1_2","#tau_{1_{2}}",20,0,1);
   book<TH1F>("TAU2_2","#tau_{2_{2}}",20,0,1);
-  book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 20,0,1); 
+  book<TH1F>("Tau21_2", "#tau_{2_{2}}/#tau_{1_{2}}", 20,0,1);
 
   book<TH1F>("invMass","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("invMass_check2AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
@@ -77,13 +77,13 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
   if(isMC)
     assert(event.genparticles);
 
-  
+
 
     //Weightning
   double weight = event.weight;
-  
+
   std::vector<TopJet>* jet = event.topjets;
-     
+
       float NJet = jet->size();
       hist("Njets")->Fill(NJet, weight);
 
@@ -133,7 +133,7 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 
       hist("SoftDropMass_1")->Fill(JetSDMass1, weight);
       hist("SoftDropMass_2")->Fill(JetSDMass2, weight);
-       
+
 
 
       float chf_1 = jet->at(0).chargedHadronEnergyFraction();
@@ -161,7 +161,7 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 
 
       if(isMC)
-      	{ 
+      	{
 	  const std::vector<GenParticle> &  genp = event.get(h_particles);
 	  const std::vector<Jet> &  ak4 = event.get(h_jets);
 
@@ -172,12 +172,12 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 	    {
 	      const Jet & j1 = ak4[0];
 	      const Jet & j2 = ak4[1];
-	      
+
 	      if((deltaR(j1,gq1)<0.2 && deltaR(j2,gq2)<0.2)||(deltaR(j2,gq1)<0.2 && deltaR(j1,gq2)<0.2))
 		  hist("invMass_check2AK4")->Fill(mass, weight);
 	      if(deltaR(j1,gq1)<0.2 || deltaR(j2,gq2)<0.2 || deltaR(j2,gq1)<0.2 || deltaR(j1,gq2)<0.2)
 		  hist("invMass_check1AK4")->Fill(mass, weight);
-		
+
 	    }
 	  GenParticle qW1;
 	  GenParticle qW2;
@@ -188,12 +188,12 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 	  //std::cout << " new" << std::endl;
   for(unsigned int i=0; i<genp.size(); i++)
     {
-	
+
       const GenParticle & gp = genp[i];
       if(
-	 abs(gp.pdgId())>0 
-	 && abs(gp.pdgId())<7 
-	 && gp.mother1()>0 
+	 abs(gp.pdgId())>0
+	 && abs(gp.pdgId())<7
+	 && gp.mother1()>0
 	 && gp.mother2()>gp.mother1()
 	 )
 	{
@@ -238,7 +238,7 @@ void VBFresonanceToWW_WTopJetHists::fill(const uhh2::Event & event){
 
 
 
-      // std::unique_ptr< std::vector<TopJet> >    pruned_topjets   (new std::vector<TopJet>   (*event.topjets));                                
+      // std::unique_ptr< std::vector<TopJet> >    pruned_topjets   (new std::vector<TopJet>   (*event.topjets));
       // std::sort(pruned_topjets.begin(), pruned_topjets.end(), [](const P & p1, const P & p2){return p1.prunedmass() > p2.prunedmass();});
 
 

@@ -56,7 +56,6 @@ namespace uhh2examples {
 
     std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
 
-
     std::unique_ptr<JetCleaner> jetcleaner;
 
     std::unique_ptr<JetCleaner> ak4pfidfilter;
@@ -238,7 +237,10 @@ namespace uhh2examples {
     if(isMC){
       MCWeightModule.reset(new MCLumiWeight(ctx));
       MCPileupReweightModule.reset(new MCPileupReweight(ctx));
+      //h_weight_pu =ctx.get_handle<float>("weight_pu");
     }
+
+
 
     if(PRINT) cout << " LUMI and PU done " << endl;
 
@@ -277,7 +279,7 @@ namespace uhh2examples {
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
-    vbfeta4_sel.reset(new VBFEtajetSelection(4.0f)); // see VBFresonanceToWWSelections
+    vbfeta4_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
     invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
     invM1000_sel.reset(new invMassVBFjetSelection(1000.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
@@ -412,6 +414,7 @@ namespace uhh2examples {
     if(isMC){
       MCWeightModule->process(event);
       MCPileupReweightModule->process(event);
+      //event.weight *= event.get(h_weight_pu);
     }
 
 
@@ -422,6 +425,7 @@ namespace uhh2examples {
     h_jets_compare->fill(event);
     h_compare->fill(event);
     h_event_compare->fill(event);
+
 
 
     bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
@@ -487,26 +491,18 @@ namespace uhh2examples {
 
 
     bool invM800jet_selection = invM800_sel->passes(event);
-    bool invM1000jet_selection = invM1000_sel->passes(event);
 
 
 
     if(!invM800jet_selection) return false;
     h_Wtopjets_withVBF_invM800->fill(event);
-    if(vbfeta4_selection)
-      {
-	h_Wtopjets_withVBF_invM800_de4->fill(event);
-	h_Dijets_VBF_invM800_de4->fill(event);
-	if(L1pref)	jet_L1PrefiringSF->process(event);
-      }
 
-    if(!invM1000jet_selection) return false;
-    h_Dijets_VBF_invM1000->fill(event);
-    h_Wtopjets_withVBF_invM1000->fill(event);
-    if(vbfeta4_selection)
-      h_Wtopjets_withVBF_invM1000_de4->fill(event);
+    if(!vbfeta4_selection) return false;
+    h_Wtopjets_withVBF_invM800_de4->fill(event);
+    h_Dijets_VBF_invM800_de4->fill(event);
 
-    if(PRINT) std::cout<<"VBF 1000"<<std::endl;
+    if(L1pref)	jet_L1PrefiringSF->process(event);
+
 
 
     // 3. decide whether or not to keep the current event in the output:
