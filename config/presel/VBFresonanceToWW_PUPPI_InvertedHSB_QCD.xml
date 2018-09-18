@@ -22,7 +22,7 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testSelection/" PostFix="" TargetLumi="36814.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/testInvertedHSBSelection/" PostFix="" TargetLumi="36814.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
 
     <!--                    Background                   -->
@@ -80,7 +80,7 @@
 	    <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
 	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
-	    <Item Name="channel" Value="qcd" />
+            <Item Name="channel" Value="qcd" />
 	    <Item Name="GenInfoName" Value="genInfo" /> 
             <Item Name="additionalBranches" Value="weight_pu" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
@@ -109,7 +109,7 @@
             -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWSelectionModule" />  
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWInvertedHSBModule" />  
 <!--            <Item Name="AnalysisModule" Value="ExampleModule" /> -->
             
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let

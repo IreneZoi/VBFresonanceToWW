@@ -164,6 +164,7 @@
             <Item Name="GenTopJetCollection" Value="ak8GenJets" />  <!-- FOR NSubjettines and CHF-->
             <Item Name="GenInfoName" Value="genInfo" />
             <Item Name="channel" Value="signal" />  <!-- FOR smearing-->
+            <Item Name="additionalBranches" Value="weight_pu" />
 <!--            <Item Name="channel" Value="nosm" />-->  <!-- no smearing-->
 
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:

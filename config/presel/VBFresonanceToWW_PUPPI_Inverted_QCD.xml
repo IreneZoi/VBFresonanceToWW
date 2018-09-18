@@ -79,9 +79,10 @@
             <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
 	    <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
             <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />  <!-- FOR MASS -->
-<!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
-           <Item Name="channel" Value="qcd" />
+	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
+            <Item Name="channel" Value="qcd" />
 	    <Item Name="GenInfoName" Value="genInfo" /> 
+            <Item Name="additionalBranches" Value="weight_pu" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
                  PrimaryVertexCollection
