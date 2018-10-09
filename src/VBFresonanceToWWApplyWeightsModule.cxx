@@ -10,6 +10,7 @@
 #include "UHH2/common/include/ObjectIdUtils.h"
 #include "UHH2/common/include/JetCorrections.h"
 #include <UHH2/common/include/MCWeight.h>
+#include "UHH2/common/include/PDFWeights.h"
 #include "UHH2/common/include/PrintingModules.h"
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/common/include/MuonHists.h"
@@ -27,8 +28,9 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT false
+#define PRINT true
 #define L1pref false
+#define PDFs 100
 
 using namespace std;
 using namespace uhh2;
@@ -37,8 +39,7 @@ namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
    * 
-   * This is the central class which calls other AnalysisModules, Hists or Selection classes.
-   * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
+   This module allows to calculate the PU and the PDF xs uncertainty
    */
   class VBFresonanceToWWApplyWeightsModule: public AnalysisModule {
   public:
@@ -54,13 +55,18 @@ namespace uhh2examples {
     uhh2::Event::Handle<float> h_weight_pu;
     uhh2::Event::Handle<float> h_weight_pu_up;
     uhh2::Event::Handle<float> h_weight_pu_down;
+    //PDF stuff                                                                                                                                                                                             
+    std::unique_ptr<PDFWeights> PDFweightgetter;
+
+
 
     //********** HISTOS ***************  
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
 
        
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf;
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf[PDFs];
+    //std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pu_up;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pu_down;
 
@@ -109,6 +115,7 @@ namespace uhh2examples {
       h_weight_pu =ctx.get_handle<float>("weight_pu");
       h_weight_pu_up =ctx.get_handle<float>("weight_pu_up");
       h_weight_pu_down =ctx.get_handle<float>("weight_pu_down");
+      PDFweightgetter.reset(new PDFWeights("NNPDF30_lo_as_0130_nf_4"));
     }
 
 
@@ -116,7 +123,13 @@ namespace uhh2examples {
     // 3. Set up Hists classes:
  
     h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
-    h_Wtopjets_withVBF_invM800_de45_pdf.reset(new VBFresonanceToWW_WTopJetPDFHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"));
+     for(int i = 1; i < PDFs; i++)
+       {
+     	    std::string pdf = std::to_string(i);
+             h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
+       }
+
+     //h_Wtopjets_withVBF_invM800_de45_pdf.reset(new VBFresonanceToWW_WTopJetPDFHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"));
     h_Wtopjets_withVBF_invM800_de45_pu_up.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45_pu_up"));
     h_Wtopjets_withVBF_invM800_de45_pu_down.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45_pu_down"));
     if(PRINT) cout << "hist setup" <<endl;
@@ -155,7 +168,13 @@ namespace uhh2examples {
     
     if(isMC) event.weight = eventweight_pu;
     h_Wtopjets_withVBF_invM800_de45->fill(event);
-    h_Wtopjets_withVBF_invM800_de45_pdf->fill(event);
+    //   h_Wtopjets_withVBF_invM800_de45_pdf->fill(event);
+    for(int i = 2; i < PDFs+1; i++)
+      {
+        event.weight=eventweight_pu*PDFweightgetter->GetWeight(i, event);
+    	if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
+    	h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
+      }
     if(isMC) event.weight = eventweight_pu_up;
     h_Wtopjets_withVBF_invM800_de45_pu_up->fill(event);
     if(isMC) event.weight = eventweight_pu_down;
