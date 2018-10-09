@@ -64,12 +64,16 @@ void VBFresonanceToWW_WTopJetPDFHists::fill(const uhh2::Event & event){
   float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
 
   const auto & sys_weights = event.genInfo->systweights();
-  float orig_weight = event.genInfo->pdf_scalePDF();
+  float orig_weight = sys_weights[0];
+  //  float orig_weight = event.genInfo->pdf_scalePDF();
+  cout << " event.genInfo->pdf_scalePDF() " << event.genInfo->pdf_scalePDF() << endl;
+  cout << " event.genInfo->systweights(0) " << sys_weights[0] << endl;
   int MY_FIRST_INDEX = 9;
 
   for(int i=0;i<100;i++)
     {
       const char* name = histo_names[i].c_str();
       hist(name)->Fill(mass, event.weight * sys_weights[i+MY_FIRST_INDEX]/orig_weight);
+      cout << "weight " << i << " " << sys_weights[i+MY_FIRST_INDEX]/orig_weight << endl; 
     }
 }
