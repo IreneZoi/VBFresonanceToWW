@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[]>
+
+
+<!--
+<ConfigParse NEventsBreak="0" FileSplit="1" />
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_signals_ScaleAcceptance_upnominal"/>
+-->
+
+<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
+<JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
+    <Library Name="libSUHH2VBFresonanceToWW"/>
+    <Package Name="SUHH2VBFresonanceToWW.par" />
+
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/Uncertainty/" PostFix="" TargetLumi="36814.0" >
+<!--   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="36814.0" >-->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
+   
+<!--                   Signal Samples                   -->
+      
+<!--        <InputData Lumi="49993" NEventsMax="-1" Type="MC" Version="VBF_Radion1000ToWW_FirstSelection_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1000_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+-->
+
+        <InputData Lumi="49994" NEventsMax="-1" Type="MC" Version="VBF_Radion1200ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1200_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49995" NEventsMax="-1" Type="MC" Version="VBF_Radion1400ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1400_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1600ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1600_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1800ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1800_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49975" NEventsMax="-1" Type="MC" Version="VBF_Radion2500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2500_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49963" NEventsMax="-1" Type="MC" Version="VBF_Radion3000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-3000_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49951" NEventsMax="-1" Type="MC" Version="VBF_Radion3500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-3500_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49956" NEventsMax="-1" Type="MC" Version="VBF_Radion4000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-4000_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+        <InputData Lumi="49751" NEventsMax="-1" Type="MC" Version="VBF_Radion4500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-4500_13TeV_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+       </InputData>
+       
+       <InputData Lumi="49796" NEventsMax="-1" Type="MC" Version="VBF_Graviton1200ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48992" NEventsMax="-1" Type="MC" Version="VBF_Graviton1400ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="47993" NEventsMax="-1" Type="MC" Version="VBF_Graviton1600ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48989" NEventsMax="-1" Type="MC" Version="VBF_Graviton1800ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48981" NEventsMax="-1" Type="MC" Version="VBF_Graviton2500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48977" NEventsMax="-1" Type="MC" Version="VBF_Graviton3000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48972" NEventsMax="-1" Type="MC" Version="VBF_Graviton3500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="48959" NEventsMax="-1" Type="MC" Version="VBF_Graviton4000ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_33.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_13.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+       <InputData Lumi="46961" NEventsMax="-1" Type="MC" Version="VBF_Graviton4500ToWW_ScaleAcceptance_upnominal_PUPPI" Cacheable="False">
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_49.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_48.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_47.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_46.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_45.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_44.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_43.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_42.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_41.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_40.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_39.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_38.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_37.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_36.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_35.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_34.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_32.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_31.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_30.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_29.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_28.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_27.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_26.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_25.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_24.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_23.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_22.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_21.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_20.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_19.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_18.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_17.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_16.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_15.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_14.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_12.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_11.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_10.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_9.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_8.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_7.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_6.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_5.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_4.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_3.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_2.root" Lumi="0.0"/>
+            <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_1.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" /> 
+        </InputData>
+
+    <!--                    Background                   -->
+<!--
+<InputData Version="MC_QCD_HT300to500" Lumi="107.894" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT300to500; <InputTree Name="AnalysisTree"/> 
+      <OutputTree Name="AnalysisTree"/> 
+ </InputData> 
+<InputData Version="MC_QCD_HT500to700" Lumi="1938.622" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT500to700; <InputTree Name="AnalysisTree"/>
+     <OutputTree Name="AnalysisTree"/> 
+</InputData> 
+ <InputData Version="MC_QCD_HT700to1000" Lumi="6625.750" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT700to1000; <InputTree Name="AnalysisTree"/> 
+     <OutputTree Name="AnalysisTree"/> 
+</InputData> 
+ <InputData Version="MC_QCD_HT1000to1500" Lumi="12531.316" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT1000to1500; <InputTree Name="AnalysisTree"/>
+     <OutputTree Name="AnalysisTree"/> 
+</InputData> 
+ <InputData Version="MC_QCD_HT1500to2000" Lumi="98190.300" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT1500to2000; <InputTree Name="AnalysisTree"/> 
+     <OutputTree Name="AnalysisTree"/> 
+</InputData> 
+ <InputData Version="MC_QCD_HT2000toInf" Lumi="239129.279" Type="MC" NEventsMax="-1" Cacheable="False">
+      &MC_QCD_HT2000toInf; <InputTree Name="AnalysisTree"/> 
+     <OutputTree Name="AnalysisTree"/> 
+</InputData> 
+-->
+
+           
+        <UserConfig>
+            <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
+            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
+            <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
+            <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
+            <Item Name="TauCollection" Value="slimmedTaus" />
+            <Item Name="JetCollection" Value="slimmedJetsPuppi" />
+            <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="GenParticleCollection" Value="GenParticles" />
+            <Item Name="METName" Value="slimmedMETsPuppi" />
+<!--            <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />-->
+            <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
+            <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
+<!--            <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />-->  <!-- FOR MASS -->
+            <Item Name="GenTopJetCollection" Value="ak8GenJets" />  <!-- FOR NSubjettines and CHF-->
+            <Item Name="GenInfoName" Value="genInfo" />
+            <Item Name="channel" Value="signal" />  <!-- FOR smearing-->
+            <Item Name="ScaleVariationMuR" Value="up" />
+            <Item Name="ScaleVariationMuF" Value="nominal" />
+<!--            <Item Name="channel" Value="nosm" />-->  <!-- no smearing-->
+
+            <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
+            
+                 PrimaryVertexCollection
+                 ElectronCollection
+                 MuonCollection
+                 TauCollection
+                 PhotonCollection
+                 JetCollection
+                 TopJetCollection
+                 METName
+                 
+                 GenInfoName
+                 GenJetCollection
+                 GenTopJetCollection
+                 GenParticleCollection
+                 
+                 Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
+                 them for real data, although those branches do not exist.
+                 
+                 As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
+                 
+                 By default, triggers are read. To explicitly disable reading triggers, use:
+                 <Item Name="readTrigger" Value="false" />
+            -->
+            
+            <!-- the class name of the AnalysisModule subclasses to run: -->
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWScaleAcceptanceModule" /> 
+            
+            <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
+                 MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
+                 event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
+            <Item Name="use_sframe_weight" Value="false" />
+            
+            <!-- configuration for MCPileupReweight (run as part of CommonModules): -->
+            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram.root" />
+<!--            <Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram_72383.root" /> -->
+<!--            <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram_66017.root" /> -->
+	    <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyMCPileupHistogram.root" />
+            <!-- Some test configuration; see VBFresonanceToWWModule.cxx for how to access it: -->
+            <Item Name="TestKey" Value="TestKeyValue" />
+        </UserConfig>
+    </Cycle>
+</JobConfiguration>
