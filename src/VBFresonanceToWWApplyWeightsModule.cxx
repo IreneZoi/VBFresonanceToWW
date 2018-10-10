@@ -56,7 +56,7 @@ namespace uhh2examples {
     uhh2::Event::Handle<float> h_weight_pu_up;
     uhh2::Event::Handle<float> h_weight_pu_down;
     //PDF stuff                                                                                                                                                                                             
-    std::unique_ptr<PDFWeights> PDFweightgetter;
+    //    std::unique_ptr<PDFWeights> PDFweightgetter;
 
 
 
@@ -65,8 +65,8 @@ namespace uhh2examples {
 
        
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf[PDFs];
-    //std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf;
+    //std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf[PDFs];
+    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pu_up;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pu_down;
 
@@ -115,7 +115,7 @@ namespace uhh2examples {
       h_weight_pu =ctx.get_handle<float>("weight_pu");
       h_weight_pu_up =ctx.get_handle<float>("weight_pu_up");
       h_weight_pu_down =ctx.get_handle<float>("weight_pu_down");
-      PDFweightgetter.reset(new PDFWeights("NNPDF30_lo_as_0130_nf_4"));
+      //  PDFweightgetter.reset(new PDFWeights("NNPDF30_lo_as_0130_nf_4"));
     }
 
 
@@ -123,13 +123,13 @@ namespace uhh2examples {
     // 3. Set up Hists classes:
  
     h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
-     for(int i = 1; i < PDFs; i++)
-       {
-     	    std::string pdf = std::to_string(i);
-             h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
-       }
+     // for(int i = 1; i < PDFs; i++)
+     //   {
+     // 	    std::string pdf = std::to_string(i);
+     //         h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
+     //   }
 
-     //h_Wtopjets_withVBF_invM800_de45_pdf.reset(new VBFresonanceToWW_WTopJetPDFHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"));
+    h_Wtopjets_withVBF_invM800_de45_pdf.reset(new VBFresonanceToWW_WTopJetPDFHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"));
     h_Wtopjets_withVBF_invM800_de45_pu_up.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45_pu_up"));
     h_Wtopjets_withVBF_invM800_de45_pu_down.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45_pu_down"));
     if(PRINT) cout << "hist setup" <<endl;
@@ -168,14 +168,14 @@ namespace uhh2examples {
     
     if(isMC) event.weight = eventweight_pu;
     h_Wtopjets_withVBF_invM800_de45->fill(event);
-    //   h_Wtopjets_withVBF_invM800_de45_pdf->fill(event);
-    for(int i = 2; i < PDFs+1; i++)
-      {
-        event.weight=eventweight_pu*PDFweightgetter->GetWeight(i, event);
-    	if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
-    	h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
-      }
-    if(isMC) event.weight = eventweight_pu_up;
+    h_Wtopjets_withVBF_invM800_de45_pdf->fill(event);
+    // for(int i = 2; i < PDFs+1; i++)
+    //   {
+    //     event.weight=eventweight_pu*PDFweightgetter->GetWeight(i, event);
+    // 	if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
+    // 	h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
+    //   }
+   if(isMC) event.weight = eventweight_pu_up;
     h_Wtopjets_withVBF_invM800_de45_pu_up->fill(event);
     if(isMC) event.weight = eventweight_pu_down;
     h_Wtopjets_withVBF_invM800_de45_pu_down->fill(event);
