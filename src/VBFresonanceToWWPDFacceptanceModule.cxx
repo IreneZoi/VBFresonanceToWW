@@ -418,10 +418,47 @@ namespace uhh2examples {
     float orig_weight = sys_weights[0];
     int MY_FIRST_INDEX = 9;
     
+
+
+
+
+    std::unique_ptr< std::vector<Jet> >    uncleaned_jets   (new std::vector<Jet>   (*event.jets));
+    std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
+    std::unique_ptr< std::vector<Electron> > uncleaned_electrons(new std::vector<Electron>(*event.electrons));
+    std::unique_ptr< std::vector<Muon> > uncleaned_muons(new std::vector<Muon>(*event.muons));
+
+
+
     for(int i = 0; i < PDFs; i++)
       {
 	//  float orig_weight = event.genInfo->pdf_scalePDF();
+
+
+        event.jets->clear();
+	event.jets->reserve(uncleaned_jets->size());
+        for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
+
+        event.topjets->clear();
+	event.topjets->reserve(uncleaned_topjets->size());
+        for(const auto & tj : *uncleaned_topjets) event.topjets->push_back(tj);
+
+        event.electrons->clear();
+        event.electrons->reserve(uncleaned_electrons->size());
+        for(const auto & e : *uncleaned_electrons) event.electrons->push_back(e);
+
+        event.muons->clear();
+        event.muons->reserve(uncleaned_muons->size());
+        for(const auto & m : *uncleaned_muons) event.muons->push_back(m);
+
+
+
+
 	event.weight = original_weight;
+
+
+
+
+
 	if(i > 0 )	
 	  event.weight *= sys_weights[i-1+MY_FIRST_INDEX]/orig_weight;
 	//event.weight=original_weight*PDFweightgetter->GetWeight(i, event);
