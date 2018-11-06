@@ -34,24 +34,24 @@ using namespace uhh2;
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
-   * 
+   *
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
   class VBFresonanceToWWPreSelectionModule: public AnalysisModule {
   public:
-    
+
 
     explicit VBFresonanceToWWPreSelectionModule(Context & ctx);
     virtual bool process(Event & event) override;
 
   private:
     std::string channel_;
-    
+
     Event::Handle<vector<Jet>> h_IdCriteriaJets;
     std::unique_ptr<CommonModules> common;
 
-    std::unique_ptr<AnalysisModule> Gen_printer;  
+    std::unique_ptr<AnalysisModule> Gen_printer;
 
     std::unique_ptr<JetCorrector> jet_corrector;
 
@@ -88,7 +88,7 @@ namespace uhh2examples {
     std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
     std::unique_ptr<uhh2::AnalysisModule> lumiweight;
 
-    //********** SELECTIONS ***************  
+    //********** SELECTIONS ***************
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     std::unique_ptr<Selection> muon_sel, electron_sel;//lepton veto
@@ -109,8 +109,8 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invM800_sel;
     std::unique_ptr<Selection> invM900_sel;
     std::unique_ptr<Selection> invM1000_sel;
-  
-    //********** HISTOS ***************  
+
+    //********** HISTOS ***************
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_input;
     std::unique_ptr<Hists> h_event_input;
@@ -134,6 +134,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_topjets_afterSD;
 
     std::unique_ptr<Hists> h_Wtopjets_jec;
+    std::unique_ptr<Hists> h_jec;
 
     std::unique_ptr<Hists> h_cleaner;
     std::unique_ptr<Hists> h_Wtopjets_cleaner;
@@ -149,10 +150,10 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_topjets_2topjetsel;
     std::unique_ptr<Hists> h_Wtopjets_2topjetsel;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_invM;
     std::unique_ptr<Hists> h_topjets_invM;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_deta;
     std::unique_ptr<Hists> h_topjets_deta;
 
@@ -165,7 +166,7 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_Wtopjets_compareSD;
 
-    
+
     std::unique_ptr<Hists> h_Wtopjets_VVMass;
     std::unique_ptr<Hists> h_topjets_VVMass;
     std::unique_ptr<Hists> h_Dijets_VVMass;
@@ -179,23 +180,23 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_Wtopjets_AK4cleaner;
     std::unique_ptr<Hists> h_jets_AK4cleaner;
-       
+
 
     std::unique_ptr<Hists> h_Wtopjets_VVMass_tau21_045;
-   
+
 
     std::unique_ptr<Hists> h_Wtopjets_WWMass;
     std::unique_ptr<Hists> h_topjets_WWMass;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_tau21WW;
     std::unique_ptr<Hists> h_topjets_tau21WW;
-    
+
     std::unique_ptr<Hists> h_jets_2jetsel;
     std::unique_ptr<Hists> h_Wtopjets_2jetsel;
-        
+
     std::unique_ptr<Hists> h_jets_vbfetasign;
     std::unique_ptr<Hists> h_Wtopjets_vbfetasign;
-    
+
     std::unique_ptr<Hists> h_VBF_VVMass;
     std::unique_ptr<Hists> h_jets_VBF_VVMass;
     std::unique_ptr<Hists> h_Dijets_VBF_VVMass;
@@ -230,7 +231,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de55;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de6;
 
-    
+
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;
@@ -244,7 +245,7 @@ namespace uhh2examples {
     // std::unique_ptr<Hists> h_vbfW_genjets;
     // std::unique_ptr<Hists> h_vbfeta_genjets;
     // std::unique_ptr<Hists> h_Wgentopjets_VBF;
-    // std::unique_ptr<Hists> h_vbfetasign_genjets;    
+    // std::unique_ptr<Hists> h_vbfetasign_genjets;
 
     const int runnr_BCD = 276811;
     const int runnr_EF = 278802;
@@ -265,11 +266,11 @@ namespace uhh2examples {
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
-    
+
     cout << "Hello World from VBFresonanceToWWPreSelectionModule!" << endl;
 
     Gen_printer.reset(new GenParticlesPrinter(ctx));
-    
+
     // If needed, access the configuration of the module here, e.g.:
     string testvalue = ctx.get("TestKey", "<not set>");
     cout << "TestKey in the configuration was: " << testvalue << endl;
@@ -280,8 +281,8 @@ namespace uhh2examples {
     channel_ = ctx.get("channel");
     /*
     if(isMC)
-      { 
-	pileup_SF.reset(new MCPileupReweight(ctx)); 
+      {
+	pileup_SF.reset(new MCPileupReweight(ctx));
 		lumiweight.reset(new MCLumiWeight(ctx));
       }
     */
@@ -291,7 +292,7 @@ namespace uhh2examples {
     for(auto & kv : ctx.get_all()){
       cout << " " << kv.first << " = " << kv.second << endl;
     }
-    
+
     // 1. setup other modules. CommonModules and the JetCleaner:
     h_IdCriteriaJets = ctx.get_handle<vector<Jet>>("patJetsAK8PFPUPPI");
 
@@ -301,44 +302,44 @@ namespace uhh2examples {
 
 
     common.reset(new CommonModules());
-    // TODO: configure common here, e.g. by 
+    // TODO: configure common here, e.g. by
     // calling common->set_*_id or common->disable_*
-    
 
-    //    common->disable_mcpileupreweight(); //irene                                                                                                                                                      
-    common->switch_jetlepcleaner(false);     
+
+    //    common->disable_mcpileupreweight(); //irene
+    common->switch_jetlepcleaner(false);
     common->disable_jetpfidfilter();
     common->disable_jersmear(); //irene
-    common->disable_jec(); //irene  
-    //    common->disable_metfilters(); //irene                                                                                           
+    common->disable_jec(); //irene
+    //    common->disable_metfilters(); //irene
     if(PRINT) cout << "common" <<endl;
-    //    common->set_jet_id(PtEtaCut(30.0, 2.4)); 
+    //    common->set_jet_id(PtEtaCut(30.0, 2.4));
 
 
     // TopJet correctors
     std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_BCD,JEC_AK4_EF,JEC_AK4_G,JEC_AK4_H,JEC_AK8_BCD,JEC_AK8_EF,JEC_AK8_G,JEC_AK8_H;
     if(isMC)
       {
-	JEC_AK4 = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFPuppi_MC;
-	JEC_AK8 = JERFiles::Summer16_23Sep2016_V4_L123_AK8PFPuppi_MC;
+	       JEC_AK4     = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFPuppi_MC;
+	       JEC_AK8     = JERFiles::Summer16_23Sep2016_V4_L123_AK8PFPuppi_MC;
       }
     else
       {
-	JEC_AK4_BCD =  JERFiles::Summer16_23Sep2016_V4_BCD_L123_AK4PFPuppi_DATA;
-	JEC_AK4_EF = JERFiles::Summer16_23Sep2016_V4_EF_L123_AK4PFPuppi_DATA;
-	JEC_AK4_G =  JERFiles::Summer16_23Sep2016_V4_G_L123_AK4PFPuppi_DATA;
-	JEC_AK4_H =  JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFPuppi_DATA;
-	
-	JEC_AK8_BCD =  JERFiles::Summer16_23Sep2016_V4_BCD_L123_AK8PFPuppi_DATA;
-	JEC_AK8_EF =  JERFiles::Summer16_23Sep2016_V4_EF_L123_AK8PFPuppi_DATA;
-	JEC_AK8_G =  JERFiles::Summer16_23Sep2016_V4_G_L123_AK8PFPuppi_DATA;
-	JEC_AK8_H =  JERFiles::Summer16_23Sep2016_V4_H_L123_AK8PFPuppi_DATA;
+	JEC_AK4_BCD = JERFiles::Summer16_23Sep2016_V4_BCD_L123_AK4PFPuppi_DATA;
+	JEC_AK4_EF  = JERFiles::Summer16_23Sep2016_V4_EF_L123_AK4PFPuppi_DATA;
+	JEC_AK4_G   = JERFiles::Summer16_23Sep2016_V4_G_L123_AK4PFPuppi_DATA;
+	JEC_AK4_H   = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFPuppi_DATA;
+
+	JEC_AK8_BCD = JERFiles::Summer16_23Sep2016_V4_BCD_L123_AK8PFPuppi_DATA;
+	JEC_AK8_EF  = JERFiles::Summer16_23Sep2016_V4_EF_L123_AK8PFPuppi_DATA;
+	JEC_AK8_G   = JERFiles::Summer16_23Sep2016_V4_G_L123_AK8PFPuppi_DATA;
+	JEC_AK8_H   = JERFiles::Summer16_23Sep2016_V4_H_L123_AK8PFPuppi_DATA;
       }
 
     if(isMC)
-      { 
+      {
 	// jetlepton_cleaner.reset(new JetLeptonCleaner(ctx,JEC_AK4));
-	// jetlepton_cleaner->set_drmax(.4);      
+	// jetlepton_cleaner->set_drmax(.4);
 	jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
 	topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
 	//	subjet_corrector.reset(new SubJetCorrector(ctx,JEC_AK4));
@@ -346,24 +347,24 @@ namespace uhh2examples {
 	  {
 	    jetER_smearer.reset(new JetResolutionSmearer(ctx));
 	    //	   	    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets"));
-	    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016,"Spring16_25nsV10_MC_PtResolution_AK8PFPuppi.txt"));
+	    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFchs.txt"));
 	   	    // topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016,"Spring16_25nsV10_MC_PtResolution_AK8PFchs.txt"));
 	  }
       }
-    else 
+    else
       {
-	
+
 
 	// jetlepton_cleaner_BCD.reset(new JetLeptonCleaner(ctx, JEC_AK4_BCD));
 	// jetlepton_cleaner_EF.reset(new JetLeptonCleaner(ctx, JEC_AK4_EF));
 	// jetlepton_cleaner_G.reset(new JetLeptonCleaner(ctx,JEC_AK4_G ));
 	// jetlepton_cleaner_H.reset(new JetLeptonCleaner(ctx,JEC_AK4_H ));
-	
+
 	// jetlepton_cleaner_BCD->set_drmax(.4);
 	// jetlepton_cleaner_EF->set_drmax(.4);
 	// jetlepton_cleaner_G->set_drmax(.4);
 	// jetlepton_cleaner_H->set_drmax(.4);
-	
+
 	jet_corrector_BCD.reset(new JetCorrector(ctx, JEC_AK4_BCD));
 	jet_corrector_EF.reset(new JetCorrector(ctx, JEC_AK4_EF));
 	jet_corrector_G.reset(new JetCorrector(ctx,JEC_AK4_G ));
@@ -373,7 +374,7 @@ namespace uhh2examples {
 	topjet_corrector_EF.reset(new TopJetCorrector(ctx, JEC_AK8_EF));
 	topjet_corrector_G.reset(new TopJetCorrector(ctx,JEC_AK8_G ));
 	topjet_corrector_H.reset(new TopJetCorrector(ctx,JEC_AK8_H ));
-	
+
 	// subjet_corrector_BCD.reset(new SubJetCorrector(ctx, JEC_AK4_BCD));
 	// subjet_corrector_EF.reset(new SubJetCorrector(ctx, JEC_AK4_EF));
 	// subjet_corrector_G.reset(new SubJetCorrector(ctx,JEC_AK4_G ));
@@ -385,11 +386,11 @@ namespace uhh2examples {
     topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
 
 
-    //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5)); 
-    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
+    //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5));
+    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
     //    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
     topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
-    
+
     AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
     AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
 
@@ -399,7 +400,7 @@ namespace uhh2examples {
 
 
     if(PRINT) cout << "cleaners" <<endl;
-    
+
 
 
 
@@ -410,7 +411,7 @@ namespace uhh2examples {
     // the cleaning can also be achieved with less code via CommonModules with:
     // common->set_jet_id(PtEtaCut(30.0, 2.4));
     // before the 'common->init(ctx)' line.
-    
+
     // 2. set up selections ***
 
     //    njet_sel.reset(new NJetSelection(2)); // see common/include/NSelections.h
@@ -418,7 +419,7 @@ namespace uhh2examples {
     electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
 
     //    topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
-    topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
+    topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
     //    invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
@@ -426,7 +427,7 @@ namespace uhh2examples {
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
     // WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
     tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
-    jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
+    jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
@@ -464,6 +465,7 @@ namespace uhh2examples {
     h_Wtopjets_leptonVeto.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_leptonVeto"));
 
     h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
+    h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
 
     h_topjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
 
@@ -592,9 +594,9 @@ namespace uhh2examples {
     // this is controlled by the return value of this method: If it
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
-    
+
     if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
-    
+
 
     /////////////////////////////////////////////////////////// Common Modules   ///////////////////////////////////////////////////////////////////////////////
 
@@ -602,7 +604,7 @@ namespace uhh2examples {
     //common Modules
     /* pileup SF
     if(!event.isRealData)
-      { 
+      {
 		pileup_SF->process(event);
 		lumiweight->process(event);
       }
@@ -648,8 +650,11 @@ namespace uhh2examples {
     }
 
     // 1. run all modules other modules.
+      if(PRINT)    cout << " starting input hists "  << endl;
 
     h_input->fill(event);
+      if(PRINT)    cout << " h input hists "  << endl;
+
     h_event_input->fill(event);
     h_topjets_input->fill(event);
     h_jets_input->fill(event);
@@ -659,7 +664,7 @@ namespace uhh2examples {
 
 
     bool pass_cm = common->process(event);
-    if(!pass_cm) return false; 
+    if(!pass_cm) return false;
     //    if(PRINT)    Gen_printer->process(event);
 
     h_commonmod->fill(event);
@@ -668,8 +673,9 @@ namespace uhh2examples {
     h_Wtopjets_commonmod->fill(event);
     h_ele_commonmod->fill(event);
     h_muon_commonmod->fill(event);
+      if(PRINT)    cout << " common modules done "  << endl;
 
-    
+
     // 2. test selections and fill histograms
     if(isMC)
       {
@@ -680,7 +686,7 @@ namespace uhh2examples {
 	h_input_genjets->fill(event);
 	h_input_genparticle->fill(event);
       }
-  
+
     bool muon_selection = muon_sel->passes(event);
     if(!muon_selection) return false;
     bool electron_selection = electron_sel->passes(event);
@@ -693,6 +699,7 @@ namespace uhh2examples {
    sort_by_pt<TopJet>(*event.topjets);
 
     h_Wtopjets_leptonVeto->fill(event);
+      if(PRINT)    cout << " leptons done "  << endl;
 
     // JET CLEANING
     if(isMC)
@@ -702,55 +709,59 @@ namespace uhh2examples {
 	topjet_corrector->process(event);
 	//	subjet_corrector->process(event);
 	jet_corrector->correct_met(event);
+      if(PRINT)    cout << " jec mc done "  << endl;
 
 	if(channel_=="signal")
 	  {
 	    //	    cout << "Smearing" << endl;
 	    jetER_smearer->process(event);
+	    if(PRINT)    cout << " jer jet mc done "  << endl;
 	    topjetER_smearer->process(event);
+	    if(PRINT)    cout << " jer topjet mc done "  << endl;
 	  }
       }else{
-      if(event.run <= runnr_BCD)  {       
-	//	jetlepton_cleaner_BCD->process(event);    
+      if(event.run <= runnr_BCD)  {
+	//	jetlepton_cleaner_BCD->process(event);
 	jet_corrector_BCD->process(event);
 	topjet_corrector_BCD->process(event);
 
 	//	subjet_corrector_BCD->process(event);
 	jet_corrector_BCD->correct_met(event);
      }
-      else if(event.run < runnr_EF){       
-	//	jetlepton_cleaner_EF->process(event);   
+      else if(event.run < runnr_EF){
+	//	jetlepton_cleaner_EF->process(event);
 	jet_corrector_EF->process(event);
 	topjet_corrector_EF->process(event);
 	//	subjet_corrector_EF->process(event);
 	jet_corrector_EF->correct_met(event);
-      } 
-      else if(event.run <= runnr_G) {       
-	//	jetlepton_cleaner_G->process(event);   
+      }
+      else if(event.run <= runnr_G) {
+	//	jetlepton_cleaner_G->process(event);
 	jet_corrector_G->process(event);
 	topjet_corrector_G->process(event);
 	//	subjet_corrector_G->process(event);
 	jet_corrector_G->correct_met(event);
-      } 
-      else if(event.run > runnr_G) {       
-	//	jetlepton_cleaner_H->process(event); 
+      }
+      else if(event.run > runnr_G) {
+	//	jetlepton_cleaner_H->process(event);
 	jet_corrector_H->process(event);
 	topjet_corrector_H->process(event);
 	//	subjet_corrector_H->process(event);
 	jet_corrector_H->correct_met(event);
-      } 
+      }
     }
 
     sort_by_pt<Jet>(*event.jets);
     sort_by_pt<TopJet>(*event.topjets);
     h_Wtopjets_jec->fill(event);
+    h_jec->fill(event);
     if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jec applied " << endl;
 
     topjet_sdmasscorrector->process(event);
     h_topjets_afterSD->fill(event);
 
     //    jetcleaner->process(event);
-    topjetcleaner->process(event);   
+    topjetcleaner->process(event);
     ak8pfidfilter->process(event);
 
     h_cleaner->fill(event);
@@ -765,7 +776,7 @@ namespace uhh2examples {
     h_topjets_2topjetsel->fill(event);
     h_Wtopjets_2topjetsel->fill(event);
 
-    
+
     //Cleaning(removing) AK4 if overlapping with AK8
     std::vector<Jet>* AK4Jets(new std::vector<Jet> (*event.jets));
     vector<TopJet> Tjets = *event.topjets;
@@ -781,12 +792,12 @@ namespace uhh2examples {
 	bool bdeltaR=true;
 	//      for(const TopJet ak8:*event.topjets){
 	//	double deltar = deltaR(ak4,ak8);
-	
+
 	double deltar_0 = deltaR(ak4,tj_0);
 	double deltar_1 = deltaR(ak4,tj_1);
 	if((deltar_0 < 1.2) || (deltar_1 < 1.2)) bdeltaR=false;
 	if(PRINT) std::cout<<"SelectionModule L:858 bdeltaR  "<<bdeltaR <<std::endl;
-	//    }      
+	//    }
 	if(bdeltaR) AK4Jets->push_back(ak4);
     }
 
@@ -794,7 +805,7 @@ namespace uhh2examples {
     ////put cleaned AK4 jets in event.jet
     event.jets->clear();
     event.jets->reserve(AK4Jets->size());
-    for(const auto & j : *AK4Jets) event.jets->push_back(j); 
+    for(const auto & j : *AK4Jets) event.jets->push_back(j);
     sort_by_pt<Jet>(*event.jets);
     sort_by_pt<TopJet>(*event.topjets);
     if(PRINT) std::cout<<"SelectionModule L:858 Size topjets Collection "<<event.jets->size() <<std::endl;
@@ -848,9 +859,9 @@ namespace uhh2examples {
 
     //   // }
     // bool VVMtopjet_selection = VVmass_sel->passes(event);
-    
+
     // if(!VVMtopjet_selection) return false;
-    
+
     // h_Wtopjets_VVMass->fill(event);
     // h_topjets_VVMass->fill(event);
     // h_Dijets_VVMass->fill(event);
@@ -871,22 +882,22 @@ namespace uhh2examples {
     // ak4pfidfilter->process(event);
     // h_Wtopjets_AK4cleaner->fill(event);
     // h_jets_AK4cleaner->fill(event);
-     
+
     // // Selections for AK4
     // bool jets2_selection = jet2_sel->passes(event);
     // if(!jets2_selection) return false;
-    
+
     // h_jets_2jetsel->fill(event);
     // h_Wtopjets_2jetsel->fill(event);
 
-    
+
     // bool vbfetasign_selection = vbfetasign_sel->passes(event);
     // if(!vbfetasign_selection) return false;
-    
+
     // h_jets_vbfetasign->fill(event);
     // h_Wtopjets_vbfetasign->fill(event);
     // if(PRINT) cout << "vbfeta_sign jets" <<endl;
-    
+
 
     // bool vbfeta_selection = vbfeta_sel->passes(event);
     // bool vbfeta35_selection = vbfeta35_sel->passes(event);
@@ -964,13 +975,13 @@ namespace uhh2examples {
     // if(PRINT) std::cout<<"VBF 1000"<<std::endl;
 
 
-    // // store Jets *before cleaning* in the ntuple                                                                                                                                                     
+    // // store Jets *before cleaning* in the ntuple
     // // event.jets->clear();
     // // event.jets->reserve(uncleaned_jets->size());
     // // for(const auto & j : *uncleaned_jets) event.jets->push_back(j);
     // // sort_by_pt<Jet>(*event.jets);
     // // if(PRINT) cout << "jets clear reserve push" <<endl;
-    
+
     // // event.topjets->clear();
     // // event.topjets->reserve(uncleaned_topjets->size());
     // // for(const auto & j : *uncleaned_topjets) event.topjets->push_back(j);
