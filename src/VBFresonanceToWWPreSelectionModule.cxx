@@ -70,6 +70,8 @@ private:
 
   std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
 
+
+  std::unique_ptr<JetMassScale> topjet_jms;
   // std::unique_ptr<SubJetCorrector> subjet_corrector;
   // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
   // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
@@ -133,7 +135,8 @@ private:
   std::unique_ptr<Hists> h_muon_leptonVeto;
   std::unique_ptr<Hists> h_Wtopjets_leptonVeto;
 
-  std::unique_ptr<Hists> h_topjets_afterSD;
+  std::unique_ptr<Hists> h_Wtopjets_afterSD;
+  std::unique_ptr<Hists> h_Wtopjets_afterSDcorrections;
 
   std::unique_ptr<Hists> h_Wtopjets_jec;
   std::unique_ptr<Hists> h_jec;
@@ -407,7 +410,7 @@ topjet_corrector_GH.reset(new TopJetCorrector(ctx,JEC_AK8_GH ));
 
 
   topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
-
+  topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
 
   //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5));
   jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
@@ -490,7 +493,8 @@ topjet_corrector_GH.reset(new TopJetCorrector(ctx,JEC_AK8_GH ));
   h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
   h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
 
-  h_topjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
+  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
+  h_Wtopjets_afterSDcorrections.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSDcorrections"));
 
   h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
   h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
@@ -790,8 +794,11 @@ jet_corrector_GH->correct_met(event);
   if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jec applied " << endl;
 
   topjet_sdmasscorrector->process(event);
-  h_topjets_afterSD->fill(event);
-
+  h_Wtopjets_afterSD->fill(event);
+  if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: SD corrected " << endl;
+  topjet_jms->process(event);
+  h_Wtopjets_afterSDcorrections->fill(event);
+  if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jms " << endl;
   //    jetcleaner->process(event);
   topjetcleaner->process(event);
   ak8pfidfilter->process(event);

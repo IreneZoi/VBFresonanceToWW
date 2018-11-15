@@ -3,7 +3,7 @@
 
 <!--
 <ConfigParse NEventsBreak="50000" FileSplit="0" />
-<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_trying"/>
+<ConfigSGE RAM ="8" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_signal_JMSup"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -25,58 +25,58 @@
 -->
 
 
-        <InputData Lumi="49994" NEventsMax="-1" Type="MC" Version="VBF_Radion1200ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49994" NEventsMax="-1" Type="MC" Version="VBF_Radion1200ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1200_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49995" NEventsMax="-1" Type="MC" Version="VBF_Radion1400ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49995" NEventsMax="-1" Type="MC" Version="VBF_Radion1400ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1400_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1600ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1600ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1600_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1800ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1800ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-1800_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2000_13TeV_Ntuple_bis.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49975" NEventsMax="-1" Type="MC" Version="VBF_Radion2500ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49975" NEventsMax="-1" Type="MC" Version="VBF_Radion2500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-2500_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49963" NEventsMax="-1" Type="MC" Version="VBF_Radion3000ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49963" NEventsMax="-1" Type="MC" Version="VBF_Radion3000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-3000_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49951" NEventsMax="-1" Type="MC" Version="VBF_Radion3500ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49951" NEventsMax="-1" Type="MC" Version="VBF_Radion3500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-3500_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49956" NEventsMax="-1" Type="MC" Version="VBF_Radion4000ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49956" NEventsMax="-1" Type="MC" Version="VBF_Radion4000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-4000_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
-        <InputData Lumi="49751" NEventsMax="-1" Type="MC" Version="VBF_Radion4500ToWW_FirstSelection_PUPPI" Cacheable="False">
+        <InputData Lumi="49751" NEventsMax="-1" Type="MC" Version="VBF_Radion4500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/RadionToWW/CMSSW_80X/VBF_RadionToWW_narrow_M-4500_13TeV_Ntuple.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
        </InputData>
 
-       <InputData Lumi="49796" NEventsMax="-1" Type="MC" Version="VBF_Graviton1200ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="49796" NEventsMax="-1" Type="MC" Version="VBF_Graviton1200ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1200/VBF_Graviton1200ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -129,7 +129,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48992" NEventsMax="-1" Type="MC" Version="VBF_Graviton1400ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48992" NEventsMax="-1" Type="MC" Version="VBF_Graviton1400ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1400/VBF_Graviton1400ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -182,7 +182,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="47993" NEventsMax="-1" Type="MC" Version="VBF_Graviton1600ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="47993" NEventsMax="-1" Type="MC" Version="VBF_Graviton1600ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1600/VBF_Graviton1600ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -234,7 +234,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48989" NEventsMax="-1" Type="MC" Version="VBF_Graviton1800ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48989" NEventsMax="-1" Type="MC" Version="VBF_Graviton1800ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/1800/VBF_Graviton1800ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -287,7 +287,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2000/VBF_Graviton2000ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -340,7 +340,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48981" NEventsMax="-1" Type="MC" Version="VBF_Graviton2500ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48981" NEventsMax="-1" Type="MC" Version="VBF_Graviton2500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/2500/VBF_Graviton2500ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -393,7 +393,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48977" NEventsMax="-1" Type="MC" Version="VBF_Graviton3000ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48977" NEventsMax="-1" Type="MC" Version="VBF_Graviton3000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3000/VBF_Graviton3000ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -446,7 +446,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48972" NEventsMax="-1" Type="MC" Version="VBF_Graviton3500ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48972" NEventsMax="-1" Type="MC" Version="VBF_Graviton3500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/3500/VBF_Graviton3500ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -499,7 +499,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="48959" NEventsMax="-1" Type="MC" Version="VBF_Graviton4000ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="48959" NEventsMax="-1" Type="MC" Version="VBF_Graviton4000ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4000/VBF_Graviton4000ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -552,7 +552,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-       <InputData Lumi="46961" NEventsMax="-1" Type="MC" Version="VBF_Graviton4500ToWW_FirstSelection_PUPPI" Cacheable="False">
+       <InputData Lumi="46961" NEventsMax="-1" Type="MC" Version="VBF_Graviton4500ToWW_JMSup_PUPPI" Cacheable="False">
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_49.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_48.root" Lumi="0.0"/>
             <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/GravitonToWW/Ntuple/4500/VBF_Graviton4500ToWW_Ntuple_47.root" Lumi="0.0"/>
@@ -651,10 +651,10 @@
             <Item Name="GenInfoName" Value="genInfo" />
             <Item Name="channel" Value="signal" />  <!-- FOR smearing-->
             <!--            <Item Name="channel" Value="nosm" />-->  <!-- no smearing-->
-            <Item Name="JMS" Value="0.999" />
-            <Item Name="JMSunc" Value="0.004" />
+            <Item Name="JMS" Value="1.003" />
+            <!--<Item Name="JMSunc" Value="0.004" />-->
             <Item Name="JMR" Value="1.079" />
-            <Item Name="JMRunc" Value="0.105" />
+            <!--<Item Name="JMRunc" Value="0.105" />-->
 
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
 
