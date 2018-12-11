@@ -26,7 +26,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT false
+#define PRINT true
 
 using namespace std;
 using namespace uhh2;
@@ -310,9 +310,10 @@ namespace uhh2examples {
   if(isMC){
     MCWeightModule.reset(new MCLumiWeight(ctx));
     MCPileupReweightModule.reset(new MCPileupReweight(ctx));
-    MCPileupReweightModule.reset(new MCPileupReweight(ctx,"up"));
-    MCPileupReweightModule.reset(new MCPileupReweight(ctx,"down"));
-    //h_weight_pu =ctx.get_handle<float>("weight_pu");
+//uncomment following lines when saving pu variations!
+    //MCPileupReweightModule.reset(new MCPileupReweight(ctx,"up"));
+    //MCPileupReweightModule.reset(new MCPileupReweight(ctx,"down"));
+
   }
 
   common.reset(new CommonModules());
@@ -812,6 +813,7 @@ topjet_sdmasscorrector->process(event);
 h_Wtopjets_afterSD->fill(event);
 if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: SD corrected " << endl;
 topjet_jms->process(event);
+if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jms " << endl;
 h_Wtopjets_afterSDcorrections->fill(event);
 if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jms " << endl;
 //    jetcleaner->process(event);
