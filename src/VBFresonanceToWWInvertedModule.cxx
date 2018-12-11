@@ -160,6 +160,9 @@ namespace uhh2examples {
     if(isMC){
       MCWeightModule.reset(new MCLumiWeight(ctx));
       MCPileupReweightModule.reset(new MCPileupReweight(ctx));
+    //  MCPileupReweightModule.reset(new MCPileupReweight(ctx,"up"));
+    //  MCPileupReweightModule.reset(new MCPileupReweight(ctx,"down"));
+
     }
 
 
@@ -307,7 +310,8 @@ namespace uhh2examples {
     bool invM1000_invselection = invM1000_invsel->passes(event);
     if(PRINT)    cout << "VBFresonanceToWWInver 2 ak4 mass inv" << endl;
 
-    if(ptjets1_invselection || jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
+//    if(ptjets1_invselection || jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
+    if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
       {
 	       h_Wtopjets_withVBF_VVMass_inverted->fill(event);
 	       if(PRINT)    cout << "VBFresonanceToWWInver ak8 plots inv" << endl;
