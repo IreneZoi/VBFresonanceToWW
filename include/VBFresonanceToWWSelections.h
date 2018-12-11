@@ -5,7 +5,7 @@
 #include "UHH2/common/include/ObjectIdUtils.h"
 
 namespace uhh2examples {
-    
+
 /* Select events with at least two jets in which the leading two jets have deltaphi > 2.7 and the third jet pt is
  * below 20% of the average of the leading two jets, where the minimum deltaphi and
  * maximum third jet pt fraction can be changed in the constructor.
@@ -38,6 +38,23 @@ private:
     float size_max;
 };
 
+class AK4PtSelection: public uhh2::Selection {
+public:
+    AK4PtSelection(float pt_min = 50.f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float pt_min;
+};
+
+class AK4PtInvSelection: public uhh2::Selection {
+public:
+    AK4PtInvSelection(float pt_min = 50.f);
+    virtual bool passes(const uhh2::Event & event) override;
+private:
+    float pt_min;
+};
+
+
 class VBFdeltaEtajetSelection: public uhh2::Selection {
 public:
     VBFdeltaEtajetSelection(float deta_min = 3.0f);
@@ -52,7 +69,7 @@ public:
     VBFEtaSignjetSelection();
     virtual bool passes(const uhh2::Event & event) override;
 private:
-   
+
 };
 
 class VBFEtaSignjetInvSelection: public uhh2::Selection {
@@ -60,7 +77,7 @@ public:
     VBFEtaSignjetInvSelection();
     virtual bool passes(const uhh2::Event & event) override;
 private:
-   
+
 };
 
 
@@ -257,7 +274,7 @@ public:
     VBFEtaSignGenjetSelection();
     virtual bool passes(const uhh2::Event & event) override;
 private:
-   
+
 };
 
 class WWMassTopjetSelection: public uhh2::Selection {
