@@ -38,12 +38,12 @@ using namespace uhh2;
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
-   * 
-   This module allows to calculate the PU and the PDF xs uncertainty
-   */
+  *
+  This module allows to calculate the PU and the PDF xs uncertainty
+  */
   class VBFresonanceToWWApplyWeightsModule: public AnalysisModule {
   public:
-    
+
 
     explicit VBFresonanceToWWApplyWeightsModule(Context & ctx);
     virtual bool process(Event & event) override;
@@ -55,15 +55,15 @@ namespace uhh2examples {
     uhh2::Event::Handle<float> h_weight_pu;
     uhh2::Event::Handle<float> h_weight_pu_up;
     uhh2::Event::Handle<float> h_weight_pu_down;
-    //PDF stuff                                                                                                                                                                                             
+    //PDF stuff
     //    std::unique_ptr<PDFWeights> PDFweightgetter;
 
 
 
-    //********** HISTOS ***************  
+    //********** HISTOS ***************
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
 
-       
+
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45;
     //std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf[PDFs];
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de45_pdf;
@@ -86,10 +86,10 @@ namespace uhh2examples {
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
-    
+
     cout << "Hello World from VBFresonanceToWWApplyWeightsModule!" << endl;
 
-    
+
     // If needed, access the configuration of the module here, e.g.:
     string testvalue = ctx.get("TestKey", "<not set>");
     cout << "TestKey in the configuration was: " << testvalue << endl;
@@ -109,7 +109,7 @@ namespace uhh2examples {
     for(auto & kv : ctx.get_all()){
       cout << " " << kv.first << " = " << kv.second << endl;
     }
-    
+
     if(isMC){
       MCWeightModule.reset(new MCLumiWeight(ctx));
       h_weight_pu =ctx.get_handle<float>("weight_pu");
@@ -121,13 +121,13 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
- 
+
     h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
-     // for(int i = 1; i < PDFs; i++)
-     //   {
-     // 	    std::string pdf = std::to_string(i);
-     //         h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
-     //   }
+    // for(int i = 1; i < PDFs; i++)
+    //   {
+    // 	    std::string pdf = std::to_string(i);
+    //         h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
+    //   }
 
     h_Wtopjets_withVBF_invM800_de45_pdf.reset(new VBFresonanceToWW_WTopJetPDFHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"));
     h_Wtopjets_withVBF_invM800_de45_pu_up.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45_pu_up"));
@@ -148,24 +148,24 @@ namespace uhh2examples {
     // this is controlled by the return value of this method: If it
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
-    
+
     if(PRINT)    cout << "VBFresonanceToWWApplyWeightsModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << " pileupe weight = "<< event.get(h_weight_pu) << endl;
 
     if(isMC)
-      MCWeightModule->process(event);
+    MCWeightModule->process(event);
 
     double eventweight = event.weight;
     double eventweight_pu = 1;//eventweight*event.get(h_weight_pu);
     double eventweight_pu_up = 1;//eventweight*event.get(h_weight_pu_up);
     double eventweight_pu_down = 1;//eventweight*event.get(h_weight_pu_down);
-    
+
     if(isMC)
-      {
-	eventweight_pu = eventweight*event.get(h_weight_pu);
-	eventweight_pu_up = eventweight*event.get(h_weight_pu_up);
-	eventweight_pu_down = eventweight*event.get(h_weight_pu_down);
-      }
-    
+    {
+      eventweight_pu = eventweight*event.get(h_weight_pu);
+      eventweight_pu_up = eventweight*event.get(h_weight_pu_up);
+      eventweight_pu_down = eventweight*event.get(h_weight_pu_down);
+    }
+
     if(isMC) event.weight = eventweight_pu;
     h_Wtopjets_withVBF_invM800_de45->fill(event);
     h_Wtopjets_withVBF_invM800_de45_pdf->fill(event);
@@ -175,7 +175,7 @@ namespace uhh2examples {
     // 	if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
     // 	h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
     //   }
-   if(isMC) event.weight = eventweight_pu_up;
+    if(isMC) event.weight = eventweight_pu_up;
     h_Wtopjets_withVBF_invM800_de45_pu_up->fill(event);
     if(isMC) event.weight = eventweight_pu_down;
     h_Wtopjets_withVBF_invM800_de45_pu_down->fill(event);
