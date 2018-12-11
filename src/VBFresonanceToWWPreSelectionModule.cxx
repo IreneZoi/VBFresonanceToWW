@@ -26,7 +26,8 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT true
+#define PRINT false
+#define PUvariations false
 
 using namespace std;
 using namespace uhh2;
@@ -307,14 +308,16 @@ namespace uhh2examples {
   EleId = AndId<Electron>(ElectronID_HEEP_RunII_25ns, PtEtaCut(35., 2.5));
   //EleId = AndId<Electron>(ElectronID_Spring16_tight_noIso, PtEtaCut(20., 5.));
 
-  if(isMC){
-    MCWeightModule.reset(new MCLumiWeight(ctx));
-    MCPileupReweightModule.reset(new MCPileupReweight(ctx));
-//uncomment following lines when saving pu variations!
-    //MCPileupReweightModule.reset(new MCPileupReweight(ctx,"up"));
-    //MCPileupReweightModule.reset(new MCPileupReweight(ctx,"down"));
-
-  }
+  if(isMC)
+    {
+      MCWeightModule.reset(new MCLumiWeight(ctx));
+      MCPileupReweightModule.reset(new MCPileupReweight(ctx));
+      if(PUvariations)
+	{
+	  MCPileupReweightModule.reset(new MCPileupReweight(ctx,"up"));
+	  MCPileupReweightModule.reset(new MCPileupReweight(ctx,"down"));
+	}
+    }
 
   common.reset(new CommonModules());
   // TODO: configure common here, e.g. by
