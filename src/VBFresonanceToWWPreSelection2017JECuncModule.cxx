@@ -343,8 +343,8 @@ JEC_AK8_H   = JERFiles::Summer16_23Sep2016_V4_H_L123_AK8PFPuppi_DATA;
     // New JEC
     if(isMC)
       {
-	       JEC_AK4     = JERFiles::Fall17_17Nov2017_V8_L123_AK4PFPuppi_MC;
-	       JEC_AK8     = JERFiles::Fall17_17Nov2017_V8_L123_AK8PFPuppi_MC;
+	       JEC_AK4     = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFPuppi_MC;
+	       JEC_AK8     = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFPuppi_MC;
       }
     else
       {
@@ -368,7 +368,7 @@ if(channel_=="signal")
   {
     jetER_smearer.reset(new JetResolutionSmearer(ctx));
     //	   	    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets"));
-    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFchs.txt"));
+    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
    	    // topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016,"Spring16_25nsV10_MC_PtResolution_AK8PFchs.txt"));
   }
     }
