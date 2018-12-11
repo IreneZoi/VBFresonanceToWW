@@ -10,34 +10,39 @@
 using namespace uhh2;
 
 
-VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx, 
+VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
 					     const std::string & dirname)  : Hists(ctx, dirname){
   //number
   book<TH1F>("Njets","N jets",10,0,10);
   //number
   book<TH1F>("N_jj","N_jj ",10,0,10);
 
-  
+
   //mass
   book<TH1F>("Mass_1","Mass_{1} [GeV/c^{2}]",100,0,300);
   book<TH1F>("Mass_2","Mass_{2} [GeV/c^{2}]",100,0,300);
 
-  //PT    
-  book<TH1F>("PT_1","P_{T,1} [GeV/c]",100,0,1500);
-  book<TH1F>("PT_2","P_{T,2} [GeV/c]",100,0,1500);
+  //PT
+  book<TH1F>("PT_1","P_{T,1} [GeV/c]",100,0,500);
+  book<TH1F>("PT_2","P_{T,2} [GeV/c]",100,0,500);
+	book<TH1F>("PT_both","P_{T} [GeV/c]",100,0,500);
+
 
   //energy
   book<TH1F>("Energy_1","E_{1} [GeV]",100,0,2000);
-  book<TH1F>("Energy_2","E_{2} [GeV]",100,0,2000);
+	book<TH1F>("Energy_2","E_{2} [GeV]",100,0,2000);
+	book<TH1F>("Energy_both","E [GeV]",100,0,2000);
 
-  
-  // Phi 
+
+  // Phi
   book<TH1F>("Phi_1"," #phi_{1} ",100,-M_PI,M_PI);
-  book<TH1F>("Phi_2"," #phi_{2} ",100,-M_PI,M_PI);
-  
-  //Eta 
+	book<TH1F>("Phi_2"," #phi_{2} ",100,-M_PI,M_PI);
+	book<TH1F>("Phi_both"," #phi ",100,-M_PI,M_PI);
+
+  //Eta
   book<TH1F>("Eta_1","#eta_{1}",100,-5,5);
   book<TH1F>("Eta_2","#eta_{2}",100,-5,5);
+	book<TH1F>("Eta_both","#eta",100,-5,5);
   //  book<TH1F>("Eta_both","#eta_{2}",100,-5,5);
 
   //jj
@@ -59,6 +64,8 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
 
   //delta eta
   book<TH1F>("Eta_jj","#Delta #eta_{jj}",100,-10,10);
+	book<TH1F>("abs_Eta_jj","|#Delta #eta_{jj}|",100,0.,10.);
+
   //pt eta
   // book<TH1F>("eta_Eta_jj","#Delta #eta_{jj}",100,-5,5);
 
@@ -73,7 +80,7 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
 void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
   assert(event.jets);
 
-  
+
 
     //Weightning
   double weight = event.weight;
@@ -94,14 +101,14 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
 	      auto etaproduct = jet->at(i).eta()*jet->at(j).eta();
 	      auto deltaeta = jet->at(i).eta()-jet->at(j).eta();
 	      if (  (fabs(deltaeta) > 3.0) && (etaproduct < 0)) count++;
-	      
+
 	    }
 	}
       hist("N_jj")->Fill(count);
 
 
       /*
-      std::unique_ptr< std::vector<Jet> >    eta_jets   (new std::vector<Jet>   (*event.jets));      
+      std::unique_ptr< std::vector<Jet> >    eta_jets   (new std::vector<Jet>   (*event.jets));
       sort_by_eta<Jet>(*eta_jets);
 
 
@@ -130,7 +137,7 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
 	  eta_Phi1 = eta_jets->at(0).v4().phi();
 	  eta_Phi2 = eta_jets->at(eta_jets->size()-1).v4().phi();
 	}
-      else 
+      else
 	{
 	  eta_Mass2 = eta_jets->at(0).v4().mass();
 	  eta_Mass1 = eta_jets->at(eta_jets->size()-1).v4().mass();
@@ -177,6 +184,7 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
       //	std::cout<< "sort by eta  " << eta_jets->at(0).eta() << " " <<eta_jets->at(1).eta() <<std::endl;
 
   if(jet->size() < 2) return;
+
       float Mass1 = jet->at(0).v4().mass();
       hist("Mass_1")->Fill(Mass1, weight);
       float PT1 = jet->at(0).v4().pt();
@@ -202,6 +210,18 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
       float Energy2 = jet->at(1).v4().energy();
       hist("Energy_2")->Fill(Energy2, weight);
 
+
+			hist("PT_both")->Fill(PT1, weight);
+			hist("PT_both")->Fill(PT2, weight);
+      hist("Phi_both")->Fill(Phi1, weight);
+			hist("Phi_both")->Fill(Phi2, weight);
+			hist("Eta_both")->Fill(Eta1, weight);
+			hist("Eta_both")->Fill(Eta2, weight);
+			hist("Energy_both")->Fill(Energy1, weight);
+			hist("Energy_both")->Fill(Energy2, weight);
+
+
+
       //      float energy = Energy1 + Energy2;
       //      float invMass = sqrt(energy*energy -(PT1+PT2)*(PT1+PT2));
       float invMass = (jet->at(0).v4()+jet->at(1).v4()).M();
@@ -212,6 +232,8 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
       hist("Phi_jj")->Fill(deltaphi,weight);
       auto deltaeta = jet->at(0).eta()-jet->at(1).eta();
       hist("Eta_jj")->Fill(deltaeta,weight);
+			hist("abs_Eta_jj")->Fill(fabs(deltaeta),weight);
+
       auto deltar = deltaR(jet->at(0).v4(),jet->at(1).v4());
       hist("R_jj")->Fill(deltar,weight);
 
