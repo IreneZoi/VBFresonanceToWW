@@ -17,6 +17,7 @@ VBFresonanceToWW_WTopJetInvMHists::VBFresonanceToWW_WTopJetInvMHists(Context & c
 
   book<TH1F>("invMass", "M_{jj}-AK8 [GeV/c^{2}]", 30,1000,7000);
   book<TH1F>("events", "is in", 1,0.,2.);
+  book<TH1F>("weights", "event.weight", 100.,0.,2.);
 
 
 
@@ -42,6 +43,7 @@ void VBFresonanceToWW_WTopJetInvMHists::fill(const uhh2::Event & event){
   std::vector<TopJet>* jet = event.topjets;
   //  std::cout << "going to use event.weight " << event.weight << std::endl;  
   hist("events")->Fill(1., event.weight);
+  hist("weights")->Fill(event.weight,1.);
 
   if(jet->size() < 2) return;
 
