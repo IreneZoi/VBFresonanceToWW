@@ -19,19 +19,19 @@ VBFresonanceToWW_WTopJetPDFHists::VBFresonanceToWW_WTopJetPDFHists(Context & ctx
     {
       stringstream ss_name;
       ss_name << "invMass_PDF_"  << i+1 ;
-      
+
       stringstream ss_title;
       ss_title << "M_{jj}-AK8 [GeV/c^{2}] for PDF No. "  << i+1 << " out of 100" ;
-      
+
 
       string s_name = ss_name.str();
       string s_title = ss_title.str();
-      
+
       const char* char_name = s_name.c_str();
       const char* char_title = s_title.c_str();
-      
+
       histo_names[i] = s_name;
-      
+
       book<TH1F>(char_name, char_title, 30,1000,7000);
   }
 
@@ -55,9 +55,9 @@ void VBFresonanceToWW_WTopJetPDFHists::fill(const uhh2::Event & event){
 
 
 
-  
+
   std::vector<TopJet>* jet = event.topjets;
-  
+
 
   if(jet->size() < 2) return;
 
@@ -66,14 +66,14 @@ void VBFresonanceToWW_WTopJetPDFHists::fill(const uhh2::Event & event){
   const auto & sys_weights = event.genInfo->systweights();
   float orig_weight = sys_weights[0];
   //  float orig_weight = event.genInfo->pdf_scalePDF();
-  cout << " event.genInfo->pdf_scalePDF() " << event.genInfo->pdf_scalePDF() << endl;
-  cout << " event.genInfo->systweights(0) " << sys_weights[0] << endl;
+  //cout << " event.genInfo->pdf_scalePDF() " << event.genInfo->pdf_scalePDF() << endl;
+  //cout << " event.genInfo->systweights(0) " << sys_weights[0] << endl;
   int MY_FIRST_INDEX = 9;
 
   for(int i=0;i<100;i++)
     {
       const char* name = histo_names[i].c_str();
       hist(name)->Fill(mass, event.weight * sys_weights[i+MY_FIRST_INDEX]/orig_weight);
-      cout << "weight " << i << " " << sys_weights[i+MY_FIRST_INDEX]/orig_weight << endl; 
+      //cout << "weight " << i << " " << sys_weights[i+MY_FIRST_INDEX]/orig_weight << endl; 
     }
 }
