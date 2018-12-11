@@ -11,7 +11,7 @@ using namespace std;
 bool PRINT = false;
 
 MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_): deltaR_min(deltaR_min_), muid(muid_){}
-    
+
 bool MuonVeto::passes(const Event & event){
     assert(event.topjets); // if this fails, it probably means jets are not read in
     assert(event.muons); // if this fails, it probably means jets are not read in
@@ -19,7 +19,7 @@ bool MuonVeto::passes(const Event & event){
       {
 	for(const auto & topjets : *event.topjets)
 	  {
-	    for(const auto & muons : *event.muons)    
+	    for(const auto & muons : *event.muons)
 	      {
 		if(deltaR(topjets,muons)  < deltaR_min) return false;
 		else return true;
@@ -27,11 +27,11 @@ bool MuonVeto::passes(const Event & event){
 	  }
       }
     return true;
-    
+
 }
 
 ElectronVeto::ElectronVeto(float deltaR_min_, const boost::optional<ElectronId> & eleid_): deltaR_min(deltaR_min_), eleid(eleid_){}
-    
+
 bool ElectronVeto::passes(const Event & event){
     assert(event.topjets); // if this fails, it probably means jets are not read in
     assert(event.electrons); // if this fails, it probably means jets are not read in
@@ -39,7 +39,7 @@ bool ElectronVeto::passes(const Event & event){
       {
 	for(const auto & topjets : *event.topjets)
 	  {
-	    for(const auto & electrons : *event.electrons)    
+	    for(const auto & electrons : *event.electrons)
 	      {
 		if(deltaR(topjets,electrons)  < deltaR_min) return false;
 		else return true;
@@ -47,24 +47,45 @@ bool ElectronVeto::passes(const Event & event){
 	  }
       }
     return true;
-    
+
 }
 
 
 DijetInvSelection::DijetInvSelection(float size_max_): size_max(size_max_){}
-    
+
 bool DijetInvSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() >= size_max) return false;
     else return true;
 }
 
+AK4PtSelection::AK4PtSelection(float pt_min_): pt_min(pt_min_){}
+
+bool AK4PtSelection::passes(const Event & event){
+    assert(event.jets); // if this fails, it probably means jets are not read in
+    if (event.jets->size() < 1)  return false;
+
+    else if(event.jets->at(0).pt() < pt_min) return false;
+    else return true;
+}
+
+AK4PtInvSelection::AK4PtInvSelection(float pt_min_): pt_min(pt_min_){}
+
+bool AK4PtInvSelection::passes(const Event & event){
+    assert(event.jets); // if this fails, it probably means jets are not read in
+    if (event.jets->size() < 1)  return false;
+      
+    else if(event.jets->at(0).pt() >= pt_min) return false;
+    else return true;
+}
+
+
 VBFdeltaEtajetSelection::VBFdeltaEtajetSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool VBFdeltaEtajetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
-    
+
     // for(unsigned int i = 0; i <event.jets->size(); i++)
     //   {
     // 	for(unsigned int j = i+1; j <event.jets->size(); j++)
@@ -76,13 +97,13 @@ bool VBFdeltaEtajetSelection::passes(const Event & event){
       // 	  }
       // }
 	    //    return true;
-    
+
 }
 
 
 
 VBFEtaSignjetSelection::VBFEtaSignjetSelection(){}
-    
+
 bool VBFEtaSignjetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
@@ -98,14 +119,14 @@ bool VBFEtaSignjetSelection::passes(const Event & event){
     // 	  }
     //   }
     // return true;
-    
+
 }
 
 VBFEtaSignjetInvSelection::VBFEtaSignjetInvSelection(){}
-    
+
 bool VBFEtaSignjetInvSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
-    if(event.jets->size() >= 2) 
+    if(event.jets->size() >= 2)
       {
 	auto etaproduct = event.jets->at(0).eta()*event.jets->at(1).eta();
 	if (etaproduct <= 0) return false;
@@ -116,7 +137,7 @@ bool VBFEtaSignjetInvSelection::passes(const Event & event){
 
 
 VBFEtajetSelection::VBFEtajetSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool VBFEtajetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
@@ -138,10 +159,10 @@ bool VBFEtajetSelection::passes(const Event & event){
 
 
 VBFEtajetInvSelection::VBFEtajetInvSelection(float deta_max_): deta_max(deta_max_){}
-    
+
 bool VBFEtajetInvSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
-    if(event.jets->size() >= 2) 
+    if(event.jets->size() >= 2)
       {
 	auto deltaeta = event.jets->at(0).eta()-event.jets->at(1).eta();
 	if (  (fabs(deltaeta) >= deta_max) ) return false;
@@ -158,7 +179,7 @@ deltaEtaTopjetSelection::deltaEtaTopjetSelection(float deta_max_): deta_max(deta
 
 
 bool deltaEtaTopjetSelection::passes(const Event & event){
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                             
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
 
 	  auto deltaeta = event.topjets->at(0).eta()-event.topjets->at(1).eta();
@@ -170,7 +191,7 @@ HighMassTopjetSelection::HighMassTopjetSelection(float M_sd_min_): M_sd_min(M_sd
 
 bool HighMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -203,7 +224,7 @@ bool HighMassTopjetSelection::passes(const Event & event){
 
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min) return false;
   //if(PRINT) cout << "sd mass selection" <<endl;
-  
+
   else return true;
 //  if(PRINT) cout << "end SD mass selection" <<endl;
 
@@ -214,7 +235,7 @@ HighMassLeadingTopjetSelection::HighMassLeadingTopjetSelection(float M_sd_min_):
 
 bool HighMassLeadingTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
   if(PRINT) cout << " asserted topjets" <<endl;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -235,7 +256,7 @@ bool HighMassLeadingTopjetSelection::passes(const Event & event){
 
   if( JetSDMass1 < M_sd_min) return false;
   //if(PRINT) cout << "sd mass selection" <<endl;
-	  
+
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
 }
@@ -244,7 +265,7 @@ HighMassSecLeadingTopjetSelection::HighMassSecLeadingTopjetSelection(float M_sd_
 
 bool HighMassSecLeadingTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
   if(PRINT) cout << " asserted topjets" <<endl;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -265,7 +286,7 @@ bool HighMassSecLeadingTopjetSelection::passes(const Event & event){
 
   if( JetSDMass1 < M_sd_min) return false;
   //if(PRINT) cout << "sd mass selection" <<endl;
-	  
+
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
 }
@@ -276,7 +297,7 @@ VVMassSecLeadingTopjetSelection::VVMassSecLeadingTopjetSelection(float M_sd_min_
 
 bool VVMassSecLeadingTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -297,7 +318,7 @@ bool VVMassSecLeadingTopjetSelection::passes(const Event & event){
 
   if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
   //if(PRINT) cout << "sd mass selection" <<endl;
-  
+
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
 
@@ -307,7 +328,7 @@ VVMassLeadingTopjetSelection::VVMassLeadingTopjetSelection(float M_sd_min_, floa
 
 bool VVMassLeadingTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -329,17 +350,17 @@ bool VVMassLeadingTopjetSelection::passes(const Event & event){
 
   if(JetSDMass2 < M_sd_min || JetSDMass2 > M_sd_max) return false;
   //if(PRINT) cout << "sd mass selection" <<endl;
-	  
+
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
-  
+
 }
 
 VVMassTopjetSelection::VVMassTopjetSelection(float M_sd_min_, float M_sd_max_): M_sd_min(M_sd_min_), M_sd_max(M_sd_max_){}
 
 bool VVMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -371,17 +392,17 @@ bool VVMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << "TopJet 2 SD "<< event.topjets->at(1).softdropmass() <<endl;
   if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
  // if(PRINT) cout << "sd mass selection" <<endl;
-  
+
   else return true;
   if(PRINT) cout << "end SD mass selection" <<endl;
-  
+
 }
 
 
 invMassTopjetSelection::invMassTopjetSelection(float invM_min_): invM_min(invM_min_){}
 
 bool invMassTopjetSelection::passes(const Event & event){
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                          
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
 
   auto invariantMass = (event.topjets->at(0).v4() + event.topjets->at(1).v4()).M();
@@ -393,13 +414,13 @@ bool invMassTopjetSelection::passes(const Event & event){
 nSubjTopjetSelection::nSubjTopjetSelection(float tau21_min_, float tau21_max_): tau21_min(tau21_min_), tau21_max(tau21_max_){}
 
 bool nSubjTopjetSelection::passes(const Event & event){
-  assert(event.topjets); // if this fails, it probably means jets are not read in   
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
 
-  
-  float tau1_1 = event.topjets->at(0).tau1();                                                                                                                                                            
-  float tau2_1 = event.topjets->at(0).tau2();                                                                                                                                                            
-  float tau21_1 = tau2_1/tau1_1;             
+
+  float tau1_1 = event.topjets->at(0).tau1();
+  float tau2_1 = event.topjets->at(0).tau2();
+  float tau21_1 = tau2_1/tau1_1;
 
   float tau1_2 = event.topjets->at(1).tau1();
   float tau2_2 = event.topjets->at(1).tau2();
@@ -412,7 +433,7 @@ bool nSubjTopjetSelection::passes(const Event & event){
 invMassVBFjetSelection::invMassVBFjetSelection(float invM_min_): invM_min(invM_min_){}
 
 bool invMassVBFjetSelection::passes(const Event & event){
-  assert(event.jets); // if this fails, it probably means jets are not read in                                                                                                                          
+  assert(event.jets); // if this fails, it probably means jets are not read in
   if(event.jets->size() < 2) return false;
 
   auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
@@ -426,7 +447,7 @@ bool invMassVBFjetSelection::passes(const Event & event){
 invMassVBFjetInvSelection::invMassVBFjetInvSelection(float invM_max_): invM_max(invM_max_){}
 
 bool invMassVBFjetInvSelection::passes(const Event & event){
-  assert(event.jets); // if this fails, it probably means jets are not read in                                                                                                                          
+  assert(event.jets); // if this fails, it probably means jets are not read in
   if(event.jets->size() < 2) return false;
   auto invariantMass = (event.jets->at(0).v4() + event.jets->at(1).v4()).M();
   if( invariantMass >= invM_max) return false;
@@ -440,7 +461,7 @@ bool invMassVBFjetInvSelection::passes(const Event & event){
 
 
 VBFdeltaEtaGenjetSelection::VBFdeltaEtaGenjetSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool VBFdeltaEtaGenjetSelection::passes(const Event & event){
     assert(event.genjets); // if this fails, it probably means jets are not read in
     if(event.genjets->size() < 2) return false;
@@ -455,10 +476,10 @@ bool VBFdeltaEtaGenjetSelection::passes(const Event & event){
 	  }
       }
     return true;
-  }    
+  }
 
 VBFinvMassDijetSelection::VBFinvMassDijetSelection(float mass_min_): mass_min(mass_min_){}
-    
+
 bool VBFEtajetSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     if(event.jets->size() < 2) return false;
@@ -477,7 +498,7 @@ bool VBFEtajetSelection::passes(const Event & event){
 }
 
 VBFEtaSignGenjetSelection::VBFEtaSignGenjetSelection(){}
-    
+
 bool VBFEtaSignGenjetSelection::passes(const Event & event){
     assert(event.genjets); // if this fails, it probably means jets are not read in
     if(event.genjets->size() < 2) return false;
@@ -493,12 +514,12 @@ bool VBFEtaSignGenjetSelection::passes(const Event & event){
 	    else return true;
 	  }
       }
-    
+
     return true;
   }
 
 VBFEtaGenjetSelection::VBFEtaGenjetSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool VBFEtaGenjetSelection::passes(const Event & event){
     assert(event.genjets); // if this fails, it probably means jets are not read in
     if(event.genjets->size() < 2) return false;
@@ -517,7 +538,7 @@ bool VBFEtaGenjetSelection::passes(const Event & event){
 
 
 JetsOverlappingSelection::JetsOverlappingSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool JetsOverlappingSelection::passes(const Event & event){
     assert(event.jets); // if this fails, it probably means jets are not read in
     assert(event.topjets); // if this fails, it probably means jets are not read in
@@ -534,7 +555,7 @@ bool JetsOverlappingSelection::passes(const Event & event){
 }
 
 GenJetsOverlappingSelection::GenJetsOverlappingSelection(float deta_min_): deta_min(deta_min_){}
-    
+
 bool GenJetsOverlappingSelection::passes(const Event & event){
     assert(event.genjets); // if this fails, it probably means jets are not read in
     assert(event.gentopjets); // if this fails, it probably means jets are not read in
@@ -553,7 +574,7 @@ bool GenJetsOverlappingSelection::passes(const Event & event){
 EtaGenTopjetSelection::EtaGenTopjetSelection(float eta_max_): eta_max(eta_max_){}
 
 bool EtaGenTopjetSelection::passes(const Event & event){
-  assert(event.gentopjets); // if this fails, it probably means jets are not read in                                                                                                                             
+  assert(event.gentopjets); // if this fails, it probably means jets are not read in
   if(event.gentopjets->size() < 2) return false;
     for(unsigned int i = 0; i <event.gentopjets->size(); i++)
       {
@@ -566,7 +587,7 @@ bool EtaGenTopjetSelection::passes(const Event & event){
 PtGenTopjetSelection::PtGenTopjetSelection(float pt_min_): pt_min(pt_min_){}
 
 bool PtGenTopjetSelection::passes(const Event & event){
-  assert(event.gentopjets); // if this fails, it probably means jets are not read in                                                                                                                             
+  assert(event.gentopjets); // if this fails, it probably means jets are not read in
   if(event.gentopjets->size() < 2) return false;
     for(unsigned int i = 0; i <event.gentopjets->size(); i++)
       {
@@ -579,7 +600,7 @@ bool PtGenTopjetSelection::passes(const Event & event){
 deltaEtaGenTopjetSelection::deltaEtaGenTopjetSelection(float deta_max_): deta_max(deta_max_){}
 
 bool deltaEtaGenTopjetSelection::passes(const Event & event){
-  assert(event.gentopjets); // if this fails, it probably means jets are not read in                                                                                                                             
+  assert(event.gentopjets); // if this fails, it probably means jets are not read in
   if(event.gentopjets->size() < 2) return false;
 
 	  auto deltaeta = event.gentopjets->at(0).eta()-event.gentopjets->at(1).eta();
@@ -590,8 +611,8 @@ bool deltaEtaGenTopjetSelection::passes(const Event & event){
 deltaRGenTopjetSelection::deltaRGenTopjetSelection(float deltaR_min_): deltaR_min(deltaR_min_){}
 
 bool deltaRGenTopjetSelection::passes(const Event & event){
-  assert(event.gentopjets); // if this fails, it probably means jets are not read in                                                                                                                       
-  assert(event.genjets); // if this fails, it probably means jets are not read in  
+  assert(event.gentopjets); // if this fails, it probably means jets are not read in
+  assert(event.genjets); // if this fails, it probably means jets are not read in
 
   double deltaphi;
   double deltaeta;
@@ -614,7 +635,7 @@ bool deltaRGenTopjetSelection::passes(const Event & event){
 invMassGenTopjetSelection::invMassGenTopjetSelection(float invM_min_): invM_min(invM_min_){}
 
 bool invMassGenTopjetSelection::passes(const Event & event){
-  assert(event.gentopjets); // if this fails, it probably means jets are not read in                                                                                                                          
+  assert(event.gentopjets); // if this fails, it probably means jets are not read in
   if(event.gentopjets->size() < 2) return false;
 
   auto invariantMass = (event.gentopjets->at(0).v4() + event.gentopjets->at(1).v4()).M();
@@ -626,7 +647,7 @@ WWMassTopjetSelection::WWMassTopjetSelection(float M_sd_min_, float M_sd_max_): 
 
 bool WWMassTopjetSelection::passes(const Event & event){
   if(PRINT) cout << " in SD mass sel " <<endl;
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                           
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(PRINT) cout << " asserted topjets" <<endl;
   if(event.topjets->size() < 2) return false;
   std::vector<TopJet> Tjets = *event.topjets;
@@ -654,7 +675,7 @@ bool WWMassTopjetSelection::passes(const Event & event){
 
 	  if( JetSDMass1 < M_sd_min || JetSDMass2 < M_sd_min || JetSDMass1 > M_sd_max || JetSDMass2 > M_sd_max) return false;
 	  if(PRINT) cout << "sd mass selection" <<endl;
-	  
+
 	  return true;
 	  if(PRINT) cout << "end SD mass selection" <<endl;
 
@@ -663,7 +684,7 @@ bool WWMassTopjetSelection::passes(const Event & event){
 invMassTopjetFitSelection::invMassTopjetFitSelection(float invM_min_): invM_min(invM_min_){}
 
 bool invMassTopjetFitSelection::passes(const Event & event){
-  assert(event.topjets); // if this fails, it probably means jets are not read in                                                                                                                          
+  assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
 
   auto invariantMass = (event.topjets->at(0).v4() + event.topjets->at(1).v4()).M();
