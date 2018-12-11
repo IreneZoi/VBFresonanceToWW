@@ -35,13 +35,13 @@ using namespace uhh2;
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
-   * 
+   *
    * This is the central class which calls other AnalysisModules, Hists or Selection classes.
    * This AnalysisModule, in turn, is called (via AnalysisModuleRunner) by SFrame.
    */
   class VBFresonanceToWWSelectionModule: public AnalysisModule {
   public:
-    
+
 
     explicit VBFresonanceToWWSelectionModule(Context & ctx);
     virtual bool process(Event & event) override;
@@ -52,7 +52,7 @@ namespace uhh2examples {
     std::unique_ptr<uhh2::AnalysisModule> MCWeightModule;
     std::unique_ptr<uhh2::AnalysisModule> MCPileupReweightModule;
 
-    std::unique_ptr<AnalysisModule> Gen_printer;  
+    std::unique_ptr<AnalysisModule> Gen_printer;
 
     std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
 
@@ -60,7 +60,7 @@ namespace uhh2examples {
 
     std::unique_ptr<JetCleaner> ak4pfidfilter;
 
-    //********** SELECTIONS ***************  
+    //********** SELECTIONS ***************
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     std::unique_ptr<Selection> muon_sel, electron_sel;//lepton veto
@@ -78,8 +78,8 @@ namespace uhh2examples {
     std::unique_ptr<Selection> vbfeta_sel, vbfeta35_sel, vbfeta4_sel, vbfeta45_sel, vbfeta5_sel, vbfeta55_sel, vbfeta6_sel;
     std::unique_ptr<Selection> invM800_sel;
     std::unique_ptr<Selection> invM1000_sel;
-  
-    //********** HISTOS ***************  
+
+    //********** HISTOS ***************
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_input;
     std::unique_ptr<Hists> h_event_input;
@@ -118,10 +118,10 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_topjets_2topjetsel;
     std::unique_ptr<Hists> h_Wtopjets_2topjetsel;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_invM;
     std::unique_ptr<Hists> h_topjets_invM;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_deta;
     std::unique_ptr<Hists> h_topjets_deta;
 
@@ -133,8 +133,8 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_event_compare;
 
     std::unique_ptr<Hists> h_Wtopjets_compareSD;
+    std::unique_ptr<Hists> h_Wtopjets_compareTAU;
 
-    
     std::unique_ptr<Hists> h_Wtopjets_VVMass;
     std::unique_ptr<Hists> h_topjets_VVMass;
     std::unique_ptr<Hists> h_Dijets_VVMass;
@@ -148,23 +148,23 @@ namespace uhh2examples {
 
     std::unique_ptr<Hists> h_Wtopjets_AK4cleaner;
     std::unique_ptr<Hists> h_jets_AK4cleaner;
-       
+
 
     std::unique_ptr<Hists> h_Wtopjets_VVMass_tau21_045;
-   
+
 
     std::unique_ptr<Hists> h_Wtopjets_WWMass;
     std::unique_ptr<Hists> h_topjets_WWMass;
-    
+
     std::unique_ptr<Hists> h_Wtopjets_tau21WW;
     std::unique_ptr<Hists> h_topjets_tau21WW;
-    
+
     std::unique_ptr<Hists> h_jets_2jetsel;
     std::unique_ptr<Hists> h_Wtopjets_2jetsel;
-        
+
     std::unique_ptr<Hists> h_jets_vbfetasign;
     std::unique_ptr<Hists> h_Wtopjets_vbfetasign;
-    
+
     std::unique_ptr<Hists> h_VBF_VVMass;
     std::unique_ptr<Hists> h_jets_VBF_VVMass;
     std::unique_ptr<Hists> h_Dijets_VBF_VVMass;
@@ -184,7 +184,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de4;
 
-    
+
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;
@@ -209,11 +209,11 @@ namespace uhh2examples {
     // member variables, in particular the AnalysisModules such as
     // CommonModules or some cleaner module, Selections and Hists.
     // But you can do more and e.g. access the configuration, as shown below.
-    
+
     cout << "Hello World from VBFresonanceToWWSelectionModule!" << endl;
 
     Gen_printer.reset(new GenParticlesPrinter(ctx));
-    
+
     // If needed, access the configuration of the module here, e.g.:
     string testvalue = ctx.get("TestKey", "<not set>");
     cout << "TestKey in the configuration was: " << testvalue << endl;
@@ -233,7 +233,7 @@ namespace uhh2examples {
     for(auto & kv : ctx.get_all()){
       cout << " " << kv.first << " = " << kv.second << endl;
     }
-    
+
     if(isMC){
       MCWeightModule.reset(new MCLumiWeight(ctx));
       MCPileupReweightModule.reset(new MCPileupReweight(ctx));
@@ -253,29 +253,29 @@ namespace uhh2examples {
     if(PRINT && L1pref) cout << "after reset L1" << endl;
 
 
-    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5)); 
+    jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
     AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
     ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
 
 
     if(PRINT) cout << "cleaners" <<endl;
-    
 
 
 
-    
+
+
     // 2. set up selections ***
 
     muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
     electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
 
-    topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets      
+    topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
     tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
-    jet2_sel.reset(new NJetSelection(2)); // at least 2 jets      
+    jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection()); // see VBFresonanceToWWSelections
@@ -339,6 +339,7 @@ namespace uhh2examples {
     h_event_compare.reset(new EventHists(ctx, "event_compare"));
 
     h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareSD"));
+    h_Wtopjets_compareTAU.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareTAU"));
 
 
     h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
@@ -430,14 +431,17 @@ namespace uhh2examples {
     if(PRINT) std::cout<<"sd "<<std::endl;
     bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
     if(PRINT) std::cout<<"tau21 "<<std::endl;
-    if(invMtopjet_SDselection && tau21topjetHP_selection)
-      h_Wtopjets_compareSD->fill(event);
-    if(PRINT) std::cout<<"compare and sd "<<std::endl;
+      if(PRINT) std::cout<<"compare and sd "<<std::endl;
 
     bool VVMtopjet_selection = VVmass_sel->passes(event);
-    
+
+    if(VVMtopjet_selection)
+      h_Wtopjets_compareSD->fill(event);
+    if(tau21topjetHP_selection)
+      h_Wtopjets_compareTAU->fill(event);
+
     if(!VVMtopjet_selection) return false;
-    
+
     h_Wtopjets_VVMass->fill(event);
     h_topjets_VVMass->fill(event);
     h_Dijets_VVMass->fill(event);
@@ -458,27 +462,27 @@ namespace uhh2examples {
     ak4pfidfilter->process(event);
     h_Wtopjets_AK4cleaner->fill(event);
     h_jets_AK4cleaner->fill(event);
-     
+
     // Selections for AK4
     bool jets2_selection = jet2_sel->passes(event);
     if(!jets2_selection) return false;
-    
+
     h_jets_2jetsel->fill(event);
     h_Wtopjets_2jetsel->fill(event);
 
-    
+
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
     if(!vbfetasign_selection) return false;
-    
+
     h_jets_vbfetasign->fill(event);
     h_Wtopjets_vbfetasign->fill(event);
     if(PRINT) cout << "vbfeta_sign jets" <<endl;
-    
+
 
     bool vbfeta_selection = vbfeta_sel->passes(event);
     bool vbfeta4_selection = vbfeta4_sel->passes(event);
 
-    if(!vbfeta_selection) return false;
+    if(!vbfeta4_selection) return false;
 
     h_VBF_VVMass->fill(event);
     h_jets_VBF_VVMass->fill(event);
@@ -498,7 +502,6 @@ namespace uhh2examples {
     if(!vbfeta4_selection) return false;
     h_Wtopjets_withVBF_invM800_de4->fill(event);
     h_Dijets_VBF_invM800_de4->fill(event);
-
     if(L1pref)	jet_L1PrefiringSF->process(event);
 
 
