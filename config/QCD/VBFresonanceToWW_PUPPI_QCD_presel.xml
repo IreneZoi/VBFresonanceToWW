@@ -52,7 +52,7 @@
       <OutputTree Name="AnalysisTree"/>
     </InputData>
 
-    <InputData Version="MC_QCD_HT2000toInf" Lumi="239129.279" Type="MC" NEventsMax="100" Cacheable="False">
+    <InputData Version="MC_QCD_HT2000toInf" Lumi="239129.279" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT2000toInf; <InputTree Name="AnalysisTree"/>
       <OutputTree Name="AnalysisTree"/>
     </InputData>
