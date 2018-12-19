@@ -27,7 +27,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
 #define PRINT false
-#define L1pref false
+#define L1pref true
 
 using namespace std;
 using namespace uhh2;
@@ -249,7 +249,8 @@ namespace uhh2examples {
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Jet_L1IsoEG30eff_bxm1_looseJet_2016H.root","jets"));
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2016B-F.root","jets"));
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2016B-H.root","jets"));
-    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_JetHT_Run2016B-H.root","jets"));
+    //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_JetHT_Run2016B-H.root","jets"));
+    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/L1prefiring_jet_2017BtoF.root","jets"));
     if(PRINT && L1pref) cout << "after reset L1" << endl;
 
 
