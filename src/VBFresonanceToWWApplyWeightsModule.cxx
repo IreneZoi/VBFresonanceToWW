@@ -38,7 +38,7 @@ using namespace uhh2;
 namespace uhh2examples {
 
   /** \brief Basic analysis example of an AnalysisModule (formerly 'cycle') in UHH2
-  *
+   *
   This module allows to calculate the PU and the PDF xs uncertainty
   */
   class VBFresonanceToWWApplyWeightsModule: public AnalysisModule {
@@ -125,7 +125,7 @@ namespace uhh2examples {
     h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
     // for(int i = 1; i < PDFs; i++)
     //   {
-    // 	    std::string pdf = std::to_string(i);
+    //     std::string pdf = std::to_string(i);
     //         h_Wtopjets_withVBF_invM800_de45_pdf[i-1].reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VBF_invM800_de45_pdf"+pdf));
     //   }
 
@@ -152,7 +152,7 @@ namespace uhh2examples {
     if(PRINT)    cout << "VBFresonanceToWWApplyWeightsModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << " pileupe weight = "<< event.get(h_weight_pu) << endl;
 
     if(isMC)
-    MCWeightModule->process(event);
+      MCWeightModule->process(event);
 
     double eventweight = event.weight;
     double eventweight_pu = 1;//eventweight*event.get(h_weight_pu);
@@ -160,11 +160,11 @@ namespace uhh2examples {
     double eventweight_pu_down = 1;//eventweight*event.get(h_weight_pu_down);
 
     if(isMC)
-    {
-      eventweight_pu = eventweight*event.get(h_weight_pu);
-      eventweight_pu_up = eventweight*event.get(h_weight_pu_up);
-      eventweight_pu_down = eventweight*event.get(h_weight_pu_down);
-    }
+      {
+	eventweight_pu = eventweight*event.get(h_weight_pu);
+	eventweight_pu_up = eventweight*event.get(h_weight_pu_up);
+	eventweight_pu_down = eventweight*event.get(h_weight_pu_down);
+      }
 
     if(isMC) event.weight = eventweight_pu;
     h_Wtopjets_withVBF_invM800_de45->fill(event);
@@ -172,8 +172,8 @@ namespace uhh2examples {
     // for(int i = 2; i < PDFs+1; i++)
     //   {
     //     event.weight=eventweight_pu*PDFweightgetter->GetWeight(i, event);
-    // 	if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
-    // 	h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
+    // if(PRINT) cout<< " GetWeight " << PDFweightgetter->GetWeight(i, event) << endl;
+    // h_Wtopjets_withVBF_invM800_de45_pdf[i-2]->fill(event);
     //   }
     if(isMC) event.weight = eventweight_pu_up;
     h_Wtopjets_withVBF_invM800_de45_pu_up->fill(event);
