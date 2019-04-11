@@ -1,0 +1,14 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+obj/
+L1SF/
+config/miscellaneous/
+config/CHS/
+config/official/
+src/OldModule/
+workdir_*/*
