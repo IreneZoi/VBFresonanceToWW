@@ -12,7 +12,7 @@
   <Library Name="libSUHH2VBFresonanceToWW"/>
   <Package Name="SUHH2VBFresonanceToWW.par" />
 
-  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/Uncertainty/PtAK4_100/" PostFix="" TargetLumi="36814.0" >
+  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/Uncertainty/" PostFix="" TargetLumi="36814.0" >
     <!--   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/Output/" PostFix="" TargetLumi="36814.0" >-->
     <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
 
@@ -26,103 +26,103 @@
 -->
 
 <InputData Lumi="49994" NEventsMax="-1" Type="MC" Version="VBF_Radion1200ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion1200ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion1200ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49995" NEventsMax="-1" Type="MC" Version="VBF_Radion1400ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion1400ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion1400ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1600ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion1600ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion1600ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49983" NEventsMax="-1" Type="MC" Version="VBF_Radion1800ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion1800ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion1800ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49976" NEventsMax="-1" Type="MC" Version="VBF_Radion2000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion2000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion2000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49975" NEventsMax="-1" Type="MC" Version="VBF_Radion2500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion2500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion2500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49963" NEventsMax="-1" Type="MC" Version="VBF_Radion3000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion3000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion3000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49951" NEventsMax="-1" Type="MC" Version="VBF_Radion3500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion3500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion3500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49956" NEventsMax="-1" Type="MC" Version="VBF_Radion4000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion4000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion4000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="49751" NEventsMax="-1" Type="MC" Version="VBF_Radion4500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Radion4500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Radion4500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 
 <InputData Lumi="49796" NEventsMax="-1" Type="MC" Version="VBF_Graviton1200ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1200ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1200ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48992" NEventsMax="-1" Type="MC" Version="VBF_Graviton1400ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1400ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1400ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="47993" NEventsMax="-1" Type="MC" Version="VBF_Graviton1600ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1600ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1600ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48989" NEventsMax="-1" Type="MC" Version="VBF_Graviton1800ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1800ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton1800ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="45373" NEventsMax="-1" Type="MC" Version="VBF_Graviton2000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton2000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton2000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48981" NEventsMax="-1" Type="MC" Version="VBF_Graviton2500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton2500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton2500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48977" NEventsMax="-1" Type="MC" Version="VBF_Graviton3000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton3000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton3000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48972" NEventsMax="-1" Type="MC" Version="VBF_Graviton3500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton3500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton3500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="48959" NEventsMax="-1" Type="MC" Version="VBF_Graviton4000ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton4000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton4000ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
 <InputData Lumi="46961" NEventsMax="-1" Type="MC" Version="VBF_Graviton4500ToWW_inv_2017JEC_downnominal_PUPPI" Cacheable="False">
-  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/JECJERvariations/uhh2.AnalysisModuleRunner.MC.VBF_Graviton4500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
+  <In FileName="/nfs/dust/cms/user/zoiirene/DiBoson/OutputBatch/PreSelection/uhh2.AnalysisModuleRunner.MC.VBF_Graviton4500ToWW_2017JEC_downnominal_PUPPI.root" Lumi="0.0"/>
   <InputTree Name="AnalysisTree" />
   <OutputTree Name="AnalysisTree" />
 </InputData>
@@ -169,8 +169,8 @@
   <!--            <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />-->
   <Item Name="TopJetCollection" Value="patJetsAk8PuppiJetsSoftDropPacked_daughters" />
   <Item Name="additionalBranches" Value="patJetsAK8PFPUPPI" />
-  <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" /> <!-- FOR MASS -->
-  <!--             <Item Name="GenTopJetCollection" Value="ak8GenJets" /> -->  <!-- FOR NSubjettines and CHF-->
+  <!--<Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" /> --><!-- FOR MASS -->
+               <Item Name="GenTopJetCollection" Value="ak8GenJets" />  <!-- FOR NSubjettines and CHF-->
   <Item Name="GenInfoName" Value="genInfo" />
   <Item Name="channel" Value="signal" />  <!-- FOR smearing-->
   <!--            <Item Name="channel" Value="nosm" />-->  <!-- no smearing-->
