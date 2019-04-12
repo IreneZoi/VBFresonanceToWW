@@ -71,8 +71,8 @@ namespace uhh2examples {
     //std::unique_ptr<TopJetCorrector> topjet_corrector_H;
     std::unique_ptr<TopJetCorrector> topjet_corrector_GH;
 
-    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
-    std::unique_ptr<JetMassScale> topjet_jms;
+    //102X    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
+    //102X    std::unique_ptr<JetMassScale> topjet_jms;
 
 
     std::unique_ptr<JetResolutionSmearer> jetER_smearer;
@@ -213,7 +213,7 @@ namespace uhh2examples {
     // 1. setup other modules. CommonModules and the JetCleaner:
     h_IdCriteriaJets = ctx.get_handle<vector<Jet>>("patJetsAK8PFPUPPI");
 
-    MuId  = AndId<Muon>(MuonIDTight(), PtEtaCut(30., 2.4));
+    MuId  = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(30., 2.4));//102X
     EleId = AndId<Electron>(ElectronID_HEEP_RunII_25ns, PtEtaCut(35., 2.5));
     //EleId = AndId<Electron>(ElectronID_Spring16_tight_noIso, PtEtaCut(20., 5.));
 
@@ -307,8 +307,8 @@ topjet_corrector_GH.reset(new TopJetCorrector(ctx,JEC_AK8_GH ));
     }
 
 
-    topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
-topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
+    //102X    topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+    //102X topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
 
     //    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5));
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
@@ -676,9 +676,9 @@ topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8
           // h_muon_correctors[i]->fill(event);
           // h_electron_correctors[i]->fill(event);
 
-          topjet_sdmasscorrector->process(event);
+	  //102X          topjet_sdmasscorrector->process(event);
           //		    h_Wtopjets_SDMcorrectors[i]->fill(event);
-topjet_jms->process(event);
+	  //102X	  topjet_jms->process(event);
           //    jetcleaner->process(event);
           topjetcleaner->process(event);
           //h_Wtopjets_tcleaner[i]->fill(event);

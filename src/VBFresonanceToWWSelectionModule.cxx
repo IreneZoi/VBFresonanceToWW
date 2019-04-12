@@ -27,7 +27,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
 #define PRINT false
-#define L1pref true
+#define L1pref false
 
 using namespace std;
 using namespace uhh2;
@@ -54,7 +54,7 @@ namespace uhh2examples {
 
     std::unique_ptr<AnalysisModule> Gen_printer;
 
-    std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
+    //102X    std::unique_ptr<L1PrefiringSF> jet_L1PrefiringSF;
 
     std::unique_ptr<JetCleaner> jetcleaner;
 
@@ -250,7 +250,7 @@ namespace uhh2examples {
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2016B-F.root","jets"));
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2016B-H.root","jets"));
     //    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/Map_Jet_L1IsoEG30eff_bxm1_looseJet_JetHT_Run2016B-H.root","jets"));
-    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/L1prefiring_jet_2017BtoF.root","jets"));
+    //102X    jet_L1PrefiringSF.reset(new L1PrefiringSF(ctx, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/L1prefiring_jet_2017BtoF.root","jets"));
     if(PRINT && L1pref) cout << "after reset L1" << endl;
 
 
@@ -503,7 +503,7 @@ namespace uhh2examples {
     if(!vbfeta4_selection) return false;
     h_Wtopjets_withVBF_invM800_de4->fill(event);
     h_Dijets_VBF_invM800_de4->fill(event);
-    if(L1pref)	jet_L1PrefiringSF->process(event);
+    //102X    if(L1pref)	jet_L1PrefiringSF->process(event);
 
 
 
