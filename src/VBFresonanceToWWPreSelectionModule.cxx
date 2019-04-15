@@ -492,8 +492,8 @@ namespace uhh2examples {
   AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
 
 
-  ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
-  ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+  //102X  ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
+  //102X  ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
   
   
   if(PRINT) cout << "cleaners" <<endl;
@@ -874,7 +874,7 @@ if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jec applied " << endl;
 //102X if(PRINT)    cout << "VBFresonanceToWWPreSelectionModule: jms " << endl;
 //    jetcleaner->process(event);
 topjetcleaner->process(event);
-ak8pfidfilter->process(event);
+//102X ak8pfidfilter->process(event);
 
 h_cleaner->fill(event);
 h_Wtopjets_cleaner->fill(event);
