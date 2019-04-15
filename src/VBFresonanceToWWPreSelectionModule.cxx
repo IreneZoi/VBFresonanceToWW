@@ -9,6 +9,7 @@
 #include "UHH2/common/include/ElectronIds.h"
 #include "UHH2/common/include/ObjectIdUtils.h"
 #include "UHH2/common/include/JetCorrections.h"
+#include "UHH2/common/include/Utils.h"
 #include <UHH2/common/include/MCWeight.h>
 #include "UHH2/common/include/PrintingModules.h"
 #include "UHH2/common/include/ElectronHists.h"
@@ -56,32 +57,47 @@ namespace uhh2examples {
 
     std::unique_ptr<JetCorrector> jet_corrector;
 
-    std::unique_ptr<JetCorrector> jet_corrector_BCD;
-    std::unique_ptr<JetCorrector> jet_corrector_EF;
-    //  std::unique_ptr<JetCorrector> jet_corrector_G;
-    //  std::unique_ptr<JetCorrector> jet_corrector_H;
-    std::unique_ptr<JetCorrector> jet_corrector_GH;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_B;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_C;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_D;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_E;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_F;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_G;
+    std::unique_ptr<JetCorrector> jet_corrector_2016_H;
+
+    std::unique_ptr<JetCorrector> jet_corrector_2017_B;
+    std::unique_ptr<JetCorrector> jet_corrector_2017_C;
+    std::unique_ptr<JetCorrector> jet_corrector_2017_D;
+    std::unique_ptr<JetCorrector> jet_corrector_2017_E;
+    std::unique_ptr<JetCorrector> jet_corrector_2017_F;
+
+    std::unique_ptr<JetCorrector> jet_corrector_2018_B;
+    std::unique_ptr<JetCorrector> jet_corrector_2018_C;
+    std::unique_ptr<JetCorrector> jet_corrector_2018_D;
 
     std::unique_ptr<TopJetCorrector> topjet_corrector;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
-    //  std::unique_ptr<TopJetCorrector> topjet_corrector_G;
-    //  std::unique_ptr<TopJetCorrector> topjet_corrector_H;
-    std::unique_ptr<TopJetCorrector> topjet_corrector_GH;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_B;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_C;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_D;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_E;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_F;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_G;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2016_H;
 
-    //102X    //    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2017_B;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2017_C;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2017_D;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2017_E;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2017_F;
 
-
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2018_B;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2018_C;
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2018_D;
+   
+    //102X    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
     //102X    std::unique_ptr<JetMassScale> topjet_jms;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_G;
-    // std::unique_ptr<SubJetCorrector> subjet_corrector_H;
-
-
-    std::unique_ptr<JetResolutionSmearer> jetER_smearer;
-    std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
+    //102X    std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+    //102X    std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
 
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<TopJetCleaner> topjetcleaner;
@@ -110,12 +126,6 @@ namespace uhh2examples {
     //    std::unique_ptr<Selection> tau21topjet045_sel;
     //VBF jets
     std::unique_ptr<Selection> jet2_sel;
-    std::unique_ptr<Selection> vbfdeta_sel;
-    std::unique_ptr<Selection> vbfetasign_sel;
-    std::unique_ptr<Selection> vbfeta_sel, vbfeta35_sel, vbfeta4_sel, vbfeta45_sel, vbfeta5_sel, vbfeta55_sel, vbfeta6_sel;
-    std::unique_ptr<Selection> invM800_sel;
-    std::unique_ptr<Selection> invM900_sel;
-    std::unique_ptr<Selection> invM1000_sel;
 
     //********** HISTOS ***************
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
@@ -225,9 +235,45 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
 
-    const int runnr_BCD = 276811;
-    const int runnr_EF = 278802;
-    const int runnr_G = 280385;
+    const int runnr_2016_Ab = 271036;
+    const int runnr_2016_Ae = 271658;
+    const int runnr_2016_Bb = 272007;
+    const int runnr_2016_Be = 275376;
+    const int runnr_2016_Cb = 275657;
+    const int runnr_2016_Ce = 276283;
+    const int runnr_2016_Db = 276315;
+    const int runnr_2016_De = 276811;
+    const int runnr_2016_Eb = 276831;
+    const int runnr_2016_Ee = 277420;
+    const int runnr_2016_Fb = 277772;
+    const int runnr_2016_Fe = 278808;
+    const int runnr_2016_Gb = 278820;
+    const int runnr_2016_Ge = 280385;
+    const int runnr_2016_Hb = 280919;
+    const int runnr_2016_He = 284044;
+
+    const int runnr_2017_Ab = 294927;
+    const int runnr_2017_Ae = 297019;
+    const int runnr_2017_Bb = 297046;
+    const int runnr_2017_Be = 299329;
+    const int runnr_2017_Cb = 299368;
+    const int runnr_2017_Ce = 302029;
+    const int runnr_2017_Db = 302030;
+    const int runnr_2017_De = 303434;
+    const int runnr_2017_Eb = 303824;
+    const int runnr_2017_Ee = 304797;
+    const int runnr_2017_Fb = 305040;
+    const int runnr_2017_Fe = 306462;
+
+    const int runnr_2018_Ab = 315252;
+    const int runnr_2018_Ae = 316995;
+    const int runnr_2018_Bb = 317080;
+    const int runnr_2018_Be = 319310;
+    const int runnr_2018_Cb = 319337;
+    const int runnr_2018_Ce = 320065;
+    const int runnr_2018_Db = 320673;
+    const int runnr_2018_De = 325175;
+
 
     bool isMC;
 
@@ -303,244 +349,270 @@ namespace uhh2examples {
   //    common->disable_metfilters(); //irene
   if(PRINT) cout << "common" <<endl;
   //    common->set_jet_id(PtEtaCut(30.0, 2.4));
-
+  Year year = extract_year(ctx);
+  
+  // (year == Year::is2018) {
+  
 
   // TopJet correctors
-  std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_BCD,JEC_AK4_EF,JEC_AK4_G,JEC_AK4_H,JEC_AK4_GH,JEC_AK8_BCD,JEC_AK8_EF,JEC_AK8_G,JEC_AK8_H,JEC_AK8_GH;
+  std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_B,JEC_AK4_C,JEC_AK4_D,JEC_AK4_E,JEC_AK4_F,JEC_AK4_G,JEC_AK4_H,JEC_AK8_B,JEC_AK8_C,JEC_AK8_D,JEC_AK8_E,JEC_AK8_F,JEC_AK8_G,JEC_AK8_H;
 
-// New JEC
-if(isMC)
-{
-  JEC_AK4     = JERFiles::Summer16_07Aug2017_V11_L123_AK4PFPuppi_MC;
-  JEC_AK8     = JERFiles::Summer16_07Aug2017_V11_L123_AK8PFPuppi_MC;
-}
-else
-{
-  JEC_AK4_BCD = JERFiles::Summer16_07Aug2017_V11_BCD_L123_AK4PFPuppi_DATA;
-  JEC_AK4_EF  = JERFiles::Summer16_07Aug2017_V11_EF_L123_AK4PFPuppi_DATA;
-  JEC_AK4_GH   = JERFiles::Summer16_07Aug2017_V11_GH_L123_AK4PFPuppi_DATA;
+  if(isMC)
+    {
+      if(year == Year::is2016v2 || year == Year::is2016v3)
+	{
+	  JEC_AK4     = JERFiles::Summer16_07Aug2017_V11_L123_AK4PFPuppi_MC;
+	  JEC_AK8     = JERFiles::Summer16_07Aug2017_V11_L123_AK8PFPuppi_MC;
+	}
+      else if(year == Year::is2017v1 || year == Year::is2017v2)
+	{
+	  JEC_AK4     = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFPuppi_MC;
+	  JEC_AK8     = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFPuppi_MC;
+	}
+      else if(year == Year::is2018 )
+	{
+	  JEC_AK4     = JERFiles::Autumn18_V8_L123_AK4PFPuppi_MC;
+	  JEC_AK8     = JERFiles::Autumn18_V8_L123_AK8PFPuppi_MC;
+	}
+    }
+  else
+    {
+      if(year == Year::is2016v2 || year == Year::is2016v3)
+        {
+	  JEC_AK4_B = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_C = JERFiles::Summer16_07Aug2017_V11_C_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_D = JERFiles::Summer16_07Aug2017_V11_D_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_E = JERFiles::Summer16_07Aug2017_V11_E_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_F = JERFiles::Summer16_07Aug2017_V11_F_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_G = JERFiles::Summer16_07Aug2017_V11_G_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_H = JERFiles::Summer16_07Aug2017_V11_H_L123_AK4PFPuppi_DATA;
+	  
+	  JEC_AK8_B = JERFiles::Summer16_07Aug2017_V11_B_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_C = JERFiles::Summer16_07Aug2017_V11_C_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_D = JERFiles::Summer16_07Aug2017_V11_D_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_E = JERFiles::Summer16_07Aug2017_V11_E_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_F = JERFiles::Summer16_07Aug2017_V11_F_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_G = JERFiles::Summer16_07Aug2017_V11_G_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_H = JERFiles::Summer16_07Aug2017_V11_H_L123_AK8PFPuppi_DATA;
+	}
+      else if(year == Year::is2017v1 || year == Year::is2017v2)
+	{
+	  JEC_AK4_B = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_C = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_D = JERFiles::Fall17_17Nov2017_V32_D_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_E = JERFiles::Fall17_17Nov2017_V32_E_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_F = JERFiles::Fall17_17Nov2017_V32_F_L123_AK4PFPuppi_DATA;
+	  
+	  JEC_AK8_B = JERFiles::Fall17_17Nov2017_V32_B_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_C = JERFiles::Fall17_17Nov2017_V32_C_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_D = JERFiles::Fall17_17Nov2017_V32_D_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_E = JERFiles::Fall17_17Nov2017_V32_E_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_F = JERFiles::Fall17_17Nov2017_V32_F_L123_AK8PFPuppi_DATA;
+	}  
+      else if(year == Year::is2018 )
+        {
+	  JEC_AK4_B = JERFiles::Autumn18_V8_B_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_C = JERFiles::Autumn18_V8_C_L123_AK4PFPuppi_DATA;
+	  JEC_AK4_D = JERFiles::Autumn18_V8_D_L123_AK4PFPuppi_DATA;
+	  
+	  JEC_AK8_B = JERFiles::Autumn18_V8_B_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_C = JERFiles::Autumn18_V8_C_L123_AK8PFPuppi_DATA;
+	  JEC_AK8_D = JERFiles::Autumn18_V8_D_L123_AK8PFPuppi_DATA;
+	}
+    }
+  if(isMC)
+    {
+      jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
+      topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
 
-  JEC_AK8_BCD = JERFiles::Summer16_07Aug2017_V11_BCD_L123_AK8PFPuppi_DATA;
-  JEC_AK8_EF  = JERFiles::Summer16_07Aug2017_V11_EF_L123_AK8PFPuppi_DATA;
-  JEC_AK8_GH   = JERFiles::Summer16_07Aug2017_V11_GH_L123_AK8PFPuppi_DATA;
-}
+      /*102X
+	if(channel_=="signal")
+	{
+	//102X    jetER_smearer.reset(new JetResolutionSmearer(ctx));
+	//102X    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
+	}
+      */
+    }
+  else
+    {
+      if(year == Year::is2016v2 || year == Year::is2016v3)
+        {
 
-if(isMC)
-{
-  // jetlepton_cleaner.reset(new JetLeptonCleaner(ctx,JEC_AK4));
-  // jetlepton_cleaner->set_drmax(.4);
-  jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
-  topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
-  //	subjet_corrector.reset(new SubJetCorrector(ctx,JEC_AK4));
-  if(channel_=="signal")
-  {
-    jetER_smearer.reset(new JetResolutionSmearer(ctx));
-    //	   	    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets"));
-    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
-    // topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016,"Spring16_25nsV10_MC_PtResolution_AK8PFchs.txt"));
+	  jet_corrector_2016_B.reset(new JetCorrector(ctx, JEC_AK4_B));
+	  jet_corrector_2016_C.reset(new JetCorrector(ctx, JEC_AK4_C));
+	  jet_corrector_2016_D.reset(new JetCorrector(ctx, JEC_AK4_D));
+	  jet_corrector_2016_E.reset(new JetCorrector(ctx, JEC_AK4_E));
+	  jet_corrector_2016_F.reset(new JetCorrector(ctx, JEC_AK4_F));
+	  jet_corrector_2016_G.reset(new JetCorrector(ctx,JEC_AK4_G ));
+	  jet_corrector_2016_H.reset(new JetCorrector(ctx,JEC_AK4_H ));
+	  
+	  topjet_corrector_2016_B.reset(new TopJetCorrector(ctx, JEC_AK8_B));
+	  topjet_corrector_2016_C.reset(new TopJetCorrector(ctx, JEC_AK8_C));
+	  topjet_corrector_2016_D.reset(new TopJetCorrector(ctx, JEC_AK8_D));
+	  topjet_corrector_2016_E.reset(new TopJetCorrector(ctx, JEC_AK8_F));
+	  topjet_corrector_2016_F.reset(new TopJetCorrector(ctx, JEC_AK8_F));
+	  topjet_corrector_2016_G.reset(new TopJetCorrector(ctx,JEC_AK8_G ));
+	  topjet_corrector_2016_H.reset(new TopJetCorrector(ctx,JEC_AK8_H ));
+	}
+      else if(year == Year::is2017v1 || year == Year::is2017v2)
+        {
+          jet_corrector_2017_B.reset(new JetCorrector(ctx, JEC_AK4_B));
+          jet_corrector_2017_C.reset(new JetCorrector(ctx, JEC_AK4_C));
+          jet_corrector_2017_D.reset(new JetCorrector(ctx, JEC_AK4_D));
+          jet_corrector_2017_E.reset(new JetCorrector(ctx, JEC_AK4_E));
+          jet_corrector_2017_F.reset(new JetCorrector(ctx, JEC_AK4_F));
+
+          topjet_corrector_2017_B.reset(new TopJetCorrector(ctx, JEC_AK8_B));
+          topjet_corrector_2017_C.reset(new TopJetCorrector(ctx, JEC_AK8_C));
+          topjet_corrector_2017_D.reset(new TopJetCorrector(ctx, JEC_AK8_D));
+          topjet_corrector_2017_E.reset(new TopJetCorrector(ctx, JEC_AK8_F));
+          topjet_corrector_2017_F.reset(new TopJetCorrector(ctx, JEC_AK8_F));
+
+	}
+      else if(year == Year::is2018 )
+        {
+          jet_corrector_2018_B.reset(new JetCorrector(ctx, JEC_AK4_B));
+          jet_corrector_2018_C.reset(new JetCorrector(ctx, JEC_AK4_C));
+          jet_corrector_2018_D.reset(new JetCorrector(ctx, JEC_AK4_D));
+
+          topjet_corrector_2018_B.reset(new TopJetCorrector(ctx, JEC_AK8_B));
+          topjet_corrector_2018_C.reset(new TopJetCorrector(ctx, JEC_AK8_C));
+          topjet_corrector_2018_D.reset(new TopJetCorrector(ctx, JEC_AK8_D));
+
+	}
+    }
+
+  //102X//topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+  //102X topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
+
+  jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
+  topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
+
+  AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+  AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+
+
+  ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
+  ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+  
+  
+  if(PRINT) cout << "cleaners" <<endl;
+
+
+
+
+  common->init(ctx);
+
+  // note that the JetCleaner is only kept for the sake of example;
+  // instead of constructing a jetcleaner explicitly,
+  // the cleaning can also be achieved with less code via CommonModules with:
+  // common->set_jet_id(PtEtaCut(30.0, 2.4));
+  // before the 'common->init(ctx)' line.
+  
+  // 2. set up selections ***
+
+  muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
+  electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
+  topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
+  invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
+  topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
+  invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
+  VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
+  tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
+  jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
+  
+  if(PRINT) cout << "reset sel" <<endl;
+  
+  
+  // 3. Set up Hists classes:
+  h_input.reset(new VBFresonanceToWWHists(ctx, "input"));
+  h_event_input.reset(new EventHists(ctx, "event_input"));
+  h_ele_input.reset(new ElectronHists(ctx, "ele_input"));
+  h_muon_input.reset(new MuonHists(ctx, "muon_input"));
+  h_topjets_input.reset(new TopJetHists(ctx, "topjets_input"));
+  h_Wtopjets_input.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_input"));
+  h_jets_input.reset(new JetHists(ctx, "jets_input"));
+  
+  h_commonmod.reset(new VBFresonanceToWWHists(ctx, "commonmod"));
+  h_ele_commonmod.reset(new ElectronHists(ctx, "ele_commonmod"));
+  h_muon_commonmod.reset(new MuonHists(ctx, "muon_commonmod"));
+  h_topjets_commonmod.reset(new TopJetHists(ctx, "topjets_commonmod"));
+  h_Wtopjets_commonmod.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_commonmod"));
+  h_jets_commonmod.reset(new JetHists(ctx, "jets_commonmod"));
+  
+
+  h_ele_leptonVeto.reset(new ElectronHists(ctx, "ele_leptonVeto"));
+  h_muon_leptonVeto.reset(new MuonHists(ctx, "muon_leptonVeto"));
+  h_Wtopjets_leptonVeto.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_leptonVeto"));
+  
+  h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
+  h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
+  
+  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
+  //102X h_Wtopjets_afterSDcorrections.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSDcorrections"));
+  
+  h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
+  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
+  h_topjets_cleaner.reset(new TopJetHists(ctx, "topjets_cleaner"));
+  h_jets_cleaner.reset(new JetHists(ctx, "jets_cleaner"));
+  
+  h_topjets_2topjetsel.reset(new TopJetHists(ctx, "topjets_2AK8"));
+  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
+  
+  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
+  h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
+  h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
+  
+  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
+  h_jets_noOverlapping_eta.reset(new JetHists(ctx, "jets_noOverlapping_eta"));
+  
+  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
+  h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
+  
+  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
+  h_topjets_deta.reset(new TopJetHists(ctx, "topjets_deta"));
+  
+  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+  h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
+  h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
+  h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
+  h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
+  h_event_compare.reset(new EventHists(ctx, "event_compare"));
+ 
+  h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareSD"));
+  
+  
+  h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
+  h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
+  h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
+  h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
+  h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
+  
+  h_Wtopjets_VVMass_tau21HP.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass_tau21HP"));
+  h_topjets_VVMass_tau21HP.reset(new TopJetHists(ctx, "topjets_VVMass_tau21HP"));
+  h_Dijets_VVMass_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass_tau21HP"));
+  h_jets_VVMass_tau21HP.reset(new JetHists(ctx, "jets_VVMass_tau21HP"));
+  
+  h_Wtopjets_AK4cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_AK4cleaner"));
+  h_jets_AK4cleaner.reset(new JetHists(ctx, "jets_AK4cleaner"));
+  
+  h_jets_2jetsel.reset(new JetHists(ctx, "jets_2AK4"));
+  h_Wtopjets_2jetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK4"));
+  
+  //genjet
+  
+  h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
+  h_input_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "input_GenTopJet"));
+  h_input_gendijets.reset(new VBFresonanceToWWGenDiJetHists(ctx, "input_GenDiJet"));
+  h_input_genjets.reset(new GenJetsHists(ctx, "input_GenJet"));
+ 
+ 
+
+  if(PRINT) cout << "hist setup" <<endl;
+  
+  
   }
-}
-else
-{
-
-
-  // jetlepton_cleaner_BCD.reset(new JetLeptonCleaner(ctx, JEC_AK4_BCD));
-  // jetlepton_cleaner_EF.reset(new JetLeptonCleaner(ctx, JEC_AK4_EF));
-  // jetlepton_cleaner_G.reset(new JetLeptonCleaner(ctx,JEC_AK4_G ));
-  // jetlepton_cleaner_H.reset(new JetLeptonCleaner(ctx,JEC_AK4_H ));
-
-  // jetlepton_cleaner_BCD->set_drmax(.4);
-  // jetlepton_cleaner_EF->set_drmax(.4);
-  // jetlepton_cleaner_G->set_drmax(.4);
-  // jetlepton_cleaner_H->set_drmax(.4);
-
-  jet_corrector_BCD.reset(new JetCorrector(ctx, JEC_AK4_BCD));
-  jet_corrector_EF.reset(new JetCorrector(ctx, JEC_AK4_EF));
-  //jet_corrector_G.reset(new JetCorrector(ctx,JEC_AK4_G ));
-  //jet_corrector_H.reset(new JetCorrector(ctx,JEC_AK4_H ));
-  jet_corrector_GH.reset(new JetCorrector(ctx,JEC_AK4_GH ));
-
-  topjet_corrector_BCD.reset(new TopJetCorrector(ctx, JEC_AK8_BCD));
-  topjet_corrector_EF.reset(new TopJetCorrector(ctx, JEC_AK8_EF));
-  //topjet_corrector_G.reset(new TopJetCorrector(ctx,JEC_AK8_G ));
-  //topjet_corrector_H.reset(new TopJetCorrector(ctx,JEC_AK8_H ));
-  topjet_corrector_GH.reset(new TopJetCorrector(ctx,JEC_AK8_GH ));
-
-  // subjet_corrector_BCD.reset(new SubJetCorrector(ctx, JEC_AK4_BCD));
-  // subjet_corrector_EF.reset(new SubJetCorrector(ctx, JEC_AK4_EF));
-  // subjet_corrector_G.reset(new SubJetCorrector(ctx,JEC_AK4_G ));
-  // subjet_corrector_H.reset(new SubJetCorrector(ctx,JEC_AK4_H ));
-
-}
-
-
-//102X//topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
-//102X topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
-
-//    jetcleaner.reset(new JetCleaner(ctx, 20.0, 5));
-jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
-//    topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.4))));
-topjetcleaner.reset(new TopJetCleaner(ctx,TopJetId(PtEtaCut(200., 2.5))));
-
-AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
-AK8PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
-
-
-ak8pfidfilter.reset(new TopJetCleaner(ctx,AK8PFID));
-ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
-
-
-if(PRINT) cout << "cleaners" <<endl;
-
-
-
-
-common->init(ctx);
-
-// note that the JetCleaner is only kept for the sake of example;
-// instead of constructing a jetcleaner explicitly,
-// the cleaning can also be achieved with less code via CommonModules with:
-// common->set_jet_id(PtEtaCut(30.0, 2.4));
-// before the 'common->init(ctx)' line.
-
-// 2. set up selections ***
-
-//    njet_sel.reset(new NJetSelection(2)); // see common/include/NSelections.h
-muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
-electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
-
-//    topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 jets
-topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
-invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
-topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-//    invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
-invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
-VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
-// WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
-tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
-jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
-vbfdeta_sel.reset(new VBFdeltaEtajetSelection(3.0f)); // see VBFresonanceToWWSelections
-vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
-
-vbfeta45_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
-
-invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
-
-if(PRINT) cout << "reset sel" <<endl;
-
-
-// 3. Set up Hists classes:
-h_input.reset(new VBFresonanceToWWHists(ctx, "input"));
-h_event_input.reset(new EventHists(ctx, "event_input"));
-h_ele_input.reset(new ElectronHists(ctx, "ele_input"));
-h_muon_input.reset(new MuonHists(ctx, "muon_input"));
-h_topjets_input.reset(new TopJetHists(ctx, "topjets_input"));
-h_Wtopjets_input.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_input"));
-h_jets_input.reset(new JetHists(ctx, "jets_input"));
-
-h_commonmod.reset(new VBFresonanceToWWHists(ctx, "commonmod"));
-h_ele_commonmod.reset(new ElectronHists(ctx, "ele_commonmod"));
-h_muon_commonmod.reset(new MuonHists(ctx, "muon_commonmod"));
-h_topjets_commonmod.reset(new TopJetHists(ctx, "topjets_commonmod"));
-h_Wtopjets_commonmod.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_commonmod"));
-h_jets_commonmod.reset(new JetHists(ctx, "jets_commonmod"));
-
-
-h_ele_leptonVeto.reset(new ElectronHists(ctx, "ele_leptonVeto"));
-h_muon_leptonVeto.reset(new MuonHists(ctx, "muon_leptonVeto"));
-h_Wtopjets_leptonVeto.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_leptonVeto"));
-
-h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
-h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
-
-h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
-//102X h_Wtopjets_afterSDcorrections.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSDcorrections"));
-
-h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
-h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
-h_topjets_cleaner.reset(new TopJetHists(ctx, "topjets_cleaner"));
-h_jets_cleaner.reset(new JetHists(ctx, "jets_cleaner"));
-
-h_topjets_2topjetsel.reset(new TopJetHists(ctx, "topjets_2AK8"));
-h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
-
-h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
-h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
-h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
-
-h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
-h_jets_noOverlapping_eta.reset(new JetHists(ctx, "jets_noOverlapping_eta"));
-
-h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
-h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
-
-h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
-h_topjets_deta.reset(new TopJetHists(ctx, "topjets_deta"));
-
-h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
-h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
-h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
-h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
-h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
-h_event_compare.reset(new EventHists(ctx, "event_compare"));
-
-h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareSD"));
-
-
-h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
-h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
-h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
-h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
-h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
-
-h_Wtopjets_VVMass_tau21HP.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass_tau21HP"));
-h_topjets_VVMass_tau21HP.reset(new TopJetHists(ctx, "topjets_VVMass_tau21HP"));
-h_Dijets_VVMass_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass_tau21HP"));
-h_jets_VVMass_tau21HP.reset(new JetHists(ctx, "jets_VVMass_tau21HP"));
-
-
-
-h_Wtopjets_AK4cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_AK4cleaner"));
-h_jets_AK4cleaner.reset(new JetHists(ctx, "jets_AK4cleaner"));
-
-h_jets_2jetsel.reset(new JetHists(ctx, "jets_2AK4"));
-h_Wtopjets_2jetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK4"));
-
-h_jets_vbfetasign.reset(new JetHists(ctx, "jets_vbfetasign"));
-h_Wtopjets_vbfetasign.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_vbfetasign"));
-
-h_VBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "VBF_VVMass"));
-h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
-h_jets_VBF_VVMass.reset(new JetHists(ctx, "jets_VBF_VVMass"));
-h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
-h_topjets_withVBF_VVMass.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass"));
-
-h_Dijets_VBF_VVMass_tau21HP.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass_tau21HP"));
-h_jets_VBF_VVMass_tau21HP.reset(new JetHists(ctx, "jets_VBF_VVMass_tau21HP"));
-h_Wtopjets_withVBF_VVMass_tau21HP.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_tau21HP"));
-h_topjets_withVBF_VVMass_tau21HP.reset(new TopJetHists(ctx, "topjets_withVBF_VVMass_tau21HP"));
-
-
-
-
-
-
-h_Wtopjets_withVBF_invM800_de45.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800_de45"));
-
-//genjet
-
-h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
-h_input_gentopjets.reset(new VBFresonanceToWWGenTopJetHists(ctx, "input_GenTopJet"));
-h_input_gendijets.reset(new VBFresonanceToWWGenDiJetHists(ctx, "input_GenDiJet"));
-h_input_genjets.reset(new GenJetsHists(ctx, "input_GenJet"));
-
-
-
-if(PRINT) cout << "hist setup" <<endl;
-
-
-}
-
+  
 
 bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
   // This is the main procedure, called for each event. Typically,
@@ -561,168 +633,231 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
 
   //common Modules
   /* pileup SF
-  if(!event.isRealData)
-  {
-  pileup_SF->process(event);
-  lumiweight->process(event);
-}
-*/
+     if(!event.isRealData)
+     {
+     pileup_SF->process(event);
+     lumiweight->process(event);
+     }
+  */
+  
 
-vector<Jet> IdCriteriaJets = event.get(h_IdCriteriaJets);
-if(PRINT)    cout << " jet id criteria" << endl;
+  /* not sure if this is needed in 102X
+  vector<Jet> IdCriteriaJets = event.get(h_IdCriteriaJets);
+  if(PRINT)    cout << " jet id criteria" << endl;
 
-std::vector<int> skipindex;
-for(unsigned int i=0;i<event.topjets->size();i++){
-  if(PRINT)    cout << " event topjet " << i << endl;
-
-  int N_Daughters = event.topjets->at(i).numberOfDaughters();
-  float nEMFrac = event.topjets->at(i).neutralEmEnergyFraction();
-  float nHFrac = event.topjets->at(i).neutralHadronEnergyFraction();
-  float chEMFrac = event.topjets->at(i).chargedEmEnergyFraction();
-  float chHFrac = event.topjets->at(i).chargedHadronEnergyFraction();
-  float chMulti = event.topjets->at(i).chargedMultiplicity();
-
-  double deltaR_min=99999.;
-  int nearest_index=0;
-  for(unsigned int j=0;j<IdCriteriaJets.size();j++){
-    if(std::find(skipindex.begin(),skipindex.end(),j) != skipindex.end()) continue;
-    double deltaR_candiate=deltaR(IdCriteriaJets.at(j),event.topjets->at(i));
-    if(deltaR_candiate<deltaR_min){
-      deltaR_min = deltaR_candiate;
-      nearest_index=j;
+  std::vector<int> skipindex;
+  for(unsigned int i=0;i<event.topjets->size();i++){
+    if(PRINT)    cout << " event topjet " << i << endl;
+    
+    int N_Daughters = event.topjets->at(i).numberOfDaughters();
+    float nEMFrac = event.topjets->at(i).neutralEmEnergyFraction();
+    float nHFrac = event.topjets->at(i).neutralHadronEnergyFraction();
+    float chEMFrac = event.topjets->at(i).chargedEmEnergyFraction();
+    float chHFrac = event.topjets->at(i).chargedHadronEnergyFraction();
+    float chMulti = event.topjets->at(i).chargedMultiplicity();
+    
+    double deltaR_min=99999.;
+    int nearest_index=0;
+    for(unsigned int j=0;j<IdCriteriaJets.size();j++){
+      if(std::find(skipindex.begin(),skipindex.end(),j) != skipindex.end()) continue;
+      double deltaR_candiate=deltaR(IdCriteriaJets.at(j),event.topjets->at(i));
+      if(deltaR_candiate<deltaR_min){
+	deltaR_min = deltaR_candiate;
+	nearest_index=j;
+      }
+      skipindex.push_back(nearest_index);
+      N_Daughters = IdCriteriaJets.at(nearest_index).numberOfDaughters();
+      nEMFrac = IdCriteriaJets.at(nearest_index).neutralEmEnergyFraction();
+      nHFrac = IdCriteriaJets.at(nearest_index).neutralHadronEnergyFraction();
+      chEMFrac = IdCriteriaJets.at(nearest_index).chargedEmEnergyFraction();
+      chHFrac =IdCriteriaJets.at(nearest_index).chargedHadronEnergyFraction();
+      chMulti = IdCriteriaJets.at(nearest_index).chargedMultiplicity();
     }
-    skipindex.push_back(nearest_index);
-    N_Daughters = IdCriteriaJets.at(nearest_index).numberOfDaughters();
-    nEMFrac = IdCriteriaJets.at(nearest_index).neutralEmEnergyFraction();
-    nHFrac = IdCriteriaJets.at(nearest_index).neutralHadronEnergyFraction();
-    chEMFrac = IdCriteriaJets.at(nearest_index).chargedEmEnergyFraction();
-    chHFrac =IdCriteriaJets.at(nearest_index).chargedHadronEnergyFraction();
-    chMulti = IdCriteriaJets.at(nearest_index).chargedMultiplicity();
+    event.topjets->at(i).set_numberOfDaughters(N_Daughters);
+    event.topjets->at(i).set_neutralEmEnergyFraction(nEMFrac);
+    event.topjets->at(i).set_neutralHadronEnergyFraction(nHFrac);
+    event.topjets->at(i).set_chargedEmEnergyFraction(chEMFrac);
+    event.topjets->at(i).set_chargedHadronEnergyFraction(chHFrac);
+    event.topjets->at(i).set_chargedMultiplicity(chMulti);
   }
-  event.topjets->at(i).set_numberOfDaughters(N_Daughters);
-  event.topjets->at(i).set_neutralEmEnergyFraction(nEMFrac);
-  event.topjets->at(i).set_neutralHadronEnergyFraction(nHFrac);
-  event.topjets->at(i).set_chargedEmEnergyFraction(chEMFrac);
-  event.topjets->at(i).set_chargedHadronEnergyFraction(chHFrac);
-  event.topjets->at(i).set_chargedMultiplicity(chMulti);
-}
+  */
 
-// 1. run all modules other modules.
-if(PRINT)    cout << " starting input hists "  << endl;
-
-h_input->fill(event);
-if(PRINT)    cout << " h input hists "  << endl;
-
-h_event_input->fill(event);
-h_topjets_input->fill(event);
-h_jets_input->fill(event);
-h_Wtopjets_input->fill(event);
-h_ele_input->fill(event);
-h_muon_input->fill(event);
-
-//if(isMC){
+  // 1. run all modules other modules.
+  if(PRINT)    cout << " starting input hists "  << endl;
+  
+  h_input->fill(event);
+  if(PRINT)    cout << " h input hists "  << endl;
+  
+  h_event_input->fill(event);
+  h_topjets_input->fill(event);
+  h_jets_input->fill(event);
+  h_Wtopjets_input->fill(event);
+  h_ele_input->fill(event);
+  h_muon_input->fill(event);
+  
+  //if(isMC){
   //MCWeightModule->process(event);
   //MCPileupReweightModule->process(event);
   //event.weight *= event.get(h_weight_pu);
-//}
+  //}
+  
+  bool pass_cm = common->process(event);
+ if(!pass_cm) return false;
+ //    if(PRINT)    Gen_printer->process(event);
+ 
+ h_commonmod->fill(event);
+ h_topjets_commonmod->fill(event);
+ h_jets_commonmod->fill(event);
+ h_Wtopjets_commonmod->fill(event);
+ h_ele_commonmod->fill(event);
+ h_muon_commonmod->fill(event);
+ if(PRINT)    cout << " common modules done "  << endl;
+ 
+ 
+ 
+ // 2. test selections and fill histograms
+ if(isMC)
+   {
+     sort_by_pt<GenTopJet>(*event.gentopjets);
+     
+     h_input_gentopjets->fill(event);
+     h_input_gendijets->fill(event);
+     h_input_genjets->fill(event);
+     h_input_genparticle->fill(event);
+   }
+ 
+ bool muon_selection = muon_sel->passes(event);
+ if(!muon_selection) return false;
+ bool electron_selection = electron_sel->passes(event);
+ if(!electron_selection) return false;
+ 
+ h_ele_leptonVeto->fill(event);
+ h_muon_leptonVeto->fill(event);
 
-bool pass_cm = common->process(event);
-if(!pass_cm) return false;
-//    if(PRINT)    Gen_printer->process(event);
+ sort_by_pt<Jet>(*event.jets);
+ sort_by_pt<TopJet>(*event.topjets);
+ 
+ h_Wtopjets_leptonVeto->fill(event);
+ if(PRINT)    cout << " leptons done "  << endl;
 
-h_commonmod->fill(event);
-h_topjets_commonmod->fill(event);
-h_jets_commonmod->fill(event);
-h_Wtopjets_commonmod->fill(event);
-h_ele_commonmod->fill(event);
-h_muon_commonmod->fill(event);
-if(PRINT)    cout << " common modules done "  << endl;
+ // JET CLEANING & JET CORRECTIONS
+ if(isMC)
+   {
+     jet_corrector->process(event);
+     topjet_corrector->process(event);
+     jet_corrector->correct_met(event);
+     if(PRINT)    cout << " jec mc done "  << endl;
+     
+     /*102X
+       if(channel_=="signal")
+       {
+       //	    cout << "Smearing" << endl;
+       jetER_smearer->process(event);
+       if(PRINT)    cout << " jer jet mc done "  << endl;
+       topjetER_smearer->process(event);
+       if(PRINT)    cout << " jer topjet mc done "  << endl;
+       }
+     */
+   }else{
 
+   //2016
+   if(event.run >= runnr_2016_Bb && event.run <= runnr_2016_Be)
+     {
+       jet_corrector_2016_B->process(event);
+       topjet_corrector_2016_B->process(event);
+       jet_corrector_2016_B->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Cb && event.run <= runnr_2016_Ce)
+     {
+       jet_corrector_2016_C->process(event);
+       topjet_corrector_2016_C->process(event);
+       jet_corrector_2016_C->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Db && event.run <= runnr_2016_De)
+     {
+       jet_corrector_2016_D->process(event);
+       topjet_corrector_2016_D->process(event);
+       jet_corrector_2016_D->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Eb && event.run <= runnr_2016_Ee)
+     {
+       jet_corrector_2016_E->process(event);
+       topjet_corrector_2016_E->process(event);
+       jet_corrector_2016_E->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Fb && event.run <= runnr_2016_Fe)
+     {
+       jet_corrector_2016_F->process(event);
+       topjet_corrector_2016_F->process(event);
+       jet_corrector_2016_F->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Gb && event.run <= runnr_2016_Ge)
+     {
+       jet_corrector_2016_G->process(event);
+       topjet_corrector_2016_G->process(event);
+       jet_corrector_2016_G->correct_met(event);
+     }
+   else if(event.run >= runnr_2016_Hb && event.run <= runnr_2016_He)
+     {
+       jet_corrector_2016_H->process(event);
+       topjet_corrector_2016_H->process(event);
+       jet_corrector_2016_H->correct_met(event);
+     }
 
-
-// 2. test selections and fill histograms
-if(isMC)
-{
-  sort_by_pt<GenTopJet>(*event.gentopjets);
-
-  h_input_gentopjets->fill(event);
-  h_input_gendijets->fill(event);
-  h_input_genjets->fill(event);
-  h_input_genparticle->fill(event);
-}
-
-bool muon_selection = muon_sel->passes(event);
-if(!muon_selection) return false;
-bool electron_selection = electron_sel->passes(event);
-if(!electron_selection) return false;
-
-h_ele_leptonVeto->fill(event);
-h_muon_leptonVeto->fill(event);
-
-sort_by_pt<Jet>(*event.jets);
-sort_by_pt<TopJet>(*event.topjets);
-
-h_Wtopjets_leptonVeto->fill(event);
-if(PRINT)    cout << " leptons done "  << endl;
-
-// JET CLEANING
-if(isMC)
-{
-  // jetlepton_cleaner->process(event);
-  jet_corrector->process(event);
-  topjet_corrector->process(event);
-  //	subjet_corrector->process(event);
-  jet_corrector->correct_met(event);
-  if(PRINT)    cout << " jec mc done "  << endl;
-
-  if(channel_=="signal")
-  {
-    //	    cout << "Smearing" << endl;
-    jetER_smearer->process(event);
-    if(PRINT)    cout << " jer jet mc done "  << endl;
-    topjetER_smearer->process(event);
-    if(PRINT)    cout << " jer topjet mc done "  << endl;
-  }
-}else{
-  if(event.run <= runnr_BCD)  {
-    //	jetlepton_cleaner_BCD->process(event);
-    jet_corrector_BCD->process(event);
-    topjet_corrector_BCD->process(event);
-
-    //	subjet_corrector_BCD->process(event);
-    jet_corrector_BCD->correct_met(event);
-  }
-  else if(event.run < runnr_EF){
-    //	jetlepton_cleaner_EF->process(event);
-    jet_corrector_EF->process(event);
-    topjet_corrector_EF->process(event);
-    //	subjet_corrector_EF->process(event);
-    jet_corrector_EF->correct_met(event);
-  }
-  /*    else if(event.run <= runnr_G) {
-  //	jetlepton_cleaner_G->process(event);
-  jet_corrector_G->process(event);
-  topjet_corrector_G->process(event);
-  //	subjet_corrector_G->process(event);
-  jet_corrector_G->correct_met(event);
-}
-else if(event.run > runnr_G) {
-//	jetlepton_cleaner_H->process(event);
-jet_corrector_H->process(event);
-topjet_corrector_H->process(event);
-//	subjet_corrector_H->process(event);
-jet_corrector_H->correct_met(event);
-}
-*/
-else if(event.run >= runnr_EF) {
-  //	jetlepton_cleaner_G->process(event);
-  jet_corrector_GH->process(event);
-  topjet_corrector_GH->process(event);
-  //	subjet_corrector_G->process(event);
-  jet_corrector_GH->correct_met(event);
-}
-
-}
+   //2017
+   if(event.run >= runnr_2017_Bb && event.run <= runnr_2017_Be)
+     {
+       jet_corrector_2017_B->process(event);
+       topjet_corrector_2017_B->process(event);
+       jet_corrector_2017_B->correct_met(event);
+     }
+   else if(event.run >= runnr_2017_Cb && event.run <= runnr_2017_Ce)
+     {
+       jet_corrector_2017_C->process(event);
+       topjet_corrector_2017_C->process(event);
+       jet_corrector_2017_C->correct_met(event);
+     }
+   else if(event.run >= runnr_2017_Db && event.run <= runnr_2017_De)
+     {
+       jet_corrector_2017_D->process(event);
+	   topjet_corrector_2017_D->process(event);
+	   jet_corrector_2017_D->correct_met(event);
+     }
+   else if(event.run >= runnr_2017_Eb && event.run <= runnr_2017_Ee)
+     {
+       jet_corrector_2017_E->process(event);
+       topjet_corrector_2017_E->process(event);
+       jet_corrector_2017_E->correct_met(event);
+     }
+   else if(event.run >= runnr_2017_Fb && event.run <= runnr_2017_Fe)
+     {
+       jet_corrector_2017_F->process(event);
+       topjet_corrector_2017_F->process(event);
+       jet_corrector_2017_F->correct_met(event);
+     }
+     
+   //2018
+   if(event.run >= runnr_2018_Bb && event.run <= runnr_2018_Be)
+     {
+       jet_corrector_2018_B->process(event);
+       topjet_corrector_2018_B->process(event);
+       jet_corrector_2018_B->correct_met(event);
+     }
+   else if(event.run >= runnr_2018_Cb && event.run <= runnr_2018_Ce)
+     {
+       jet_corrector_2018_C->process(event);
+       topjet_corrector_2018_C->process(event);
+       jet_corrector_2018_C->correct_met(event);
+     }
+   else if(event.run >= runnr_2018_Db && event.run <= runnr_2018_De)
+     {
+       jet_corrector_2018_D->process(event);
+       topjet_corrector_2018_D->process(event);
+       jet_corrector_2018_D->correct_met(event);
+     }
+ 
+   
+ }//else on MC = data
 
 sort_by_pt<Jet>(*event.jets);
 sort_by_pt<TopJet>(*event.topjets);
@@ -838,3 +973,5 @@ return true;
 UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWPreSelectionModule)
 
 }
+
+//  LocalWords:  JetCorrector
