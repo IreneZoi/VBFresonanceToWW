@@ -8,7 +8,7 @@ using namespace uhh2examples;
 using namespace uhh2;
 using namespace std;
 
-bool PRINT = false;
+bool PRINT = true;
 
 MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_): deltaR_min(deltaR_min_), muid(muid_){}
 
@@ -402,12 +402,17 @@ bool VVMassTopjetSelection::passes(const Event & event){
 invMassTopjetSelection::invMassTopjetSelection(float invM_min_): invM_min(invM_min_){}
 
 bool invMassTopjetSelection::passes(const Event & event){
+  if(PRINT)  cout << " invMassTopjetSelection " << endl; 
   assert(event.topjets); // if this fails, it probably means jets are not read in
+  if(PRINT)  cout << " Topjet Size "<< event.topjets->size() << endl; 
+
   if(event.topjets->size() < 2) return false;
 
   auto invariantMass = (event.topjets->at(0).v4() + event.topjets->at(1).v4()).M();
-	  if( invariantMass < invM_min) return false;
-	  else return true;
+  if(PRINT)  cout << " invMass " << invariantMass << " compared to " << invM_min << endl; 
+
+  if( invariantMass < invM_min) return false;
+  else return true;
 }
 
 
