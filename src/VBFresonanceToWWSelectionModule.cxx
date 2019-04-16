@@ -132,11 +132,6 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800_de4;
     std::unique_ptr<Hists> h_Dijets_VBF_invM800_de4;
 
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
-    std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000_de4;
-
-
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;

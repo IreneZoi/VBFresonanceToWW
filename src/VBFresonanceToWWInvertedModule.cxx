@@ -53,7 +53,7 @@ namespace uhh2examples {
 
 
     std::unique_ptr<JetCleaner> jetcleaner;
-    std::unique_ptr<JetCleaner> ak4pfidfilter;
+    //102X    std::unique_ptr<JetCleaner> ak4pfidfilter;
 
     // Data/MC scale factors
     std::unique_ptr<uhh2::AnalysisModule> pileup_SF;
@@ -62,7 +62,7 @@ namespace uhh2examples {
     //********** SELECTIONS ***************
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> muon_sel, electron_sel;//lepton veto
+
     //W jets
     std::unique_ptr<Selection> topjet2_sel;
     std::unique_ptr<Selection> invMtopjet_fitsel;
@@ -77,13 +77,13 @@ namespace uhh2examples {
     std::unique_ptr<Selection> vbfdeta_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
     std::unique_ptr<Selection> vbfeta_sel;
-    std::unique_ptr<Selection> invM1000_sel;
+    std::unique_ptr<Selection> invM800_sel;
     //inverted VBF jets
     std::unique_ptr<Selection> ptjet1_invsel;
     std::unique_ptr<Selection> jet2_invsel;
     std::unique_ptr<Selection> vbfetasign_invsel;
     std::unique_ptr<Selection> vbfeta_invsel;
-    std::unique_ptr<Selection> invM1000_invsel;
+    std::unique_ptr<Selection> invM800_invsel;
 
 
     //********** HISTOS ***************
@@ -113,8 +113,8 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_topjets_withVBF_VVMass;
 
 
-    // std::unique_ptr<Hists> h_Dijets_VBF_invM1000;
-    // std::unique_ptr<Hists> h_Wtopjets_withVBF_invM1000;
+    // std::unique_ptr<Hists> h_Dijets_VBF_invM800;
+    // std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
 
 
     std::unique_ptr<Hists> h_input_gentopjets;
@@ -122,12 +122,8 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
 
-    const int runnr_BCD = 276811;
-    const int runnr_EF = 278802;
-    const int runnr_G = 280385;
-
     bool isMC;
-    JetId AK4PFID;
+    //102X    JetId AK4PFID;
   };
 
 
@@ -172,8 +168,8 @@ namespace uhh2examples {
 
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
 
-    AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
-    ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+    //102X    AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+    //102Xak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
 
     if(PRINT) cout << "cleaners" <<endl;
 
@@ -203,7 +199,7 @@ namespace uhh2examples {
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
-    invM1000_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
+    invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
 
     //VBF inverted
@@ -211,30 +207,35 @@ namespace uhh2examples {
     jet2_invsel.reset(new DijetInvSelection(2.f)); // at least 2 jets
     vbfetasign_invsel.reset(new VBFEtaSignjetInvSelection()); // see VBFresonanceToWWSelections
     vbfeta_invsel.reset(new VBFEtajetInvSelection(4.5f)); // see VBFresonanceToWWSelections
-    invM1000_invsel.reset(new invMassVBFjetInvSelection(800.0f)); // see VBFresonanceToWWSelections
+    invM800_invsel.reset(new invMassVBFjetInvSelection(800.0f)); // see VBFresonanceToWWSelections
 
 
     // 3. Set up Hists classes:
-    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+    //102X    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
 
-    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
+    //102X    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
+    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass"));
     h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
     h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
+    //102X    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
     h_withVBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+
+    //102X    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
     h_withVBF_VVMass_inverted.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass_inverted"));
 
     h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
     h_Dijets_VBF_VVMass_inverted.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass_inverted"));
-    // h_Wtopjets_withVBF_invM1000.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM1000"));
+    // h_Wtopjets_withVBF_invM800.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800"));
 
 
     //genjet
@@ -307,11 +308,11 @@ namespace uhh2examples {
     bool vbfeta_invselection = vbfeta_invsel->passes(event);
     if(PRINT)    cout << "VBFresonanceToWWInver 2 ak4 eta inv" << endl;
 
-    bool invM1000_invselection = invM1000_invsel->passes(event);
+    bool invM800_invselection = invM800_invsel->passes(event);
     if(PRINT)    cout << "VBFresonanceToWWInver 2 ak4 mass inv" << endl;
 
-//    if(ptjets1_invselection || jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
-    if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
+//    if(ptjets1_invselection || jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM800_invselection)
+    if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM800_invselection)
       {
 	       h_Wtopjets_withVBF_VVMass_inverted->fill(event);
 	       if(PRINT)    cout << "VBFresonanceToWWInver ak8 plots inv" << endl;
@@ -327,36 +328,18 @@ namespace uhh2examples {
     bool jets2_selection = jet2_sel->passes(event);
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
     bool vbfeta_selection = vbfeta_sel->passes(event);
-    bool invM1000jet_selection = invM1000_sel->passes(event);
+    bool invM800jet_selection = invM800_sel->passes(event);
 
     //if(!ptjets1_selection) return false;
     if(!jets2_selection) return false;
     if(!vbfetasign_selection) return false;
     if(!vbfeta_selection) return false;
-    if(!invM1000jet_selection) return false;
+    if(!invM800jet_selection) return false;
     h_Wtopjets_withVBF_VVMass->fill(event);
     h_withVBF_VVMass->fill(event);
     h_Dijets_VBF_VVMass->fill(event);
 
     if(PRINT)    cout << "VBFresonanceToWWInver VBF sel" << endl;
-
-
-
-    // if(jets2_selection && vbfetasign_selection && vbfeta_selection)
-    //   {
-    // 	h_Wtopjets_withVBF_VVMass->fill(event);
-    // 	bool invM1000jet_invselection = invM1000_invsel->passes(event);
-
-
-    // 	if(invM1000jet_invselection)
-    // 	  h_Wtopjets_withVBF_invM1000->fill(event);
-
-    //   }
-
-
-
-
-
 
 
 
