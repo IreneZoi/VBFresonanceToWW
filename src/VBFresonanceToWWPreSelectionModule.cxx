@@ -27,7 +27,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT false
+#define PRINT true
 #define PUvariations false
 
 using namespace std;
@@ -359,26 +359,34 @@ namespace uhh2examples {
 
   if(isMC)
     {
+      if(PRINT) cout << "MC JEC" <<endl;
+
       if(year == Year::is2016v2 || year == Year::is2016v3)
 	{
+	  if(PRINT) cout << "2016" <<endl;
+
 	  JEC_AK4     = JERFiles::Summer16_07Aug2017_V11_L123_AK4PFPuppi_MC;
 	  JEC_AK8     = JERFiles::Summer16_07Aug2017_V11_L123_AK8PFPuppi_MC;
 	}
       else if(year == Year::is2017v1 || year == Year::is2017v2)
 	{
+	  if(PRINT) cout << "2017" <<endl;
 	  JEC_AK4     = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFPuppi_MC;
 	  JEC_AK8     = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFPuppi_MC;
 	}
       else if(year == Year::is2018 )
 	{
+	  if(PRINT) cout << "2018" <<endl;
 	  JEC_AK4     = JERFiles::Autumn18_V8_L123_AK4PFPuppi_MC;
 	  JEC_AK8     = JERFiles::Autumn18_V8_L123_AK8PFPuppi_MC;
 	}
     }
   else
     {
+      if(PRINT) cout << "data JEC" <<endl;
       if(year == Year::is2016v2 || year == Year::is2016v3)
         {
+	  if(PRINT) cout << "2016" <<endl;
 	  JEC_AK4_B = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_C = JERFiles::Summer16_07Aug2017_V11_C_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_D = JERFiles::Summer16_07Aug2017_V11_D_L123_AK4PFPuppi_DATA;
@@ -397,6 +405,7 @@ namespace uhh2examples {
 	}
       else if(year == Year::is2017v1 || year == Year::is2017v2)
 	{
+	  if(PRINT) cout << "2017" <<endl;
 	  JEC_AK4_B = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_C = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_D = JERFiles::Fall17_17Nov2017_V32_D_L123_AK4PFPuppi_DATA;
@@ -411,6 +420,7 @@ namespace uhh2examples {
 	}  
       else if(year == Year::is2018 )
         {
+	  if(PRINT) cout << "2018" <<endl;
 	  JEC_AK4_B = JERFiles::Autumn18_V8_B_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_C = JERFiles::Autumn18_V8_C_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_D = JERFiles::Autumn18_V8_D_L123_AK4PFPuppi_DATA;
@@ -420,6 +430,10 @@ namespace uhh2examples {
 	  JEC_AK8_D = JERFiles::Autumn18_V8_D_L123_AK8PFPuppi_DATA;
 	}
     }
+
+	  if(PRINT) cout << "jet correctors:" <<endl;
+
+
   if(isMC)
     {
       jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
@@ -548,37 +562,45 @@ namespace uhh2examples {
   h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
   h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
   
-  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
+  //102X  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
   //102X h_Wtopjets_afterSDcorrections.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSDcorrections"));
   
   h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
-  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
+  //102X  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
+  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_cleaner"));
   h_topjets_cleaner.reset(new TopJetHists(ctx, "topjets_cleaner"));
   h_jets_cleaner.reset(new JetHists(ctx, "jets_cleaner"));
   
   h_topjets_2topjetsel.reset(new TopJetHists(ctx, "topjets_2AK8"));
-  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
+  //102X  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
+  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_2AK8"));
   
-  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
+  //102X  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
+  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping"));
   h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
   h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
   
-  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
+  //102X  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
+  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping_eta"));
   h_jets_noOverlapping_eta.reset(new JetHists(ctx, "jets_noOverlapping_eta"));
   
-  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
+  //102X  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
+  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_invM"));
   h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
   
-  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
+  //102X  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
+  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_deta"));
   h_topjets_deta.reset(new TopJetHists(ctx, "topjets_deta"));
   
-  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+  //102X  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
   h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
   h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
   h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
   h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
   h_event_compare.reset(new EventHists(ctx, "event_compare"));
  
+  /*
   h_Wtopjets_compareSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compareSD"));
   
   
@@ -598,7 +620,7 @@ namespace uhh2examples {
   
   h_jets_2jetsel.reset(new JetHists(ctx, "jets_2AK4"));
   h_Wtopjets_2jetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK4"));
-  
+  */
   //genjet
   
   h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
@@ -925,9 +947,14 @@ if(PRINT) std::cout<<"SelectionModule L:858 Size topjets Collection "<<event.jet
 /////////////////AK4 cleaning end ////////////////
 
 
-h_topjets_noOverlapping->fill(event);
-h_Wtopjets_noOverlapping->fill(event);
-h_jets_noOverlapping->fill(event);
+ h_topjets_noOverlapping->fill(event);
+ if(PRINT) std::cout<<"PreSelectionModule h_topjets_noOverlapping " <<std::endl;
+ h_Wtopjets_noOverlapping->fill(event);
+ if(PRINT) std::cout<<"PreSelectionModule h_Wtopjets_noOverlapping " <<std::endl;
+
+ h_jets_noOverlapping->fill(event);
+ if(PRINT) std::cout<<"PreSelectionModule h_jets_noOverlapping " <<std::endl;
+
 //    sort_by_eta<Jet>(*event.jets);
 //h_Wtopjets_noOverlapping_eta->fill(event);
 //h_jets_noOverlapping_eta->fill(event);
@@ -938,8 +965,12 @@ h_jets_noOverlapping->fill(event);
 bool invMtopjet_fitselection = invMtopjet_fitsel->passes(event);
 if(!invMtopjet_fitselection )
 return false;
+ if(PRINT) std::cout<<"PreSelectionModule invm sel " <<std::endl;
+
 
 h_Wtopjets_invM->fill(event);
+ if(PRINT) std::cout<<"PreSelectionModule h_Wtopjets_invM " <<std::endl;
+
 h_topjets_invM->fill(event);
 if(PRINT) std::cout<<"inv M "<<std::endl;
 
