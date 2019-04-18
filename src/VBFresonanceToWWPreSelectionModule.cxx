@@ -27,7 +27,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT true
+#define PRINT false
 #define PUvariations false
 
 using namespace std;
@@ -71,6 +71,7 @@ namespace uhh2examples {
     std::unique_ptr<JetCorrector> jet_corrector_2017_E;
     std::unique_ptr<JetCorrector> jet_corrector_2017_F;
 
+    std::unique_ptr<JetCorrector> jet_corrector_2018_A;
     std::unique_ptr<JetCorrector> jet_corrector_2018_B;
     std::unique_ptr<JetCorrector> jet_corrector_2018_C;
     std::unique_ptr<JetCorrector> jet_corrector_2018_D;
@@ -90,6 +91,7 @@ namespace uhh2examples {
     std::unique_ptr<TopJetCorrector> topjet_corrector_2017_E;
     std::unique_ptr<TopJetCorrector> topjet_corrector_2017_F;
 
+    std::unique_ptr<TopJetCorrector> topjet_corrector_2018_A;
     std::unique_ptr<TopJetCorrector> topjet_corrector_2018_B;
     std::unique_ptr<TopJetCorrector> topjet_corrector_2018_C;
     std::unique_ptr<TopJetCorrector> topjet_corrector_2018_D;
@@ -355,7 +357,7 @@ namespace uhh2examples {
   
 
   // TopJet correctors
-  std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_B,JEC_AK4_C,JEC_AK4_D,JEC_AK4_E,JEC_AK4_F,JEC_AK4_G,JEC_AK4_H,JEC_AK8_B,JEC_AK8_C,JEC_AK8_D,JEC_AK8_E,JEC_AK8_F,JEC_AK8_G,JEC_AK8_H;
+  std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_A,JEC_AK4_B,JEC_AK4_C,JEC_AK4_D,JEC_AK4_E,JEC_AK4_F,JEC_AK4_G,JEC_AK4_H,JEC_AK8_A,JEC_AK8_B,JEC_AK8_C,JEC_AK8_D,JEC_AK8_E,JEC_AK8_F,JEC_AK8_G,JEC_AK8_H;
 
   if(isMC)
     {
@@ -421,10 +423,12 @@ namespace uhh2examples {
       else if(year == Year::is2018 )
         {
 	  if(PRINT) cout << "2018" <<endl;
+	  JEC_AK4_A = JERFiles::Autumn18_V8_A_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_B = JERFiles::Autumn18_V8_B_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_C = JERFiles::Autumn18_V8_C_L123_AK4PFPuppi_DATA;
 	  JEC_AK4_D = JERFiles::Autumn18_V8_D_L123_AK4PFPuppi_DATA;
 	  
+	  JEC_AK8_A = JERFiles::Autumn18_V8_A_L123_AK8PFPuppi_DATA;
 	  JEC_AK8_B = JERFiles::Autumn18_V8_B_L123_AK8PFPuppi_DATA;
 	  JEC_AK8_C = JERFiles::Autumn18_V8_C_L123_AK8PFPuppi_DATA;
 	  JEC_AK8_D = JERFiles::Autumn18_V8_D_L123_AK8PFPuppi_DATA;
@@ -485,10 +489,12 @@ namespace uhh2examples {
 	}
       else if(year == Year::is2018 )
         {
+          jet_corrector_2018_A.reset(new JetCorrector(ctx, JEC_AK4_A));
           jet_corrector_2018_B.reset(new JetCorrector(ctx, JEC_AK4_B));
           jet_corrector_2018_C.reset(new JetCorrector(ctx, JEC_AK4_C));
           jet_corrector_2018_D.reset(new JetCorrector(ctx, JEC_AK4_D));
 
+          topjet_corrector_2018_A.reset(new TopJetCorrector(ctx, JEC_AK8_A));
           topjet_corrector_2018_B.reset(new TopJetCorrector(ctx, JEC_AK8_B));
           topjet_corrector_2018_C.reset(new TopJetCorrector(ctx, JEC_AK8_C));
           topjet_corrector_2018_D.reset(new TopJetCorrector(ctx, JEC_AK8_D));
@@ -781,10 +787,15 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
        }
      */
    }else{
-
+  
+   if(PRINT) cout << "data JEC" <<endl;
+  
+   
+  
    //2016
    if(event.run >= runnr_2016_Bb && event.run <= runnr_2016_Be)
      {
+       if(PRINT) cout << "2016 B" <<endl;   
        jet_corrector_2016_B->process(event);
        topjet_corrector_2016_B->process(event);
        jet_corrector_2016_B->correct_met(event);
@@ -859,7 +870,14 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
      }
      
    //2018
-   if(event.run >= runnr_2018_Bb && event.run <= runnr_2018_Be)
+   if(event.run >= runnr_2018_Ab && event.run <= runnr_2018_Ae)
+     {
+       if(PRINT) cout << "2018 A" <<endl;
+       jet_corrector_2018_A->process(event);
+       topjet_corrector_2018_A->process(event);
+       jet_corrector_2018_A->correct_met(event);
+     }
+   else if(event.run >= runnr_2018_Bb && event.run <= runnr_2018_Be)
      {
        jet_corrector_2018_B->process(event);
        topjet_corrector_2018_B->process(event);
@@ -873,6 +891,7 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
      }
    else if(event.run >= runnr_2018_Db && event.run <= runnr_2018_De)
      {
+       if(PRINT) cout << "2018 D" <<endl;
        jet_corrector_2018_D->process(event);
        topjet_corrector_2018_D->process(event);
        jet_corrector_2018_D->correct_met(event);
