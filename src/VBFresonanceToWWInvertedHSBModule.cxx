@@ -25,7 +25,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT false
+#define PRINT true
 
 using namespace std;
 using namespace uhh2;
@@ -46,13 +46,12 @@ namespace uhh2examples {
 
   private:
     std::string channel_;
-    
 
     std::unique_ptr<AnalysisModule> Gen_printer;  
 
     std::unique_ptr<JetCleaner> jetcleaner;
-    std::unique_ptr<JetCleaner> ak4pfidfilter;
-    JetId AK4PFID;
+    //102X    std::unique_ptr<JetCleaner> ak4pfidfilter;
+    //102X    JetId AK4PFID;
     std::unique_ptr<uhh2::AnalysisModule> MCWeightModule;
     std::unique_ptr<uhh2::AnalysisModule> MCPileupReweightModule;
 
@@ -74,12 +73,12 @@ namespace uhh2examples {
     std::unique_ptr<Selection> vbfdeta_sel, vbfdeta4_sel, vbfdeta5_sel, vbfdeta6_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
     std::unique_ptr<Selection> vbfeta_sel, vbfeta4_sel, vbfeta5_sel, vbfeta6_sel;
-    std::unique_ptr<Selection> invM1000_sel;
+    std::unique_ptr<Selection> invM800_sel;
     //inverted VBF jets
     std::unique_ptr<Selection> jet2_invsel;
     std::unique_ptr<Selection> vbfetasign_invsel;
     std::unique_ptr<Selection> vbfeta_invsel;
-    std::unique_ptr<Selection> invM1000_invsel;
+    std::unique_ptr<Selection> invM800_invsel;
 
     //    std::unique_ptr<Selection> invM400_sel, invM600_sel, invM800_sel, invM1200_sel;
     //genjet
@@ -113,14 +112,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
 
-    const int runnr_BCD = 276811;
-    const int runnr_EF = 278802;
-    const int runnr_G = 280385;
-
     bool isMC;
-
-    MuonId     MuId;
-    ElectronId EleId;
 
   };
 
@@ -158,8 +150,8 @@ namespace uhh2examples {
     // 1. setup other modules. CommonModules and the JetCleaner:
 
     jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
-    AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
-    ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
+    //102X    AK4PFID=JetPFID(JetPFID::WP_LOOSE_PUPPI);
+    //102X    ak4pfidfilter.reset(new JetCleaner(ctx,AK4PFID));
     
     // 2. set up selections ***
 
@@ -180,14 +172,14 @@ namespace uhh2examples {
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
-    invM1000_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
+    invM800_sel.reset(new invMassVBFjetSelection(800.0f)); // see VBFresonanceToWWSelections
     if(PRINT) cout << "reset sel" <<endl;
 
     //VBF inverted
     jet2_invsel.reset(new DijetInvSelection(2.f)); // at least 2 jets      
     vbfetasign_invsel.reset(new VBFEtaSignjetInvSelection()); // see VBFresonanceToWWSelections
     vbfeta_invsel.reset(new VBFEtajetInvSelection(4.5f)); // see VBFresonanceToWWSelections
-    invM1000_invsel.reset(new invMassVBFjetInvSelection(800.0f)); // see VBFresonanceToWWSelections
+    invM800_invsel.reset(new invMassVBFjetInvSelection(800.0f)); // see VBFresonanceToWWSelections
 
 
     // 3. Set up Hists classes:
@@ -234,7 +226,7 @@ namespace uhh2examples {
     // this is controlled by the return value of this method: If it
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
-    
+
     if(PRINT)    cout << "VBFresonanceToWWInvertedHSBModule: Starting to process event (runid, eventid) = (" << event.run << ", " <<", " << event.event << "); weight = " << event.weight << endl;
 
     if(isMC){
@@ -266,17 +258,23 @@ namespace uhh2examples {
     if( !VVMLeadingtopjet_selection) return false;
     if(PRINT) std::cout<<"SelectionModule - V M sec leading applied - Size topjets Collection "<<event.jets->size() <<std::endl;
     if(!tau21topjet_selection) return false;
+    if(PRINT) std::cout<<"SelectionModule - tau21 - Size topjets Collection "<<event.jets->size() <<std::endl;
     
     h_Wtopjets_VVMass->fill(event);
+    if(PRINT) std::cout<<"SelectionModule - h_Wtopjets_VVMass filled "<<event.jets->size() <<std::endl;
+
     h_topjets_VVMass->fill(event);
+    if(PRINT) std::cout<<"SelectionModule - h_topjets_VVMass filled "<<event.jets->size() <<std::endl;
     h_Dijets_VVMass->fill(event);
+    if(PRINT) std::cout<<"SelectionModule - h_Dijets_VVMass filled "<<event.jets->size() <<std::endl;
     h_jets_VVMass->fill(event);
+    if(PRINT) std::cout<<"SelectionModule - h_jets_VVMass filled "<<event.jets->size() <<std::endl;
     h_VVMass->fill(event);
     if(PRINT) std::cout<<"SelectionModule - VV Mass plots " <<std::endl;
 
 
     jetcleaner->process(event);
-    ak4pfidfilter->process(event);
+    //102X    ak4pfidfilter->process(event);
 
     if(PRINT) std::cout<<"SelectionModule - 2 AK4 cleaner " <<std::endl;
 
@@ -287,11 +285,11 @@ namespace uhh2examples {
     if(PRINT) std::cout<<"SelectionModule - 2 AK4 sign inv " <<std::endl;
     bool vbfeta_invselection = vbfeta_invsel->passes(event);
     if(PRINT) std::cout<<"SelectionModule - 2 AK4 eta inv " <<std::endl;
-    bool invM1000_invselection = invM1000_invsel->passes(event);
+    bool invM800_invselection = invM800_invsel->passes(event);
     if(PRINT) std::cout<<"SelectionModule - 2 AK4 invMass inv " <<std::endl;
 
 
-    if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM1000_invselection)
+    if(jets2_invselection || vbfetasign_invselection || vbfeta_invselection || invM800_invselection)
       {
 	h_Wtopjets_withVBF_VVMass_inverted->fill(event);
 	if(PRINT) std::cout<<"SelectionModule - 2 AK4 Wt plots " <<std::endl;
@@ -307,18 +305,16 @@ namespace uhh2examples {
     bool jets2_selection = jet2_sel->passes(event);
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
     bool vbfeta_selection = vbfeta_sel->passes(event);
-    bool invM1000jet_selection = invM1000_sel->passes(event);
+    bool invM800jet_selection = invM800_sel->passes(event);
 
     if(!jets2_selection) return false;
     if(!vbfetasign_selection) return false;
     if(!vbfeta_selection) return false;
-    if(!invM1000jet_selection) return false;
+    if(!invM800jet_selection) return false;
     h_Wtopjets_withVBF_VVMass->fill(event);
     h_Dijets_withVBF_VVMass->fill(event);
     h_withVBF_VVMass->fill(event);
     if(PRINT) std::cout<<"SelectionModule -  VBF " <<std::endl;
-
-
 
 
 

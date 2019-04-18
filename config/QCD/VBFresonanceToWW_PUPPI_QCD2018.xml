@@ -14,7 +14,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="40" />
-<ConfigSGE RAM ="2" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_QCD_PUPPI_2018_sel"/>
+<ConfigSGE RAM ="2" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_QCD_2018_PUPPI_invertedHSB"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -22,7 +22,7 @@
     <Library Name="libSUHH2VBFresonanceToWW"/>
     <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/Selection/" PostFix="" TargetLumi="59740.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/InvertedHSB/" PostFix="" TargetLumi="59740.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
 
     <!--                    Background                   -->
@@ -36,32 +36,32 @@
 
     <InputData Version="MC_QCD_HT300to500_2018" Lumi="174.7762231" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT300to500; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
     <InputData Version="MC_QCD_HT500to700_2018" Lumi="1854.82666" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT500to700; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
     <InputData Version="MC_QCD_HT700to1000_2018" Lumi="8077.614559" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT700to1000; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
     <InputData Version="MC_QCD_HT1000to1500_2018" Lumi="14871.46169" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT1000to1500; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
     <InputData Version="MC_QCD_HT1500to2000_2018" Lumi="105185.1375" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT1500to2000; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
     <InputData Version="MC_QCD_HT2000toInf_2018" Lumi="259451.9961" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT2000toInf; <InputTree Name="AnalysisTree"/>
-      <OutputTree Name="AnalysisTree"/>
+<!--      <OutputTree Name="AnalysisTree"/> -->
     </InputData>
 
         <UserConfig>
@@ -110,7 +110,7 @@
             -->
 
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWSelectionModule" />
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWInvertedHSBModule" />
 <!--            <Item Name="AnalysisModule" Value="ExampleModule" /> -->
 
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let

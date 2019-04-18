@@ -2,15 +2,15 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 
 	  <!--                      Data                       -->
-	  <!ENTITY DATA_JetHT_Run2018A SYSTEM "/nfs/dust/cms/user/zoiirene/RunII_102X//nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT2018A.xml" >
-	  <!ENTITY DATA_JetHT_Run2018B SYSTEM "/nfs/dust/cms/user/zoiirene/RunII_102X//nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT2018B.xml" >
-	  <!ENTITY DATA_JetHT_Run2018C SYSTEM "/nfs/dust/cms/user/zoiirene/RunII_102X//nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT2018C.xml" >
-	  <!ENTITY DATA_JetHT_Run2018D SYSTEM "/nfs/dust/cms/user/zoiirene/RunII_102X//nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT2018D.xml" >
+	  <!ENTITY DATA_JetHT_Run2018A SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT_Run2018A.xml" >
+	  <!ENTITY DATA_JetHT_Run2018B SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT_Run2018B.xml" >
+	  <!ENTITY DATA_JetHT_Run2018C SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT_Run2018C.xml" >
+	  <!ENTITY DATA_JetHT_Run2018D SYSTEM "/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/xmlfiles/uhh2.AnalysisModuleRunner.Data.DATA_JetHT_Run2018D.xml" >
 	  ]>
 
 <!--
 <ConfigParse NEventsBreak="0" FileSplit="40" />
-<ConfigSGE RAM ="2" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data_JetHT_PUPPI"/>
+<ConfigSGE RAM ="2" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data2018_JetHT_PUPPI_InvertedHSB"/>
 -->
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
@@ -18,7 +18,7 @@
   <Library Name="libSUHH2VBFresonanceToWW"/>
   <Package Name="SUHH2VBFresonanceToWW.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/Selection/" PostFix="" TargetLumi="59740.0" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/InvertedHSB/" PostFix="" TargetLumi="59740.0" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
 
     <!--                    Data                   -->
@@ -90,7 +90,7 @@
             -->
 
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="VBFresonanceToWWPreSelectionModule" />
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWInvertedHSBModule" />
 
             <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
                  MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
