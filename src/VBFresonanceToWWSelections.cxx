@@ -8,7 +8,7 @@ using namespace uhh2examples;
 using namespace uhh2;
 using namespace std;
 
-bool PRINT = true;
+bool PRINT = false;
 
 MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_): deltaR_min(deltaR_min_), muid(muid_){}
 
@@ -419,17 +419,27 @@ bool invMassTopjetSelection::passes(const Event & event){
 nSubjTopjetSelection::nSubjTopjetSelection(float tau21_min_, float tau21_max_): tau21_min(tau21_min_), tau21_max(tau21_max_){}
 
 bool nSubjTopjetSelection::passes(const Event & event){
+  if(PRINT)  cout << " nSubjTopjetSelection " << endl;
   assert(event.topjets); // if this fails, it probably means jets are not read in
   if(event.topjets->size() < 2) return false;
-
+  if(PRINT)  cout << " topjet size " << event.topjets->size() << endl;
 
   float tau1_1 = event.topjets->at(0).tau1();
+  if(PRINT)  cout << " tau1_1 " << tau1_1 << endl;
   float tau2_1 = event.topjets->at(0).tau2();
-  float tau21_1 = tau2_1/tau1_1;
+  if(PRINT)  cout << " tau2_1 " << tau2_1 << endl;
+  float tau21_1 = 0;
+  if(tau1_1>0) tau21_1 = tau2_1/tau1_1;
+  if(PRINT)  cout << " tau21_1 " << tau21_1 << endl;
 
   float tau1_2 = event.topjets->at(1).tau1();
+  if(PRINT)  cout << " tau1_2 " << tau1_2 << endl;
   float tau2_2 = event.topjets->at(1).tau2();
-  float tau21_2 = tau2_2/tau1_2;
+  if(PRINT)  cout << " tau2_2 " << tau2_2 << endl;
+
+  float tau21_2 = 0;
+  if(tau1_2>0) tau21_2 = tau2_2/tau1_2;
+  if(PRINT)  cout << " tau21_2 " << tau21_2 << endl;
 
   if( tau21_1 > tau21_max || tau21_2 > tau21_max || tau21_1 <= tau21_min || tau21_2 <= tau21_min ) return false;
   else return true;
