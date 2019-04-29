@@ -1,6 +1,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWW_WTopJetHistsCorrectedSDMass.h"
 #include "UHH2/core/include/Event.h"
 #include "UHH2/core/include/TopJet.h"
+#include "UHH2/common/include/Utils.h"
 
 
 #include "TH1F.h"
@@ -123,19 +124,19 @@ void VBFresonanceToWW_WTopJetHistsCorrectedSDMass::fill(const uhh2::Event & even
   float PT2 = jet->at(1).v4().pt();
   hist("PT_2")->Fill(PT2, weight);
   hist("PT_2_bigRange")->Fill(PT2, weight);
-  hist("PT_both")->Fill(PT1, weight);
-  hist("PT_both")->Fill(PT2, weight);
-  hist("PT_both_bigRange")->Fill(PT1, weight);
-  hist("PT_both_bigRange")->Fill(PT2, weight);
+  hist("PT_both")->Fill((jet->at(0).v4()+jet->at(1).v4()).Pt(), weight);
+
+  hist("PT_both_bigRange")->Fill((jet->at(0).v4()+jet->at(1).v4()).Pt(), weight);
+
   float Phi2 = jet->at(1).v4().phi();
   hist("Phi_2")->Fill(Phi2, weight);
-  hist("Phi_both")->Fill(Phi1, weight);
-  hist("Phi_both")->Fill(Phi2, weight);
+  hist("Phi_both")->Fill((jet->at(0).v4()+jet->at(1).v4()).Phi(), weight);
+
       
   float Eta2 = jet->at(1).v4().eta();
   hist("Eta_2")->Fill(Eta2, weight);
-  hist("Eta_both")->Fill(Eta1, weight);
-  hist("Eta_both")->Fill(Eta2, weight);
+  hist("Eta_both")->Fill((jet->at(0).v4()+jet->at(1).v4()).Eta(), weight);
+
   
   
   // std::vector<TopJet> Tjets = *event.topjets;
@@ -227,7 +228,8 @@ void VBFresonanceToWW_WTopJetHistsCorrectedSDMass::fill(const uhh2::Event & even
   hist("NEF_both")->Fill(nef_2, weight);
   
   
-  float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
+  //  float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
+  float mass = inv_mass_safe(jet->at(0).v4() + jet->at(1).v4());
   hist("invMass")->Fill(mass, weight);
   
       //      if(mass< 1600)
