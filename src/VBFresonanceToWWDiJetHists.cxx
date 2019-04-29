@@ -19,58 +19,58 @@ VBFresonanceToWWDiJetHists::VBFresonanceToWWDiJetHists(Context & ctx,
 
 
   //mass
-  book<TH1F>("Mass_1","Mass_{1} [GeV/c^{2}]",100,0,300);
-  book<TH1F>("Mass_2","Mass_{2} [GeV/c^{2}]",100,0,300);
+  book<TH1F>("Mass_1","Mass_{1} [GeV/c^{2}]",50,0,300);
+  book<TH1F>("Mass_2","Mass_{2} [GeV/c^{2}]",50,0,300);
 
   //PT
-  book<TH1F>("PT_1","P_{T,1} [GeV/c]",100,0,500);
-  book<TH1F>("PT_2","P_{T,2} [GeV/c]",100,0,500);
-	book<TH1F>("PT_both","P_{T} [GeV/c]",100,0,500);
+  book<TH1F>("PT_1","P_{T,1} [GeV/c]",50,0,500);
+  book<TH1F>("PT_2","P_{T,2} [GeV/c]",50,0,500);
+  book<TH1F>("PT_both","P_{T} [GeV/c]",50,0,500);
 
 
   //energy
-  book<TH1F>("Energy_1","E_{1} [GeV]",100,0,2000);
-	book<TH1F>("Energy_2","E_{2} [GeV]",100,0,2000);
-	book<TH1F>("Energy_both","E [GeV]",100,0,2000);
-
+  book<TH1F>("Energy_1","E_{1} [GeV]",50,0,2000);
+  book<TH1F>("Energy_2","E_{2} [GeV]",50,0,2000);
+  book<TH1F>("Energy_both","E [GeV]",50,0,2000);
+  
 
   // Phi
-  book<TH1F>("Phi_1"," #phi_{1} ",100,-M_PI,M_PI);
-	book<TH1F>("Phi_2"," #phi_{2} ",100,-M_PI,M_PI);
-	book<TH1F>("Phi_both"," #phi ",100,-M_PI,M_PI);
-
+  book<TH1F>("Phi_1"," #phi_{1} ",50,-M_PI,M_PI);
+  book<TH1F>("Phi_2"," #phi_{2} ",50,-M_PI,M_PI);
+  book<TH1F>("Phi_both"," #phi ",50,-M_PI,M_PI);
+  
   //Eta
-  book<TH1F>("Eta_1","#eta_{1}",100,-5,5);
-  book<TH1F>("Eta_2","#eta_{2}",100,-5,5);
-	book<TH1F>("Eta_both","#eta",100,-5,5);
-  //  book<TH1F>("Eta_both","#eta_{2}",100,-5,5);
-
+  book<TH1F>("Eta_1","#eta_{1}",50,-5,5);
+  book<TH1F>("Eta_2","#eta_{2}",50,-5,5);
+  book<TH1F>("Eta_both","#eta",50,-5,5);
+  //  book<TH1F>("Eta_both","#eta_{2}",50,-5,5);
+  book<TH1F>("eta_jet","#eta",80,-5,5);
   //jj
 
   //inv mass
-  book<TH1F>("InvariantMass_jj","Mass_{jj}-AK4 [GeV/c^{2}]",100,0,13000);
+  book<TH1F>("InvariantMass_jj","Mass_{jj}-AK4 [GeV/c^{2}]",50,0,13000);
   // //mass eta
-  // book<TH1F>("eta_InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",100,0,3000);
+  // book<TH1F>("eta_InvariantMass_jj","Mass_{jj} [GeV/c^{2}]",50,0,3000);
 
   //pt
-  book<TH1F>("Pt_jj","p_{T_{jj}} [GeV/c]",100,0,500);
+  book<TH1F>("Pt_jj","p_{T_{jj}} [GeV/c]",50,0,500);
   //pt eta
-  // book<TH1F>("eta_Pt_jj","p_{T_{jj}} [GeV/c]",100,0,500);
+  // book<TH1F>("eta_Pt_jj","p_{T_{jj}} [GeV/c]",50,0,500);
 
   //delta phi
-  book<TH1F>("Phi_jj","#Delta #phi_{jj}",100,0,M_PI);
+  book<TH1F>("Phi_jj","#Delta #phi_{jj}",50,0,M_PI);
   //pt eta
-  // book<TH1F>("eta_Phi_jj","#Delta #phi_{jj}",100,0,M_PI);
+  // book<TH1F>("eta_Phi_jj","#Delta #phi_{jj}",50,0,M_PI);
 
   //delta eta
-  book<TH1F>("Eta_jj","#Delta #eta_{jj}",100,-10,10);
-	book<TH1F>("abs_Eta_jj","|#Delta #eta_{jj}|",100,0.,10.);
+  book<TH1F>("Eta_jj","#Delta #eta_{jj}",50,-10,10);
+  book<TH1F>("abs_Eta_jj","|#Delta #eta_{jj}|",50,0.,10.);
 
   //pt eta
-  // book<TH1F>("eta_Eta_jj","#Delta #eta_{jj}",100,-5,5);
+  // book<TH1F>("eta_Eta_jj","#Delta #eta_{jj}",50,-5,5);
 
   //delta R
-  book<TH1F>("R_jj","#Delta R_{jj}",100,0,10);
+  book<TH1F>("R_jj","#Delta R_{jj}",50,0,10);
   //pt eta
   // book<TH1F>("eta_R_jj","#Delta R_{jj}",70,0,7);
 
@@ -91,6 +91,13 @@ void VBFresonanceToWWDiJetHists::fill(const uhh2::Event & event){
 
       float NJet = jet->size();
       hist("Njets")->Fill(NJet, weight);
+
+      for(int i = 0; i<NJet; i++)
+	{
+	  hist("eta_jet")->Fill(jet->at(i).eta(), weight);
+	}
+      
+
 
       unsigned int count =0;
       for(unsigned int i = 0; i <jet->size(); i++)
