@@ -149,6 +149,7 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_ele_leptonVeto;
     std::unique_ptr<Hists> h_muon_leptonVeto;
     std::unique_ptr<Hists> h_Wtopjets_leptonVeto;
+    std::unique_ptr<Hists> h_leptonVeto;
 
     std::unique_ptr<Hists> h_Wtopjets_afterSD;
     //102X     std::unique_ptr<Hists> h_Wtopjets_afterSDcorrections;
@@ -236,6 +237,8 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_input_gendijets;
     std::unique_ptr<Hists> h_input_genjets;
     std::unique_ptr<Hists> h_input_genparticle;
+
+    Year year; 
 
     const int runnr_2016_Ab = 271036;
     const int runnr_2016_Ae = 271658;
@@ -351,7 +354,7 @@ namespace uhh2examples {
   //    common->disable_metfilters(); //irene
   if(PRINT) cout << "common" <<endl;
   //    common->set_jet_id(PtEtaCut(30.0, 2.4));
-  Year year = extract_year(ctx);
+  year = extract_year(ctx);
   
   // (year == Year::is2018) {
   
@@ -531,7 +534,7 @@ namespace uhh2examples {
   
   // 2. set up selections ***
 
-  muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
+  muon_sel.reset(new MuonVeto(0.8,MuId,0.1)); // see VBFresonanceToWWSelections
   electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
   topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
   invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
@@ -564,6 +567,7 @@ namespace uhh2examples {
   h_ele_leptonVeto.reset(new ElectronHists(ctx, "ele_leptonVeto"));
   h_muon_leptonVeto.reset(new MuonHists(ctx, "muon_leptonVeto"));
   h_Wtopjets_leptonVeto.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_leptonVeto"));
+  h_leptonVeto.reset(new VBFresonanceToWWHists(ctx, "leptonVeto"));
   
   h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
   h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
@@ -766,6 +770,7 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
  sort_by_pt<TopJet>(*event.topjets);
  
  h_Wtopjets_leptonVeto->fill(event);
+ h_leptonVeto->fill(event);
  if(PRINT)    cout << " leptons done "  << endl;
 
  // JET CLEANING & JET CORRECTIONS
