@@ -25,14 +25,14 @@ VBFresonanceToWW_WTopJetHistsCorrectedSDMass::VBFresonanceToWW_WTopJetHistsCorre
   book<TH1F>("PT_2","P_{T,2} [GeV/c]",45,0,2025);
   book<TH1F>("PT_both","P_{T} [GeV/c]",45,0,2025);
 
-  book<TH1F>("PT_1_bigRange","P_{T,1} [GeV/c]",140,0,7000);
-  book<TH1F>("PT_2_bigRange","P_{T,2} [GeV/c]",140,0,7000);
-  book<TH1F>("PT_both_bigRange","P_{T} [GeV/c]",140,0,7000);
+  book<TH1F>("PT_1_bigRange","P_{T,1} [GeV/c]",100,0,7000);
+  book<TH1F>("PT_2_bigRange","P_{T,2} [GeV/c]",100,0,7000);
+  book<TH1F>("PT_both_bigRange","P_{T} [GeV/c]",100,0,7000);
 
   // Phi
-  book<TH1F>("Phi_1","#phi_{1} ",100,-M_PI,M_PI);
-  book<TH1F>("Phi_2","#phi_{2} ",100,-M_PI,M_PI);
-	book<TH1F>("Phi_both","#phi ",100,-M_PI,M_PI);
+  book<TH1F>("Phi_1","#phi_{1} ",50,-M_PI,M_PI);
+  book<TH1F>("Phi_2","#phi_{2} ",50,-M_PI,M_PI);
+	book<TH1F>("Phi_both","#phi ",50,-M_PI,M_PI);
 
   //Eta
   book<TH1F>("Eta_1","#eta_{1}",50,-2.5,2.5);
@@ -40,13 +40,13 @@ VBFresonanceToWW_WTopJetHistsCorrectedSDMass::VBFresonanceToWW_WTopJetHistsCorre
   book<TH1F>("Eta_both","#eta",50,-2.5,2.5);
 
   //substructure
-  book<TH1F>("SoftDropMass_1", "M_{1}^{SD} [GeV/c^{2}]", 100,0,300);
+  book<TH1F>("SoftDropMass_1", "M_{1}^{SD} [GeV/c^{2}]", 50,0,300);
   book<TH1F>("CHF_1","CHF_{1}",100,0,1);
   book<TH1F>("TAU1_1","#tau_{1_{1}}",20,0,1);
   book<TH1F>("TAU2_1","#tau_{2_{1}}",20,0,1);
   book<TH1F>("Tau21_1", "#tau_{2_{1}}/#tau_{1_{1}}", 20,0,1);
 
-  book<TH1F>("SoftDropMass_2", "M_{2}^{SD} [GeV/c^{2}]", 100,0,300);
+  book<TH1F>("SoftDropMass_2", "M_{2}^{SD} [GeV/c^{2}]", 50,0,300);
   book<TH1F>("CHF_2","CHF_{2}",100,0,1);
   book<TH1F>("TAU1_2","#tau_{1_{2}}",20,0,1);
   book<TH1F>("TAU2_2","#tau_{2_{2}}",20,0,1);
