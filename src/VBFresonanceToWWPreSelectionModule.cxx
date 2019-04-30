@@ -326,7 +326,7 @@ namespace uhh2examples {
   h_IdCriteriaJets = ctx.get_handle<vector<Jet>>("patJetsAK8PFPUPPI");
 
   //80X  MuId  = AndId<Muon>(MuonIDTight(), PtEtaCut(30., 2.4));
-  MuId  = AndId<Muon>(MuonID(Muon::Tight), PtEtaCut(30., 2.4)); //changed for 102X
+  MuId  = AndId<Muon>(MuonID(Muon::CutBasedIdTight), PtEtaCut(30., 2.4), MuonID(Muon::TkIsoLoose)); //changed for 102X
   EleId = AndId<Electron>(ElectronID_HEEP_RunII_25ns, PtEtaCut(35., 2.5));
   //EleId = AndId<Electron>(ElectronID_Spring16_tight_noIso, PtEtaCut(20., 5.));
 
@@ -534,7 +534,7 @@ namespace uhh2examples {
   
   // 2. set up selections ***
 
-  muon_sel.reset(new MuonVeto(0.8,MuId,0.1)); // see VBFresonanceToWWSelections
+  muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
   electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
   topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
   invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
