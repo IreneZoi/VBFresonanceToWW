@@ -10,7 +10,7 @@ using namespace std;
 
 bool PRINT = false;
 
-MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_, float iso_pt_min_): deltaR_min(deltaR_min_), muid(muid_), iso_pt_min(iso_pt_min_){}
+MuonVeto::MuonVeto(float deltaR_min_, const boost::optional<MuonId> & muid_): deltaR_min(deltaR_min_), muid(muid_){}
 
 bool MuonVeto::passes(const Event & event){
     assert(event.topjets); // if this fails, it probably means jets are not read in
@@ -19,14 +19,10 @@ bool MuonVeto::passes(const Event & event){
       {
 	for(const auto & muons : *event.muons)
 	  {
-	    if(muons.TkIsoTight/muons.pt() >iso_pt_min) return false;
-	    else
-	      {						   
-		for(const auto & topjets : *event.topjets)
-		  {
-		    if((deltaR(topjets,muons)  < deltaR_min)   ) return false;
-		    else return true;
-		  }
+	    for(const auto & topjets : *event.topjets)
+	      {
+		if((deltaR(topjets,muons)  < deltaR_min)   ) return false;
+		else return true;
 	      }
 	  }
       }

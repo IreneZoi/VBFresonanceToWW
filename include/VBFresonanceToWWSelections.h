@@ -13,10 +13,10 @@ namespace uhh2examples {
  */
 class MuonVeto: public uhh2::Selection {
 public:
-    MuonVeto(float deltR_min = 0.8f, const boost::optional<MuonId> & muid = boost::none, float iso_pt_min = 0.1);
+    MuonVeto(float deltR_min = 0.8f, const boost::optional<MuonId> & muid = boost::none);
     virtual bool passes(const uhh2::Event & event) override;
 private:
-    float deltaR_min, iso_pt_min;
+    float deltaR_min;
     boost::optional<MuonId> muid;
 };
 
