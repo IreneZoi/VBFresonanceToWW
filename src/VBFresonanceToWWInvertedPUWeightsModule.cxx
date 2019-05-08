@@ -72,17 +72,14 @@ namespace uhh2examples {
     std::unique_ptr<Selection> invMtopjet_sel;
     std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
-    std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
+    std::unique_ptr<Selection> VVmass_sel;
     std::unique_ptr<Selection> tau21topjet_sel;
     //VBF jets
-    std::unique_ptr<Selection> ptjet1_sel;
-    std::unique_ptr<Selection> jet2_sel;
     std::unique_ptr<Selection> vbfdeta_sel;
     std::unique_ptr<Selection> vbfetasign_sel;
     std::unique_ptr<Selection> vbfeta_sel;
     std::unique_ptr<Selection> invM1000_sel;
     //inverted VBF jets
-    std::unique_ptr<Selection> ptjet1_invsel;
     std::unique_ptr<Selection> jet2_invsel;
     std::unique_ptr<Selection> vbfetasign_invsel;
     std::unique_ptr<Selection> vbfeta_invsel;
@@ -208,11 +205,8 @@ namespace uhh2examples {
     invMtopjet_sel.reset(new invMassTopjetSelection(1070.0f)); // see VBFresonanceToWWSelections
     invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
-    WWmass_sel.reset(new VVMassTopjetSelection(65.0f,85.0f));// see VBFresonanceToWWSelections
     tau21topjet_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
 
-    ptjet1_sel.reset(new AK4PtSelection(100.f)); // see VBFresonanceToWWSelections
-    jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
     vbfdeta_sel.reset(new VBFdeltaEtajetSelection()); // see VBFresonanceToWWSelections
     vbfetasign_sel.reset(new VBFEtaSignjetSelection()); // see VBFresonanceToWWSelections
     vbfeta_sel.reset(new VBFEtajetSelection(4.5f)); // see VBFresonanceToWWSelections
@@ -220,7 +214,6 @@ namespace uhh2examples {
     if(PRINT) cout << "reset sel" <<endl;
 
     //VBF inverted
-    ptjet1_invsel.reset(new AK4PtInvSelection(100.f)); // see VBFresonanceToWWSelections
     jet2_invsel.reset(new DijetInvSelection(2.f)); // at least 2 jets
     vbfetasign_invsel.reset(new VBFEtaSignjetInvSelection()); // see VBFresonanceToWWSelections
     vbfeta_invsel.reset(new VBFEtajetInvSelection(4.5f)); // see VBFresonanceToWWSelections
@@ -313,7 +306,6 @@ namespace uhh2examples {
 
 
     bool VVMtopjet_selection = VVmass_sel->passes(event);
-    bool WWMtopjet_selection = WWmass_sel->passes(event);
     bool tau21topjet_selection = tau21topjet_sel->passes(event);
     if(!VVMtopjet_selection) return false;
     if(!tau21topjet_selection) return false;
@@ -331,9 +323,6 @@ namespace uhh2examples {
     if(PRINT)    cout << "VBFresonanceToWWInver AK4cleaning" << endl;
 
     //Inverted Selections for AK4
-    bool ptjets1_invselection = ptjet1_invsel->passes(event);
-    if(PRINT)    cout << "VBFresonanceToWWInver ak4 pt inv" << endl;
-
     bool jets2_invselection = jet2_invsel->passes(event);
     if(PRINT)    cout << "VBFresonanceToWWInver 2 ak4 inv" << endl;
 
@@ -365,9 +354,6 @@ namespace uhh2examples {
     if(PRINT)    cout << "VBFresonanceToWWInver VBF inv sel" << endl;
 
     // Selections for AK4
-    bool ptjets1_selection = ptjet1_sel->passes(event);
-    if(PRINT)    cout << "VBFresonanceToWWInver ak4 pt inv" << endl;
-    bool jets2_selection = jet2_sel->passes(event);
     bool vbfetasign_selection = vbfetasign_sel->passes(event);
     bool vbfeta_selection = vbfeta_sel->passes(event);
     bool invM1000jet_selection = invM1000_sel->passes(event);

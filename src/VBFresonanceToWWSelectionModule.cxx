@@ -67,7 +67,6 @@ namespace uhh2examples {
     //W jets
     std::unique_ptr<Selection> topjet2_sel;
     std::unique_ptr<Selection> invMtopjet_fitsel;
-    std::unique_ptr<Selection> invMtopjet_SDsel;
     std::unique_ptr<Selection> topjets_deta_sel;
     std::unique_ptr<Selection> VVmass_sel, WWmass_sel;
     std::unique_ptr<Selection> tau21topjetHP_sel;
@@ -210,7 +209,6 @@ namespace uhh2examples {
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
     topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
-    invMtopjet_SDsel.reset(new invMassTopjetSelection(1080.0f)); // see VBFresonanceToWWSelections
     VVmass_sel.reset(new VVMassTopjetSelection());// see VBFresonanceToWWSelections
     tau21topjetHP_sel.reset(new nSubjTopjetSelection(0.f,0.35f)); // see VBFresonanceToWWSelections
     jet2_sel.reset(new NJetSelection(2)); // at least 2 jets
@@ -322,10 +320,6 @@ namespace uhh2examples {
     h_compare->fill(event);
     h_event_compare->fill(event);
 
-
-
-    bool invMtopjet_SDselection = invMtopjet_SDsel->passes(event);
-    if(PRINT) std::cout<<"sd "<<std::endl;
     bool tau21topjetHP_selection = tau21topjetHP_sel->passes(event);
     if(PRINT) std::cout<<"tau21 "<<std::endl;
       if(PRINT) std::cout<<"compare and sd "<<std::endl;

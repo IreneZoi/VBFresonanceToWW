@@ -317,8 +317,6 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
 
      
       float mass_W = W.v4().mass();
-      float mass_W1 = W1.v4().mass();
-      float mass_W2 = W2.v4().mass();
       hist("Mass_W")->Fill(mass_W, weight);
       float invmass = (W1.v4() + W2.v4()).M();
       hist("InvMass_2W")->Fill(invmass, weight);
@@ -328,8 +326,6 @@ void VBFresonanceToWWParticleHists::fill(const uhh2::Event & event){
       Wpt1_Wpt2->Fill(pt_W1,pt_W2,weight);
       hist("PT_W")->Fill(pt_W, weight);
       float phi_W = W.v4().phi();
-      float phi_W1 = W1.v4().phi();
-      float phi_W2 = W2.v4().phi();
       hist("Phi_W")->Fill(phi_W, weight);
       float eta_W = W.v4().eta();
       float eta_W1 = W1.v4().eta();
