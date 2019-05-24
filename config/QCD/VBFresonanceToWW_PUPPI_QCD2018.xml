@@ -83,7 +83,6 @@
             <Item Name="JMSunc" Value="0.004" />
             <Item Name="JMR" Value="1.079" />
             <Item Name="JMRunc" Value="0.105" /> -->
-	    <Item Name="Year" Value="2018" />
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
 
                  PrimaryVertexCollection
