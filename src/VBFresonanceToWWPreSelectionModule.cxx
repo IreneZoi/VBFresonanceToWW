@@ -96,10 +96,14 @@ namespace uhh2examples {
     std::unique_ptr<TopJetCorrector> topjet_corrector_2018_C;
     std::unique_ptr<TopJetCorrector> topjet_corrector_2018_D;
    
-    //102X    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
+    std::unique_ptr<SoftDropMassCalculator> topjet_sdmasscorrector;
     //102X    std::unique_ptr<JetMassScale> topjet_jms;
-    //102X    std::unique_ptr<JetResolutionSmearer> jetER_smearer;
-    //102X    std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
+    std::string jec_tag, jec_ver, jec_jet_coll_AK8puppi, jec_jet_coll_AK4puppi;
+    JERSmearing::SFtype1 JER_sf;
+    TString ResolutionFileName;   
+
+    std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+    std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
 
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<TopJetCleaner> topjetcleaner;
@@ -356,10 +360,98 @@ namespace uhh2examples {
   //    common->set_jet_id(PtEtaCut(30.0, 2.4));
   year = extract_year(ctx);
   
-  // (year == Year::is2018) {
-  
+  //JEC  correctors
+  jec_jet_coll_AK8puppi   = "AK8PFPuppi";
+  jec_jet_coll_AK4puppi = "AK4PFPuppi";
 
-  // TopJet correctors
+  if(year == Year::is2016v2 || year == Year::is2016v3){
+    jec_tag = "Summer16_07Aug2017";
+    jec_ver = "11";
+    JER_sf  = JERSmearing::SF_13TeV_Summer16_25nsV1;
+    ResolutionFileName = "2016/Summer16_25nsV1_MC_PtResolution_AK4PFPuppi.txt";
+    }
+  else if(year == Year::is2017v1 || year == Year::is2017v2){
+    jec_tag = "Fall17_17Nov2017";
+    jec_ver = "32";
+    JER_sf  = JERSmearing::SF_13TeV_Fall17_V3;
+    ResolutionFileName = "2017/Fall17_V3_MC_PtResolution_AK4PFPuppi.txt";
+  }
+  else if(year == Year::is2018 ){
+    jec_tag = "Autumn18";
+    jec_ver = "8";
+    JER_sf  = JERSmearing::SF_13TeV_Autumn18_V4;
+    ResolutionFileName = "2018/Autumn18_V4_MC_PtResolution_AK4PFPuppi.txt";
+  }
+
+  if(isMC){
+    std::cout << "USING "<< year_str_map.at(year) << " MC JEC: "<< jec_tag << " V" << jec_ver << std::endl;
+    std::cout << "for the following jet collections: " << jec_jet_coll_AK8puppi << " " << jec_jet_coll_AK4puppi << std::endl;     
+    std::cout << "Smearing: " << jec_jet_coll_AK8puppi << " with year default " << std::endl;
+    std::cout << "Smearing: " << jec_jet_coll_AK4puppi << " with "<< ResolutionFileName << std::endl;     
+    jet_corrector.reset(new JetCorrector(ctx, JERFiles::JECFilesMC(jec_tag, jec_ver, jec_jet_coll_AK4puppi)));
+    topjet_corrector.reset(new TopJetCorrector(ctx,JERFiles::JECFilesMC(jec_tag, jec_ver, jec_jet_coll_AK8puppi)));
+    if(channel_=="signal")
+      {
+	jetER_smearer.reset(new JetResolutionSmearer(ctx));
+	topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",JER_sf,ResolutionFileName));
+      }
+    
+
+  }
+  else{
+    std::cout << "USING " << year_str_map.at(year) << " DATA JEC: "<< jec_tag << " V" << jec_ver << std::endl;
+    if(year == Year::is2016v2 || year == Year::is2016v3){
+      jet_corrector_2016_B.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "B")));
+      jet_corrector_2016_C.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "C")));
+      jet_corrector_2016_D.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "D")));
+      jet_corrector_2016_E.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "E")));
+      jet_corrector_2016_F.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "F")));
+      jet_corrector_2016_G.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "G")));
+      jet_corrector_2016_H.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "H")));
+
+      topjet_corrector_2016_B.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "B")));
+      topjet_corrector_2016_C.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "C")));
+      topjet_corrector_2016_D.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "D")));
+      topjet_corrector_2016_E.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "E")));
+      topjet_corrector_2016_F.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "F")));
+      topjet_corrector_2016_G.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "G")));
+      topjet_corrector_2016_H.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "H")));
+ 
+    }
+    else if(year == Year::is2017v1 || year == Year::is2017v2){
+      jet_corrector_2017_B.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "B")));
+      jet_corrector_2017_C.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "C")));
+      jet_corrector_2017_D.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "D")));
+      jet_corrector_2017_E.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "E")));
+      jet_corrector_2017_F.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "F")));
+
+      topjet_corrector_2017_B.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "B")));
+      topjet_corrector_2017_C.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "C")));
+      topjet_corrector_2017_D.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "D")));
+      topjet_corrector_2017_E.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "E")));
+      topjet_corrector_2017_F.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "F")));
+ 
+    }
+    else if(year == Year::is2018 ){
+      jet_corrector_2018_A.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "A")));
+      jet_corrector_2018_B.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "B")));
+      jet_corrector_2018_C.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "C")));
+      jet_corrector_2018_D.reset(new JetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK8puppi, "D")));
+
+      topjet_corrector_2018_A.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "A")));
+      topjet_corrector_2018_B.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "B")));
+      topjet_corrector_2018_C.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "C")));
+      topjet_corrector_2018_D.reset(new TopJetCorrector(ctx, JERFiles::JECFilesDATA(jec_tag, jec_ver, jec_jet_coll_AK4puppi, "D")));
+    }
+  }
+  std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
+  /*end of year dependent initialization*/
+
+
+
+
+  /*
+
   std::vector<std::string> JEC_AK4, JEC_AK8,JEC_AK4_A,JEC_AK4_B,JEC_AK4_C,JEC_AK4_D,JEC_AK4_E,JEC_AK4_F,JEC_AK4_G,JEC_AK4_H,JEC_AK8_A,JEC_AK8_B,JEC_AK8_C,JEC_AK8_D,JEC_AK8_E,JEC_AK8_F,JEC_AK8_G,JEC_AK8_H;
 
   if(isMC)
@@ -446,13 +538,11 @@ namespace uhh2examples {
       jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
       topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
 
-      /*102X
-	if(channel_=="signal")
+      	if(channel_=="signal")
 	{
-	//102X    jetER_smearer.reset(new JetResolutionSmearer(ctx));
-	//102X    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_2016_25nsV1,"Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
+	  jetER_smearer.reset(new JetResolutionSmearer(ctx));
+	  topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx,"topjets","gentopjets",true,JERSmearing::SF_13TeV_Summer16_25nsV1,"201Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
 	}
-      */
     }
   else
     {
@@ -504,8 +594,8 @@ namespace uhh2examples {
 
 	}
     }
-
-  //102X//topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
+  */
+  topjet_sdmasscorrector.reset(new SoftDropMassCalculator(ctx, true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/puppiCorr.root","topjets"));
   //102X topjet_jms.reset(new JetMassScale(ctx,true, "/nfs/dust/cms/user/zoiirene/CMSSW_8_0_24_patch1/src/UHH2/common/data/jetmassResolution.root","topjets"));
 
   jetcleaner.reset(new JetCleaner(ctx, 30.0, 5));
@@ -572,38 +662,37 @@ namespace uhh2examples {
   h_Wtopjets_jec.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_jec"));
   h_jec.reset(new VBFresonanceToWWHists(ctx, "jec"));
   
-  //102X  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
-  //102X h_Wtopjets_afterSDcorrections.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSDcorrections"));
+  h_Wtopjets_afterSD.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_afterSD"));
   
   h_cleaner.reset(new VBFresonanceToWWHists(ctx, "cleaner"));
-  //102X  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
-  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_cleaner"));
+  h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_cleaner"));
+  //h_Wtopjets_cleaner.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_cleaner"));
   h_topjets_cleaner.reset(new TopJetHists(ctx, "topjets_cleaner"));
   h_jets_cleaner.reset(new JetHists(ctx, "jets_cleaner"));
   
   h_topjets_2topjetsel.reset(new TopJetHists(ctx, "topjets_2AK8"));
-  //102X  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
-  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_2AK8"));
+  h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_2AK8"));
+  //h_Wtopjets_2topjetsel.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_2AK8"));
   
-  //102X  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
-  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping"));
+  h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping"));
+  //h_Wtopjets_noOverlapping.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping"));
   h_topjets_noOverlapping.reset(new TopJetHists(ctx, "topjets_noOverlapping"));
   h_jets_noOverlapping.reset(new JetHists(ctx, "jets_noOverlapping"));
   
-  //102X  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
-  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping_eta"));
+  h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_noOverlapping_eta"));
+  //h_Wtopjets_noOverlapping_eta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_noOverlapping_eta"));
   h_jets_noOverlapping_eta.reset(new JetHists(ctx, "jets_noOverlapping_eta"));
   
-  //102X  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
-  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_invM"));
+  h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_invM"));
+  //h_Wtopjets_invM.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_invM"));
   h_topjets_invM.reset(new TopJetHists(ctx, "topjets_invM"));
   
-  //102X  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
-  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_deta"));
+  h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_deta"));
+  //h_Wtopjets_deta.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_deta"));
   h_topjets_deta.reset(new TopJetHists(ctx, "topjets_deta"));
   
-  //102X  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
-  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
+  h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
+  //h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
   h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
   h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
   h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
@@ -719,14 +808,13 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
   
   h_input->fill(event);
   if(PRINT)    cout << " h input hists "  << endl;
-  
   h_event_input->fill(event);
   h_topjets_input->fill(event);
   h_jets_input->fill(event);
   h_Wtopjets_input->fill(event);
   h_ele_input->fill(event);
   h_muon_input->fill(event);
-  
+
   //if(isMC){
   //MCWeightModule->process(event);
   //MCPileupReweightModule->process(event);
@@ -1005,8 +1093,7 @@ if(PRINT) std::cout<<"deta "<<std::endl;
 
 // bool tau21topjet_045_selection = tau21topjet045_sel->passes(event);
 
-// if(invMtopjet_selection )
-//   {
+
 h_Wtopjets_compare->fill(event);
 if(PRINT) std::cout<<"compare "<<std::endl;
 h_topjets_compare->fill(event);
@@ -1029,4 +1116,4 @@ UHH2_REGISTER_ANALYSIS_MODULE(VBFresonanceToWWPreSelectionModule)
 
 }
 
-//  LocalWords:  JetCorrector
+
