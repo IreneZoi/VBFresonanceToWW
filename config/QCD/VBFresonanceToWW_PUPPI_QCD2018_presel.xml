@@ -35,7 +35,7 @@
 -->
 
 
-<!-- NB LUMI NEEDS TO BE FIXED -->
+
     <InputData Version="MC_QCD_HT300to500_2018" Lumi="174.7762231" Type="MC" NEventsMax="-1" Cacheable="False">
       &MC_QCD_HT300to500; <InputTree Name="AnalysisTree"/>
       <OutputTree Name="AnalysisTree"/>
