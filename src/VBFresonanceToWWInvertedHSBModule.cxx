@@ -25,7 +25,7 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWDiJetHists.h"
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWGenDiJetHists.h"
 
-#define PRINT true
+#define PRINT false
 
 using namespace std;
 using namespace uhh2;
@@ -93,6 +93,12 @@ namespace uhh2examples {
     std::unique_ptr<Hists> h_Dijets_compare;
     std::unique_ptr<Hists> h_jets_compare;
     std::unique_ptr<Hists> h_compare;
+
+    std::unique_ptr<Hists> h_Wtopjets_jetcleaner;
+    std::unique_ptr<Hists> h_topjets_jetcleaner;
+    std::unique_ptr<Hists> h_Dijets_jetcleaner;
+    std::unique_ptr<Hists> h_jets_jetcleaner;
+    std::unique_ptr<Hists> h_jetcleaner;
 
     std::unique_ptr<Hists> h_Wtopjets_VVMass;
     std::unique_ptr<Hists> h_topjets_VVMass;
@@ -183,24 +189,30 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
-    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
+    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
 
-    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass"));
+    h_Wtopjets_jetcleaner.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_jetcleaner"));
+    h_topjets_jetcleaner.reset(new TopJetHists(ctx, "topjets_jetcleaner"));
+    h_Dijets_jetcleaner.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_jetcleaner"));
+    h_jets_jetcleaner.reset(new JetHists(ctx, "jets_jetcleaner"));
+    h_jetcleaner.reset(new VBFresonanceToWWHists(ctx, "jetcleaner"));
+
+    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
     h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
     h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
-    // h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+
+    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
     h_Dijets_withVBF_VVMass_inverted.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_withVBF_VVMass_inverted"));
     h_withVBF_VVMass_inverted.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass_inverted"));
 
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
     h_Dijets_withVBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_withVBF_VVMass"));
     h_withVBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass"));
 
@@ -244,6 +256,16 @@ namespace uhh2examples {
 	h_compare->fill(event);
 
 
+
+    jetcleaner->process(event);
+    //102X    ak4pfidfilter->process(event);
+    h_Wtopjets_jetcleaner->fill(event);
+    h_topjets_jetcleaner->fill(event);
+    h_Dijets_jetcleaner->fill(event);
+    h_jets_jetcleaner->fill(event);
+    h_jetcleaner->fill(event);
+
+
     if(PRINT) std::cout<<"SelectionModule - SB selection - Size topjets Collection "<<event.jets->size() <<std::endl;
 
     // bool HIGHMtopjet_selection = HIGHmass_sel->passes(event);
@@ -273,8 +295,6 @@ namespace uhh2examples {
     if(PRINT) std::cout<<"SelectionModule - VV Mass plots " <<std::endl;
 
 
-    jetcleaner->process(event);
-    //102X    ak4pfidfilter->process(event);
 
     if(PRINT) std::cout<<"SelectionModule - 2 AK4 cleaner " <<std::endl;
 
