@@ -1,7 +1,9 @@
 #include "UHH2/VBFresonanceToWW/include/VBFresonanceToWWHists.h"
 #include "UHH2/core/include/Event.h"
 
+#include "TH2F.h"
 #include "TH1F.h"
+//#include "TProfile.h"
 #include <iostream>
 
 using namespace std;
@@ -15,6 +17,13 @@ VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirna
   book<TH1F>("Ht_GenTopJet", "H_{T} [GeV/c]", 300, 0, 3000);
   book<TH1F>("Ht_GenJet", "H_{T} [GeV/c]", 300, 0, 3000);
 
+  book<TH1F>("events", "is in", 1,0.,2.);
+  book<TH1F>("weights", "event.weight", 100.,0.,2.);
+  //  book<TH1F>("eventnumber", "eventnumber", 10000000.,0.,10000000.);
+  //book<TH1F>("runnumber", "runnumber", 3000.,317000.,320000.);
+
+  // primary vertices
+  book<TH1F>("N_pv", "N^{PV}", 25, 0, 50);
   // jets
   book<TH1F>("N_jets", "N_{jets}", 20, 0, 20);
   book<TH1F>("eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5);
@@ -22,14 +31,23 @@ VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirna
   book<TH1F>("eta_jet3", "#eta^{jet 3}", 40, -2.5, 2.5);
   book<TH1F>("eta_jet4", "#eta^{jet 4}", 40, -2.5, 2.5);
 
-  // leptons
+ 
+
+  Njets_Npv = book<TH2F>("Njets_Npv", "Njets vs Npv ; N_{PV}; N_{jets}",25,0,50,20,0,20); //irene    
+  Njets_Npv_barrel = book<TH2F>("Njets_Npv_barrel", "Njets vs Npv ; N_{PV}; N_{jets}",25,0,50,20,0,20); //irene    
+  Njets_Npv_edge = book<TH2F>("Njets_Npv_edge", "Njets vs Npv ; N_{PV}; N_{jets}",25,0,50,20,0,20); //irene    
+  Njets_Npv_forward = book<TH2F>("Njets_Npv_forward", "Njets vs Npv ; N_{PV}; N_{jets}",25,0,50,20,0,20); //irene    
+  //  Njets_vs_Npv =  book<TProfile>("Njets_vs_Npv", "Njets vs Npv ; N_{PV}; N_{jets}",20,0,20); //irene    
+
+ // leptons
   book<TH1F>("N_mu", "N^{#mu}", 10, 0, 10);
   book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV/c]", 40, 0, 200);
   book<TH1F>("eta_mu", "#eta^{#mu}", 40, -2.1, 2.1);
   book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
 
-  // primary vertices
-  book<TH1F>("N_pv", "N^{PV}", 25, 0, 50);
+
+
+
   book<TH1F>("met", "MET [GeV/c]", 100, 0., 1000.);
   book<TH1F>("met_over_ptAK8", "MET/#sum p_{t} AK8 ", 80, 0., 4.);
   book<TH1F>("met_over_ptAK4", "MET/#sum p_{t} AK4 ", 80, 0., 4.);
@@ -38,7 +56,7 @@ VBFresonanceToWWHists::VBFresonanceToWWHists(Context & ctx, const string & dirna
   book<TH1F>("met_over_mjjAK8", "MET/#sum M_{jj} AK8", 40, 0., 2.);
   book<TH1F>("ptVector_over_ptScalar_AK8", "#sum #bar{p}_{t}/#sum p_{t} AK8", 80, 0., 4.);
   book<TH1F>("ptVector_over_ptScalar_AK4", "#sum #bar{p}_{t}/#sum p_{t} AK4", 80, 0., 4.);
-
+ 
 }
 
 
@@ -50,6 +68,10 @@ void VBFresonanceToWWHists::fill(const Event & event){
 
   // Don't forget to always use the weight when filling.
   double weight = event.weight;
+  hist("events")->Fill(1., weight);
+  hist("weights")->Fill(weight,1.);
+  //  hist("eventnumber")->Fill(event.event,1.);
+  //hist("runnumber")->Fill(event.run,1.);
 
   //  Context * ctx;
   //bool isMC;
@@ -81,10 +103,28 @@ void VBFresonanceToWWHists::fill(const Event & event){
   std::vector<Jet>* jets = event.jets;
   std::vector<TopJet>* topjets = event.topjets;
   int Njets = jets->size();
-  //cout << " Njets " << Njets << endl;
-
-
+  int Njets_barrel = 0;
+  int Njets_edge = 0;
+  int Njets_forward = 0;
   hist("N_jets")->Fill(Njets, weight);
+  int Npvs = event.pvs->size();
+  hist("N_pv")->Fill(Npvs, weight);
+
+  //cout << " Njets " << Njets << endl;
+  Njets_Npv->Fill(Npvs,Njets,weight);
+  Njets_Npv->Sumw2(kFALSE);
+
+
+  for(int i =0; i< Njets; i++)
+    {
+      if(fabs(jets->at(i).eta()) < 2.4)   Njets_barrel++;
+      if(fabs(jets->at(i).eta()) < 3 && fabs(jets->at(i).eta()) > 2.4)   Njets_edge++;
+      if(fabs(jets->at(i).eta())  > 3)   Njets_forward++;                                                                                                                                            
+    }
+    Njets_Npv_barrel->Fill(Npvs,Njets_barrel,weight);                                                                                                                                                  
+    Njets_Npv_edge->Fill(Npvs,Njets_edge,weight);                                                                                                                                                      
+    Njets_Npv_forward->Fill(Npvs,Njets_forward,weight);                                                                                                                                   
+  //Njets_vs_Npv =  Njets_Npv->ProfileX();
 
   if(Njets>=1){
     hist("eta_jet1")->Fill(jets->at(0).eta(), weight);
@@ -112,8 +152,6 @@ void VBFresonanceToWWHists::fill(const Event & event){
 
 
 
-  int Npvs = event.pvs->size();
-  hist("N_pv")->Fill(Npvs, weight);
 
 
 
