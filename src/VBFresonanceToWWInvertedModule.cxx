@@ -112,8 +112,6 @@ namespace uhh2examples {
 
 
     // std::unique_ptr<Hists> h_Dijets_VBF_invM800;
-    // std::unique_ptr<Hists> h_Wtopjets_withVBF_invM800;
-
 
     std::unique_ptr<Hists> h_input_gentopjets;
     std::unique_ptr<Hists> h_input_gendijets;
@@ -206,32 +204,26 @@ namespace uhh2examples {
 
 
     // 3. Set up Hists classes:
-    //102X    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
-    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_compare"));
+    h_Wtopjets_compare.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_compare"));
     h_topjets_compare.reset(new TopJetHists(ctx, "topjets_compare"));
     h_Dijets_compare.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_compare"));
     h_jets_compare.reset(new JetHists(ctx, "jets_compare"));
     h_compare.reset(new VBFresonanceToWWHists(ctx, "compare"));
 
-    //102X    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
-    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_VVMass"));
+    h_Wtopjets_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VVMass"));
     h_topjets_VVMass.reset(new TopJetHists(ctx, "topjets_VVMass"));
     h_Dijets_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VVMass"));
     h_jets_VVMass.reset(new JetHists(ctx, "jets_VVMass"));
     h_VVMass.reset(new VBFresonanceToWWHists(ctx, "VVMass"));
 
-    //102X    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
-    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass"));
+    h_Wtopjets_withVBF_VVMass.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass"));
     h_withVBF_VVMass.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass"));
 
-    //102X    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
-    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHists(ctx, "Wtopjets_withVBF_VVMass_inverted"));
+    h_Wtopjets_withVBF_VVMass_inverted.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_withVBF_VVMass_inverted"));
     h_withVBF_VVMass_inverted.reset(new VBFresonanceToWWHists(ctx, "withVBF_VVMass_inverted"));
 
     h_Dijets_VBF_VVMass.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass"));
     h_Dijets_VBF_VVMass_inverted.reset(new VBFresonanceToWWDiJetHists(ctx, "Dijets_VBF_VVMass_inverted"));
-    // h_Wtopjets_withVBF_invM800.reset(new VBFresonanceToWW_WTopJetHistsCorrectedSDMass(ctx, "Wtopjets_VBF_invM800"));
-
 
     //genjet
     h_input_genparticle.reset(new VBFresonanceToWWParticleHists(ctx, "GenParticle"));
