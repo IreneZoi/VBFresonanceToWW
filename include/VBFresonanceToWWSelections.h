@@ -11,23 +11,23 @@ namespace uhh2examples {
  * maximum third jet pt fraction can be changed in the constructor.
  * The jets are assumed to be sorted in pt.
  */
-class MuonVeto: public uhh2::Selection {
-public:
-    MuonVeto(float deltR_min = 0.8f, const boost::optional<MuonId> & muid = boost::none);
+  class MuonVeto: public uhh2::Selection {
+  public:
+    MuonVeto(const MuonId & muid, float deltR_min = 0.8f  );
     virtual bool passes(const uhh2::Event & event) override;
-private:
+  private:
     float deltaR_min;
-    boost::optional<MuonId> muid;
-};
+    const MuonId & muid;
+  };
 
-class ElectronVeto: public uhh2::Selection {
-public:
-    ElectronVeto(float deltR_min = 0.8f, const boost::optional<ElectronId> & eleid = boost::none);
+  class ElectronVeto: public uhh2::Selection {
+  public:
+    ElectronVeto(const ElectronId & eleid, float deltR_min = 0.8f  );
     virtual bool passes(const uhh2::Event & event) override;
-private:
+  private:
     float deltaR_min;
-    boost::optional<ElectronId> eleid;
-};
+    const ElectronId & eleid;
+  };
 
 
 class DijetInvSelection: public uhh2::Selection {

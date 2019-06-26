@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <memory>
 
@@ -265,8 +266,8 @@ namespace uhh2examples {
 
     // 2. set up selections ***
 
-    muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
-    electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
+    muon_sel.reset(new MuonVeto(MuId,0.8)); // see VBFresonanceToWWSelections
+    electron_sel.reset(new ElectronVeto(EleId,0.8)); // see VBFresonanceToWWSelections
 
     topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
     invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections

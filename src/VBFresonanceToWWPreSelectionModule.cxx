@@ -379,7 +379,8 @@ namespace uhh2examples {
   else if(year == Year::is2018 ){
     jec_tag = "Autumn18";
     jec_ver = "8";
-    JER_sf  = JERSmearing::SF_13TeV_Autumn18_V4;
+    //    JER_sf  = JERSmearing::SF_13TeV_Autumn18_V4;
+    JER_sf  = JERSmearing::SF_13TeV_Autumn18_RunABCD_V4;
     ResolutionFileName = "2018/Autumn18_V4_MC_PtResolution_AK4PFPuppi.txt";
   }
 
@@ -624,8 +625,8 @@ namespace uhh2examples {
   
   // 2. set up selections ***
 
-  muon_sel.reset(new MuonVeto(0.8,MuId)); // see VBFresonanceToWWSelections
-  electron_sel.reset(new ElectronVeto(0.8,EleId)); // see VBFresonanceToWWSelections
+  muon_sel.reset(new MuonVeto(MuId,0.8)); // see VBFresonanceToWWSelections
+  electron_sel.reset(new ElectronVeto(EleId,0.8)); // see VBFresonanceToWWSelections
   topjet2_sel.reset(new NTopJetSelection(2)); // at least 2 jets
   invMtopjet_fitsel.reset(new invMassTopjetSelection()); // see VBFresonanceToWWSelections
   topjets_deta_sel.reset(new deltaEtaTopjetSelection()); // see VBFresonanceToWWSelections
@@ -823,7 +824,8 @@ bool VBFresonanceToWWPreSelectionModule::process(Event & event) {
   
   bool pass_cm = common->process(event);
  if(!pass_cm) return false;
- //    if(PRINT)    Gen_printer->process(event);
+ //    if(PRINT) 
+   Gen_printer->process(event);
  
  h_commonmod->fill(event);
  h_topjets_commonmod->fill(event);
