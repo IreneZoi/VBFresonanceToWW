@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
+
+	  <!--                      Data                       -->
+	  <!ENTITY DATA_JetHT_Run2017F SYSTEM "/nfs/dust/cms/user/abenecke/CMSSW_10_2_10/CMSSW_10_2_10/src/UHH2/scripts/crab/Diboson/2017/puppi_data/JetHT.xml">
+
+	  ]>
+
+<!--
+<ConfigParse NEventsBreak="0" FileSplit="40" />
+<ConfigSGE RAM ="2" DISK ="2" Mail="irene.zoi@desy.de" Notification="as" Workdir="workdir_data2017F_special_JetHT_PUPPIv6_presel"/>
+-->
+
+<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
+<JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
+  <Library Name="libSUHH2VBFresonanceToWW"/>
+  <Package Name="SUHH2VBFresonanceToWW.par" />
+
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/zoiirene/DiBoson/102X/OutputBatch/PreSelection/" PostFix="" TargetLumi="1600.0" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
+
+    <!--                    Data                   -->
+
+<InputData Version="DATA_JetHT_Run2017v2F_highPU_PUPPIv6" Lumi="1" Type="Data" NEventsMax="-1" Cacheable="False">
+      &DATA_JetHT_Run2017F; <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+ </InputData>
+
+
+
+        <UserConfig>
+            <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
+            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
+            <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
+            <Item Name="MuonCollection" Value="slimmedMuonsUSER" />
+            <Item Name="JetCollection" Value="patJetsAK4PFPUPPI" />
+            <Item Name="TopJetCollection" Value="jetsAk8PuppiSubstructure_SoftDropPuppi" />
+            <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="GenTopJetCollection" Value="genjetsAk8SubstructureSoftDrop" />  <!-- FOR MASS -->
+            <Item Name="METName" Value="slimmedMETsPuppi" />
+            <Item Name="GenParticleCollection" Value="GenParticles" />
+            <Item Name="GenInfoName" Value="genInfo" />
+	    <!--<Item Name="TopPuppiJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />-->
+	    <!--            <Item Name="GenTopJetCollection" Value="ak8GenJets" />-->  <!-- FOR NSubjettines and CHF-->
+	    <!--					<Item Name="JMS" Value="0.999" />
+							<Item Name="JMSunc" Value="0.004" />
+							<Item Name="JMR" Value="1.079" />
+							<Item Name="JMRunc" Value="0.105" />-->
+            <Item Name="channel" Value="data" />
+            <Item Name="lumi_file" Value="/nfs/dust/cms/user/abenecke/CMSSW_8_0_24_patch1/src/UHH2/scripts/RunF2017_part.root"/>
+
+            <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
+
+                 PrimaryVertexCollection
+                 ElectronCollection
+                 MuonCollection
+                 TauCollection
+                 PhotonCollection
+                 JetCollection
+                 TopJetCollection
+                 METName
+
+                 GenInfoName
+                 GenJetCollection
+                 GenTopJetCollection
+                 GenParticleCollection
+
+                 Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
+                 them for real data, although those branches do not exist.
+
+                 As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
+
+                 By default, triggers are read. To explicitly disable reading triggers, use:
+                 <Item Name="readTrigger" Value="false" />
+            -->
+
+            <!-- the class name of the AnalysisModule subclasses to run: -->
+            <Item Name="AnalysisModule" Value="VBFresonanceToWWPreSelectionModule" />
+
+            <!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
+                 MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
+                 event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
+            <Item Name="use_sframe_weight" Value="false" />
+
+            <!-- configuration for MCPileupReweight (run as part of CommonModules): -->
+            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/zoiirene/RunII_102X/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017.root" />
+	    <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/zoiirene/RunII_102X/CMSSW_10_2_10/src/UHH2/common/data/2017/MyMCPileupHistogram.root" />
+            <!-- Some test configuration; see VBFresonanceToWWModule.cxx for how to access it: -->
+            <Item Name="TestKey" Value="TestKeyValue" />
+        </UserConfig>
+    </Cycle>
+</JobConfiguration>
