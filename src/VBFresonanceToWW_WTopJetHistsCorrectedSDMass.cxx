@@ -10,7 +10,7 @@
 #include <iostream>
 
 using namespace uhh2;
-
+using namespace std;
 
 VBFresonanceToWW_WTopJetHistsCorrectedSDMass::VBFresonanceToWW_WTopJetHistsCorrectedSDMass(Context & ctx,
 					     const std::string & dirname)  : Hists(ctx, dirname){
@@ -69,8 +69,11 @@ VBFresonanceToWW_WTopJetHistsCorrectedSDMass::VBFresonanceToWW_WTopJetHistsCorre
   book<TH1F>("NEF_both","Neutral EM Energy Fraction",100,0,1);
   
   book<TH1F>("invMass","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
-  book<TH1F>("invMass_check2AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("invMass_check1AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("invMass_check2AK4","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
+  book<TH1F>("genparticle_check1AK4","vbf quarks",3,0,2);
+  book<TH1F>("genparticle_check2AK4","vbf quarks",3,0,2);
+
   book<TH1F>("invMass_checkLeptons","M_{jj}-AK8 [GeV/c^{2}]",30,1000,7000);
   book<TH1F>("pdgID","pdgID",33,-16,16);
   book<TH1F>("pdgID_checkLeptons","pdgID",33,-16,16);
@@ -231,9 +234,9 @@ void VBFresonanceToWW_WTopJetHistsCorrectedSDMass::fill(const uhh2::Event & even
   //  float mass = (jet->at(0).v4() + jet->at(1).v4()).M();
   float mass = inv_mass_safe(jet->at(0).v4() + jet->at(1).v4());
   hist("invMass")->Fill(mass, weight);
+    
   
-      //      if(mass< 1600)
-
+  float dR = 0.4;
   
   if(isMC)
     {
@@ -243,17 +246,42 @@ void VBFresonanceToWW_WTopJetHistsCorrectedSDMass::fill(const uhh2::Event & even
       //	  for(unsigned int i=0; i<event.genp->size(); i++)
       const GenParticle & gq1 = genp[3];
       const GenParticle & gq2 = genp[4];
+
       if(ak4.size()>2)
 	{
 	  const Jet & j1 = ak4[0];
 	  const Jet & j2 = ak4[1];
-	  
-	  if((deltaR(j1,gq1)<0.2 && deltaR(j2,gq2)<0.2)||(deltaR(j2,gq1)<0.2 && deltaR(j1,gq2)<0.2))
-	    hist("invMass_check2AK4")->Fill(mass, weight);
-	  if(deltaR(j1,gq1)<0.2 || deltaR(j2,gq2)<0.2 || deltaR(j2,gq1)<0.2 || deltaR(j1,gq2)<0.2)
-	    hist("invMass_check1AK4")->Fill(mass, weight);
-	  
+
+	  if((deltaR(j1,gq1)<dR && deltaR(j2,gq2)>dR) || ( deltaR(j2,gq2)<dR && deltaR(j1,gq1)>dR))
+	    {
+	      hist("invMass_check1AK4")->Fill(mass, weight);
+	    }
+	  if((deltaR(j1,gq1)<dR && deltaR(j2,gq2)<dR)||(deltaR(j2,gq1)<dR && deltaR(j1,gq2)<dR))
+	    {
+	      hist("invMass_check2AK4")->Fill(mass, weight);
+	    }
+
 	}
+
+      for (auto it = ak4.begin(), end = ak4.end(); it != end; ++it){
+	const Jet j1 = *it;
+	if(deltaR(j1,gq1)<dR || deltaR(j1,gq2)<dR ) 
+	  {
+	    hist("genparticle_check1AK4")->Fill(1, weight);	  
+	      for(auto jt = ak4.begin(); jt != end; ++jt){
+		if(jt != it){
+		  const Jet j2 = *jt;
+		  if(deltaR(j2,gq1)<dR || deltaR(j2,gq2)<dR ){
+		    hist("genparticle_check2AK4")->Fill(1, weight);
+		  }
+		}
+	      }
+	  }
+      }
+
+
+         
+
       GenParticle qW1;
       GenParticle qW2;
       GenParticle qW3;
@@ -310,7 +338,7 @@ void VBFresonanceToWW_WTopJetHistsCorrectedSDMass::fill(const uhh2::Event & even
   hist("abs_delta_eta_both")->Fill(fabs(deta), weight);
   float dphi = jet->at(0).phi() - jet->at(1).phi();
   hist("delta_phi")->Fill(dphi, weight);
-  float dR = sqrt(deta*deta+dphi*dphi);
+  dR = sqrt(deta*deta+dphi*dphi);
   hist("delta_R")->Fill(dR, weight);
 
 
